@@ -1,0 +1,16 @@
+{
+  "main": "plannerfw-demos.html",
+  "name": "PlannerFw Exec",
+  "description": "PlannerFw Exec demos without web server required",
+  "version": "0.1.0",
+  "window": {
+    "toolbar": true,
+    "resizable": true,
+    "width": 1200,
+    "height": 800,
+    "position": "center"
+  },
+  "webkit": {
+    "plugin": true
+  }
+}

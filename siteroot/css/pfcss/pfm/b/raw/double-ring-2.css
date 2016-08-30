@@ -1,0 +1,76 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700);
+
+html,
+body{
+  height: 100%;
+}
+ 
+.hoja{
+  color: #dcdce2;
+  position:absolute;
+  top:50%; left:50%;
+  margin-left: -<!--%= R %-->;
+  margin-top: -<!--%= R %-->;
+  width: <!--%= base.D %-->;
+  height: <!--%= base.D %-->;
+  text-align:center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: <!--%= planner.addCssUnit(planner.stripCssUnit(R) / 4, "px") %-->;
+  line-height: <!--%= base.D %-->; 
+  -webkit-font-smoothing: antialiased;
+}
+ 
+.hoja:after,
+.hoja:before{
+  content:"";
+  border-radius:100%;
+  position:absolute;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  -webkit-transform-origin:center center;
+  -ms-transform-origin:center center;
+  transform-origin:center center;
+}
+
+.hoja:after{
+  box-shadow: <!--%= mixin1(0, B, 250, base.O) %-->,
+			  <!--%= mixin1(B, 0, 200, base.O) %-->,
+			  <!--%= mixin1(0, "-" + B, 150, base.O) %-->,
+			  <!--%= mixin1("-" + B, 0, 100, base.O) %-->;
+  -webkit-animation: rotar <!--%= base.A %--> -0.5s linear infinite;
+  animation: rotar <!--%= base.A %--> -0.5s linear infinite;
+}
+
+.hoja:before{
+  box-shadow: <!--%= mixin2(0, B, 250, 250, base.O) %-->,
+			  <!--%= mixin2(B, 0, 200, 200, base.O) %-->,
+			  <!--%= mixin2(0, "-" + B, 150, 200, base.O) %-->,
+			  <!--%= mixin2("-" + B, 0, 200, 250, base.O) %-->;
+  -webkit-animation: rotar <!--%= base.A %--> -0.5s linear infinite;
+  animation: rotar  <!--%= base.A %--> -0.5s linear infinite;
+}
+
+/* Standard syntax */ 
+@keyframes rotar{
+  <!--%= mixin("0%", "0deg", 1, 1); %-->
+  <!--%= mixin("50%", "180deg", 0.82, 0.95); %-->
+  <!--%= mixin("100%", "360deg", 1, 1); %-->
+}
+@keyframes rotarIz{
+  <!--%= mixin("0%", "0deg", 1, 1); %-->
+  <!--%= mixin("50%", "-180deg", 0.95, 0.85); %-->
+  <!--%= mixin("100%", "-360deg", 1, 1); %-->
+}
+
+/* Chrome, Safari, Opera */ 
+@-webkit-keyframes rotar {
+  <!--%= mixin("0%", "0deg", 1, 1); %-->
+  <!--%= mixin("50%", "180deg", 0.82, 0.95); %-->
+  <!--%= mixin("100%", "360deg", 1, 1); %-->
+}
+@-webkit-keyframes rotarIz {
+  <!--%= mixin("0%", "0deg", 1, 1); %-->
+  <!--%= mixin("50%", "-180deg", 0.95, 0.85); %-->
+  <!--%= mixin("100%", "-360deg", 1, 1); %-->
+}

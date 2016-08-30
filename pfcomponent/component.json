@@ -1,0 +1,12 @@
+{
+	"name": "pfcomponent configuration",
+	"description": "Set website root-path and secret key for JWT (JSON Web Token) verification, siteRootPath should be an absolute path of website root",
+	"version": "2.0.1",
+	"author": "W3plan",
+	"package": "pfcomponent",
+	"copyright": "Copyright (c) 2016 W3plan <http://w3plan.net/>",
+	"licenses": "GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>",
+	
+	"siteRootPath" : "z:/pfeeroot",
+	"jwtSecretKey" : "put your JWT(JSON Web Token) secret key here"
+}

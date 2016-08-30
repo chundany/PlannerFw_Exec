@@ -1,0 +1,95 @@
+<div id="home-content" class="content demo">
+	<div class="inner-content">
+		<!--% if((pfDataSet.comment1) && (pfDataSet.comment2)) { %-->
+		<dl>
+		  <dt><strong>Comment one: </strong></dt> 
+			<dd><!--%= pfDataSet.comment1 %--></dd>
+		  <dt><strong>Comment two: </strong></dt>
+			<dd><!--%= pfDataSet.comment2 %--></dd>
+		</dl>
+		<!--% } %-->
+		<p>&nbsp;</p> 
+		
+		<h3>NASA satellite spots a weakening Karina, now a tropical storm</h3>
+		<p>
+			NASA's Terra satellite passed over Hurricane Karina before it weakened to a tropical storm early on August 15 and imagery showed the vertical wind shear was already taking its toll.
+		</p>
+		<p>
+			NASA's Terra satellite passed over Karina on August 14 at 2:40 p.m. EDT when it was still clinging to hurricane status and noticed that wind shear was already having an effect on the storm's structure. The Moderate Resolution Imaging Spectroradiometer or MODIS instrument captured an image that showed that the bulk of Karina's clouds were being pushed to the western side of the storm. That was an indication that vertical wind shear was moderate to strong and it continued weakening the storm.
+		</p>
+		<p>
+			On August 15, Karina continued to experience 20 to 25 knots of easterly vertical wind shear, which has caused the center to become partly exposed on the eastern side of the deep convection (rising air that forms the thunderstorms that make up the tropical storm).
+		</p>
+		
+		<p>
+			A tropical storm has maximum sustained wind speed between 39 and 73 mph. By 5 a.m. EDT (0900 UTC) on August 15, Karina's maximum sustained winds had decreased to 70 mph (110 kph) and the National Hurricane Center expects additional weakening over the next two days.
+		</p>
+		
+		<p>
+			Karina's center was located latitude 17.2 north and longitude 119.1 west, about 715 miles (1,150 km) west-southwest of the southern tip of Baja California, Mexico. Karina was moving toward the west near 12 mph (19 kph) and is expected to turn to the west-northwest. The estimated minimum central pressure is 990 millibars.
+		</p>
+		
+		<p>
+			Wind shear is expected to decrease while Karina moves over sea surface temperatures of near 26C (80F). Tropical cyclones need sea surface temperatures of at least 26C/80F to maintain strength. The National Hurricane Center noted, "this could allow Karina to re-intensify as forecast by the GFDL and the Navy COAMPS computer forecast models. However, any deviation north of the forecast track would take the system over colder water, which would prevent strengthening."
+		</p>
+		<p>&nbsp;</p>
+		<div style="text-align: center;">
+			<img src="<!--%= pfDataSet.image.src %-->"
+				alt="MODIS Image of Karina" border="0">
+			<div><!--%= pfDataSet.caption %-->&nbsp;</div>
+		</div>
+		
+		<h3>Dynamic unordered list</h3>
+		
+		<ul>
+			<!--% 
+				/* Nested planner tag sample */
+				for(var i = 0, len = pfDataSet.imageType.length; i < len; i++) {
+					<!-%= "<li>" + pfDataSet.imageType[i] + "</li>" %->
+				}
+			%-->
+			&nbsp;
+		</ul>
+		
+		<h3>Dynamic data table</h3>
+		
+		<div class="dtable">
+		<table border="1" cellpadding="1" cellspacing="1" width="60%">
+			<caption class="dcap"><strong>User data grid</strong></caption>
+			<tr>
+				<th rowspan="2">City</th>
+				<th colspan="3">Users</th>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Education</th>
+			</tr>
+			<!--% 
+				for(var key in pfDataSet.grid) {
+					if (pfDataSet.grid.hasOwnProperty(key)) {
+			%-->
+			<tr>
+			<td><!--%= pfDataSet.grid[key].city %--></td>
+			<td><!--%= pfDataSet.grid[key].name %--></td>
+			<td><!--%= pfDataSet.grid[key].age %--></td>
+			<td><select name="Education" style="cursor:pointer">
+				<!--%
+					var educations = ["No College", "Some College", "Graduate School", "College"];
+					for (var i = 0, len = educations.length; i < len; i++) {
+						if (pfDataSet.grid[key].education.toLowerCase() == educations[i].toLowerCase()) {
+							<!-%= '<option value="' + educations[i] + '"' + " selected>" + educations[i] + "</option>" %->
+						} else {
+							<!-%= '<option value="' + educations[i] + '"' + ">" + educations[i] + "</option>" %->	
+						}
+					}
+				%-->
+				</select></td></tr>
+			<!--%
+					}
+				}
+			%--> 
+		</table>
+		</div>
+	</div>		
+</div>

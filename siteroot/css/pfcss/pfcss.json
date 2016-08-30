@@ -1,0 +1,25 @@
+{
+	"name": "PFCSS configuration",
+	"description": [
+						" PFCSS is an abbreviation of PlannerFw Cascading Style Sheets, this file describes   ",
+						" how Preprocessor mapping pfcss files to result css files, any pfcss file changed    ",
+						" would be leaded to result css file regenerated automatically.                       ",
+						"                                                                                     ",
+						" Name in value object of pfcssMapping is a css file and value is an array of pfcss   ",
+						" files or a string of pfcss file, all path for css and pfcss files are relative path ",
+						" to this file. value of comments will be output to each result css file. Windows     ",
+						" directory separator has to be escaped, for example,  a\\raw\\mbstyle-1.pfcss        "
+					],
+	"version": "0.1.0",
+	"author": "W3plan Technologies",
+	"package": "Templates and PFCSS Preprocessor",
+	"copyright": "Copyright 2015-2016 W3plan Technologies, http://w3plan.net",
+	"licenses": "GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>",
+	
+	"pfcssMapping": {
+				"pfm/mbstyle.css": ["pfm/a/raw/mbstyle-1.pfcss", "pfm/a/raw/mbstyle-2.pfcss", "pfm/a/raw/mbstyle-3.pfcss"],
+				"pfm/b/double-ring.css": ["pfm/b/raw/double-ring-1.css", "pfm/b/raw/double-ring-2.css"],
+                "pfm/c/single-file.css": "pfm/c/raw/single-file.css"
+			},
+	"cssFileComments": true
+}

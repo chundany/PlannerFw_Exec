@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>PlannerFw Exec Demos without web server required</title>
+
+<!--
+  
+  This demo can run on NW.js without any web server supports
+  
+  PlannerFw Exec v2.1.0
+  
+  Copyright 2015-2016 W3plan Technologies, http://w3plan.net
+  
+-->
+
+<style type="text/css">
+html, body {
+  height: 95%;
+  font-family:Sans-Serif;
+  font-size: 100%;
+}
+#container {
+	margin: 0;
+	background: #fff;
+	min-height: 100%;
+}
+#header {
+	background: #f5f2f0;
+}
+#header img { 
+	margin: 15px 30px; 
+	padding:1px;
+	border:1px solid #C0C0C0;
+	cursor:crosshair;
+}
+#header h2 { 
+	margin: 0; padding: 30px;
+}
+#header p { 
+	margin: 0;
+}
+#navigation {
+	float: left;
+	width: 100%;
+	background: #333;
+}
+#navigation ul {
+	margin: 0;
+	padding: 0;
+}
+#navigation ul li {
+	list-style-type: none;
+	display: inline;
+	cursor:pointer;
+}
+#navigation li {
+	display: block;
+	float: left;
+	padding: 8px 16px;
+	color: #fff;
+	text-decoration: none;
+	border-right: 1px solid #fff;
+}
+#navigation li#tool {
+	color: #ff0;
+}
+#navigation li:hover { 
+	background: #383;
+}
+.content {
+	clear: left;
+	padding: 40px 20px;
+}
+.content h3 {
+	color: #000;
+	font-size: 160%;
+	margin: 40px 0;
+}
+.inner-content {
+	padding: 20px 20px;
+}
+.inner-content-about {
+	margin: 1% 10%;
+	padding: 20px 20px;
+}
+#footer {
+	background: #f5f2f0;
+	text-align: right;
+	padding: 20px;
+	height: 2%;
+	margin: .5% 0;
+}
+.home-on {
+	display: inline;
+}
+.about-off {
+	display: none;
+}
+select { 
+	width:100%; height:30px;
+}
+#listDemo { width:1200px; font-family:Georgia, Times, serif; font-size:1.1em; }
+#listDemo ul { list-style: none; }
+#listDemo ul li a { display:block; text-decoration:none; color:#000000; line-height:30px;
+border-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#ccc; padding-left: 40px; cursor:pointer; }
+#listDemo ul li a:hover { color:#707; background:#e4f2fb;}
+#listDemo ul li a strong { margin-right:10px; }
+.w3planIcon {
+	margin: auto 15px auto 15px;
+	vertical-align: middle;
+}
+.pfsteps {
+    margin:30px 60px; 
+}
+.pfsteps li {
+    padding:6px;
+}
+</style>
+
+<script type="text/javascript">
+function showHome() {
+	document.getElementById("home-content").style.display = "inline";
+	document.getElementById("tool").style.color = "#ff0";
+	document.getElementById("about-content").style.display = "none";
+	document.getElementById("aboutool").style.color = "#fff";
+}
+
+function showAbout() {
+	document.getElementById("home-content").style.display = "none";
+	document.getElementById("tool").style.color = "#fff";
+	document.getElementById("about-content").style.display = "inline";
+	document.getElementById("aboutool").style.color = "#ff0";
+}
+
+function commentData(id) {	
+	if (id == "form1") {
+		document.getElementById("form2").style.display = "none";
+	} else if (id == "form2") {
+		document.getElementById("form1").style.display = "none";
+	}
+	if (document.getElementById(id).style.display == "inline")
+		document.getElementById(id).style.display = "none";
+	else
+		document.getElementById(id).style.display = "inline";
+}
+</script>
+</head>
+
+<body>
+<div id="container">
+	<div id="header">
+		<div style="float:left;">
+			<img id="header_img" src="/app/plannerfw-logo.jpg" 
+			onerror="var altSrc='app/plannerfw-logo.jpg'; if (this.src != altSrc) this.src = altSrc;"
+			alt="Head image" width="120" height="60" title=" Planner Logo ">
+		</div>
+		<h2>PlannerFw Exec Demos</h2>
+		<div>
+			PlannerFw helps people build well-structured websites and web applications for the new web era
+		</div>
+		<p>&nbsp;</p>
+	</div>
+	<div id="navigation">
+		<ul>
+			<li id="tool" onclick="showHome()">PlannerFw Exec Demo</li>
+			<li id="aboutool" onclick="showAbout()">PlannerFw Architecture</li>
+		</ul>
+	</div>
+	<div id="home-content" class="content home-on">
+	<div class="inner-content">
+		<div id="listDemo">
+		<ul>
+			<p>&nbsp;</p>
+			<li><strong>PlannerFw is an application layer or middleware between server output and result page on web browser with a collection of setting and rules. Main PlannerFw rules are:</strong></li><br>
+				<ol class="pfsteps">
+					<li>PlannerFw transmits JavaScript code through network instead of HTML page code, PlannerFw automatically compile HTML and CSS code to JavaScript functions.</li><br>
+					<li>Data and presentation separated rule: There is no response including data model and template contents together, data model and template contents can not be output in one same response.</li><br>
+					<li>Presentation rule: Both client and server can assign template or layout template to the result page.</li><br>
+					<li>PlannerFw supports JSOM data model and XML data model, which could be retrieved through HTTP/HTTPS and WebSocket/WebSocket Secure, and PlannerFw supports JWT (JSON Web Token) to access data models for authentication and information exchange.</li><br>                    
+				</ol>
+			<p>&nbsp;</p><p>&nbsp;</p>
+			<li><div style="border-top:20px solid #383;border-right:20px solid #fff;font-size: 0px; line-height: 0%; width: 0px;"></div>
+          <div style="margin:-15px 30px 30px; font-weight:bold;">Static HTML page without PlannerFw tag</div></li><br>	
+				<ul>
+					<li>Static HTML page: <br>
+						<a href="/samples/static-page.html" target="_blank">/samples/static-page.html</a>
+					</li>
+				</ul>
+			<p>&nbsp;</p><p>&nbsp;</p>
+		   <li><div style="border-top:20px solid #383;border-right:20px solid #fff;font-size: 0px; line-height: 0%; width: 0px;"></div>
+          <div style="margin:-15px 30px 30px; font-weight:bold;">Client assigns a template URL or a layout template URL as query string parameter in the request</div><li><br>
+			 <ul>
+				<li style="background: #f5f2f0;">Single template and JSON data model:<br>
+					<a href="/app/index.html?tml=/template/pfm/a/index.html.js&mdl=/samples/template-model.json" target="_blank">
+					/app/index.html?tml=/template/pfm/a/index.html.js&mdl=/samples/template-model.json</a>
+				</li><br>
+				<li>Single template and JSON data model with HTTP POST method:<br>
+					<a href="/app/index.html?tml=/template/pfm/a/index.html.js&mdl=/samples/template-model.json?method=post&item=data_to_post" target="_blank">
+					/app/index.html?tml=/template/pfm/a/index.html.js&mdl=/samples/template-model.json?method=post&item=data_to_post</a>
+				</li><br>
+				<li style="background: #f5f2f0;">Single template and XML data model:<br>
+					<a href="/app/index.html?tml=/template/pfm/a/index.html.js&xmdl=/samples/template-model.xml" target="_blank">
+					/app/index.html?tml=/template/pfm/a/index.html.js&xmdl=/samples/template-model.xml</a>
+				</li><br><br><br>
+				
+				<li>Single template for mobile and JSON data model:<br>
+					<a href="/app/index.html?tml=/template/pfm/b/index.html.js&mdl=/samples/template-model.json" target="_blank">
+					/app/index.html?tml=/template/pfm/b/index.html.js&mdl=/samples/template-model.json</a>
+				</li><br>
+				<li style="background: #f5f2f0;">Single template for mobile and XML data model:<br>
+					<a href="/app/index.html?tml=/template/pfm/b/index.html.js&xmdl=/samples/template-model.xml" target="_blank">
+					/app/index.html?tml=/template/pfm/b/index.html.js&xmdl=/samples/template-model.xml</a>
+				</li><br><br><br>
+				
+				<li>Layout template and JSON data model:<br>
+					<a href="/app/index.html?tml=/layout/pfm/a/index.html.js&mdl=/samples/layout-model.json" target="_blank">
+					/app/index.html?tml=/layout/pfm/a/index.html.js&mdl=/samples/layout-model.json</a>
+				</li><br>
+				<li style="background: #f5f2f0;">Layout template and XML data model:<br>
+					<a href="/app/index.html?tml=/layout/pfm/a/index.html.js&xmdl=/samples/layout-model.xml" target="_blank">
+					/app/index.html?tml=/layout/pfm/a/index.html.js&xmdl=/samples/layout-model.xml</a>
+				</li><br>
+				<li>Layout template and XML data model with HTTP POST method:<br>
+					<a href="/app/index.html?tml=/layout/pfm/a/index.html.js&xmdl=/samples/layout-model.xml?method=post&item=data_to_post" target="_blank">
+					/app/index.html?tml=/layout/pfm/a/index.html.js&xmdl=/samples/layout-model.xml?method=post&item=data_to_post</a>
+				</li><br><br><br>
+                
+				<li style="background: #f5f2f0;">Layout template for mobile and JSON data model:<br>
+					<a href="/app/index.html?tml=/layout/pfm/b/index.html.js&mdl=/samples/layout-model.json" target="_blank">
+					/app/index.html?tml=/layout/pfm/b/index.html.js&mdl=/samples/layout-model.json</a>
+				</li><br>
+				<li>Layout template for mobile and XML data model:<br>
+					<a href="/app/index.html?tml=/layout/pfm/b/index.html.js&xmdl=/samples/layout-model.xml" target="_blank">
+					/app/index.html?tml=/layout/pfm/b/index.html.js&xmdl=/samples/layout-model.xml</a>
+				</li><br>
+			 </ul>		
+		<p>&nbsp;</p><p>&nbsp;</p>
+		<li><div style="border-top:20px solid #383;border-right:20px solid #fff;font-size: 0px; line-height: 0%; width: 0px;"></div>
+          <div style="margin:-15px 30px 30px; font-weight:bold;">Server assigns/transfers a template URL or a layout template URL to contents of be-index.html in the response</div></li><br>
+			<ul>
+				<li style="background: #f5f2f0;"><a href="#" onClick="commentData('form1');return false;">
+                    Server transfers a template URL that is assigned from the request to contents of be-index.html in the response</a></li>
+					<div id="form1" style="display:none; width:Auto; margin:50px auto 200px auto;">	
+						<form action="/samples/assigning-template-url-in-the-response.html" method="get" target="_blank" style="margin: 0 auto; width:600px; text-align: left;">
+							<h4 style="margin-bottom: 0px; background-color: #829aa8; padding: 10px;">Input your test data then post data to <br>/samples/assigning-template-url-in-the-response.html</h4>
+							<div style="padding: 50px; height: 200px; background-color: #e9f1f4;">
+								Comment one:<br />
+								<input name="comment1" type="text" size="60" maxlength="100" style="padding:10px;" title="" placeholder="My test data">
+								<br /><br />							
+								Comment two:<br />
+								<input name="comment2" type="text" size="60" maxlength="100" style="padding:10px;" placeholder="Data will be posted to web server then sent back to the page">
+								<br /><br />
+								<input type="hidden" name="tml" value="/template/pfm/a/index.html.js" />
+								<input name="" type="submit" value="Submit" style="padding:10px;" />
+							</div>
+						</form><p>&nbsp;</p>
+					</div><br><br>
+				<li><a href="#" onClick="commentData('form2');return false;">Server transfers a layout template URL that is assigned from the request to contents of be-index.html in the response</a>
+				</li>
+					<div id="form2" style="display:none; width:Auto; margin:50px auto 200px auto;">	
+						<form action="/samples/assigning-layout-url-in-the-response.html" method="get" target="_blank" style="margin: 0 auto; width:600px; text-align: left;">
+							<h4 style="margin-bottom: 0px; background-color: #829aa8; padding: 10px;">Input your test data then post data to <br>/samples/assigning-layout-url-in-the-response.html</h4>
+							<div style="padding: 50px; height: 200px; background-color: #e9f1f4;">
+								Comment one:<br />
+								<input name="comment1" type="text" size="60" maxlength="100" style="padding:10px;" title="" placeholder="My test data">
+								<br /><br />
+								Comment two:<br />
+								<input name="comment2" type="text" size="60" maxlength="100" style="padding:10px;" placeholder="Data will be posted to web server then sent back to the page">
+								<br /><br />
+								<input type="hidden" name="tml" value="/layout/pfm/a/index.html.js" />
+								<input name="" type="submit" value="Submit" style="padding:10px;" />
+							</div>
+						</form><p>&nbsp;</p>
+					</div><br><br>
+				<li style="background: #f5f2f0;">Server transfers a template URL that is assigned from the request to contents of be-index.html in the response:<br>
+                <a href="/samples/assigning-template-url-in-the-response-and-xml-data-model.html?tml=/template/pfm/a/index.html.js" target="_blank">
+                   /samples/assigning-template-url-in-the-response-and-xml-data-model.html?tml=/template/pfm/a/index.html.js</a></li><br><br>
+			     
+				<li>Google News RSS Feeds as a crossing-domains XML data model:<br>
+                <a href="/samples/crossing-domains-xml-data-mode.html?tml=/template/pfm/c/index.html.js" target="_blank">
+                   /samples/crossing-domains-xml-data-mode.html?tml=/template/pfm/c/index.html.js</a></li><br><br><br>
+		</ul>
+		    <p>&nbsp;</p>
+			<p><strong>Note: </strong>This demo does not require any script server such as PHP, Python or ASP for supports</p>
+			<p>&nbsp;</p>
+		</div><p>&nbsp;</p>
+	</div>
+	</div>
+	<div id="about-content" class="content about-off">
+	<div class="inner-content-about">
+		<img src="/images/pfm/plannerfw-architecture.jpg" alt="PlannerFw Architecture" width="1486" height="700" style="display:block; margin-left:auto; margin-right:auto;">
+		<p>&nbsp;</p>
+	</div>
+	</div>
+</div>
+
+<div id="footer">
+	Copyright 2015-<script>document.write(new Date().getFullYear())</script> <a href="http://w3plan.net/" target="_blank"><img class="w3planIcon" src="/images/w3plan-logo-small.png" width="25" height="15"></a> W3plan Technologies
+</div>
+</body>
+</html>

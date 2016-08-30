@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>PlannerFw Exec Test Suite</title>
+
+<!--
+  
+  PlannerFw Exec v2.1.0 
+  
+  This file is covered by the GNU GPLv3 license <http://www.gnu.org/licenses/gpl.html>
+  To purchase a commercial license at http://w3plan.net
+  
+  Copyright 2015-2016 W3plan Technologies, http://w3plan.net
+  
+-->
+
+<link rel="stylesheet" href="/app/vendor/qunit/qunit-1.15.0.css" type="text/css" media="screen">
+<script src="/app/vendor/qunit/qunit-1.15.0.js"></script>
+
+<script src="/app/lib/planner.min.js"></script>
+<script src="templates/test.js"></script>
+<script src="pfcss-mechanisms/test.js"></script>
+<script src="json-validation/test.js"></script>
+<script src="check-decryption/test.js"></script>
+
+<style type="text/css">
+html, body {
+  height: 95%;
+  font-family:Sans-Serif;
+  font-size: 100%;
+}
+#container {
+	margin: 0;
+	background: #fff;
+	min-height: 100%;
+}
+#header {
+	background: #f5f2f0;
+}
+#header img { 
+	margin: 15px 30px; 
+	padding:1px;
+	border:1px solid #C0C0C0;
+	cursor:crosshair;
+}
+#header h2 { 
+	margin: 0; padding: 30px;
+}
+#header p { 
+	margin: 0;
+}
+#navigation {
+	float: left;
+	width: 100%;
+	background: #333;
+}
+#navigation ul {
+	margin: 0;
+	padding: 0;
+}
+#navigation ul li {
+	list-style-type: none;
+	display: inline;
+	cursor:pointer;
+}
+#navigation li {
+	display: block;
+	float: left;
+	padding: 8px 16px;
+	color: #fff;
+	text-decoration: none;
+	border-right: 1px solid #fff;
+}
+#navigation li#tool {
+	color: #ff0;
+}
+#navigation li:hover { 
+	background: #383;
+}
+.content {
+	clear: left;
+	padding: 40px 20px;
+}
+.content h3 {
+	color: #000;
+	font-size: 160%;
+	margin: 40px 0;
+}
+.inner-content {
+	padding: 40px 80px;
+}
+.inner-content .dtable {
+	margin: 50px 10%;
+	line-height: 40px;
+}
+#footer {
+	background: #f5f2f0;
+	text-align: right;
+	padding: 20px;
+	height: 2%;
+	margin: .5% 0;
+}
+.home-on {
+	display: inline;
+}
+.about-off {
+	display: none;
+}
+select { 
+	width:100%; height:30px;
+}
+li:nth-child(odd) {
+	color: #0000FF;
+}
+td:nth-child(odd) {
+	background: #F0F0F0;
+}
+.w3planIcon {
+	margin: auto 10px auto 30px;
+	vertical-align: middle;
+}
+</style>
+
+<script type="text/javascript">
+function showHome() {
+	document.getElementById("home-content").style.display = "inline";
+	document.getElementById("tool").style.color = "#ff0";
+	document.getElementById("about-content").style.display = "none";
+	document.getElementById("aboutool").style.color = "#fff";
+}
+
+function showAbout() {
+	document.getElementById("home-content").style.display = "none";
+	document.getElementById("tool").style.color = "#fff";
+	document.getElementById("about-content").style.display = "inline";
+	document.getElementById("aboutool").style.color = "#ff0";
+}
+</script>
+</head>
+
+<body>
+<div id="container">
+	<div id="header">
+		<div style="float:left;">
+		<img id="header_img" src="/app/plannerfw-logo.jpg" 
+		onerror="var altSrc='../app/plannerfw-logo.jpg'; if (this.src != altSrc) this.src = altSrc;"
+		alt="Head image" width="120" height="60" title=" Planner Logo ">
+		</div>
+		<h2>PlannerFw Exec testing</h2>
+		<div>
+			PlannerFw helps people build well-structured websites and web applications for the new web era
+		</div>
+		<p>&nbsp;</p>
+	</div>
+	<div id="navigation">
+		<ul>
+			<li id="tool" onclick="showHome()">Tests</li>
+			<li id="aboutool" onclick="showAbout()">About PlannerFw</li>
+		</ul>
+	</div>
+	
+	<div id="home-content" class="content home-on">
+		<div id="qunit"></div>
+	</div>
+	
+	<div id="about-content" class="content about-off">
+		<div class="inner-content">
+			<p>PlannerFw is an application layer or middleware between server output and result page on the browser, PlannerFw implements following rules:</p>
+			<p>&nbsp;</p>
+			<p>( 1 ). PlannerFw transmits JavaScript code through network instead of HTML page code, PlannerFw automatically compile HTML and CSS code to JavaScript functions.</p>
+			<p>( 2 ). Data and presentation separated rule: There is no response including data model and template contents together, data model and template contents can not be output in one same response.</p>
+			<p>( 3 ). Presentation rule: Both client and server can assign template or layout template to the result page.</p>
+			<p>( 4 ). PlannerFw supports JSOM data model and XML data model, which could be retrieved through HTTP/HTTPS and WebSocket/WebSocket Secure, and PlannerFw supports JWT (JSON Web Token) to access data models for authentication and information exchange.</p>
+		</div>
+	</div>
+</div>
+
+<div id="footer">
+	Copyright 2015 - <script>document.write(new Date().getFullYear())</script> <a href="http://w3plan.net/" target="_blank"><img class="w3planIcon" src="/images/w3plan-logo-small.png" width="25" height="15"></a> W3plan Technologies
+</div>
+</body>
+</html>

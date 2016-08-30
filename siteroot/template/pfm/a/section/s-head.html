@@ -1,0 +1,216 @@
+<!-- PlannerFw implemented operational mechanisms to a dynamic stylesheet language like as Less and Sass -->
+<style type="text/css">
+
+<!--%
+/* 
+  1. Variable mechanism to style sheet
+  Define variables that are used by style sheet
+*/
+	var headerImgMargin = "15px 30px";
+%--> 
+html, body {
+  height: 95%;
+  font-family:Sans-Serif;
+  font-size: 100%;
+}
+#container {
+	margin: 0; 
+	background: #fff;
+	min-height: 100%;
+}
+#header {
+	background: <!--%= /* Use variable from HTTP request response */
+					   pfDataSet.headerClr %-->;
+}
+#header img {
+	margin: <!--%= /* There is no pfDataSet scope to variables defined in current template */
+					headerImgMargin  %-->;
+	padding:1px;
+	border:1px solid #C0C0C0;
+	cursor:crosshair;
+}
+#header h2 { 
+	margin: 0; 
+	padding: 40px;
+} 
+<!--%
+/* 
+  2. Mixins mechanism to style sheet
+  Multi-lines string
+*/
+	var navUlLi = "\
+					list-style-type: none;\
+					display: inline;\
+					cursor: pointer;\
+				  ";
+	
+    /* Arguments of Mixins */
+	function navUl(cstr) {
+		return  "margin: " + cstr + ";" + 
+				"padding: " + cstr + ";";
+	}
+%-->
+
+#navigation {
+<!--%= pfDataSet.nav %-->
+}
+
+#navigation ul {
+<!--%= navUl(0) %-->
+}
+
+#navigation ul li {
+<!--%= navUlLi %-->
+}
+#navigation li {
+	display: block;
+	float: left;
+	padding: 8px 16px;
+	color: #fff;
+	text-decoration: none;
+	border-right: 1px solid #fff;
+}
+#navigation li#tool1 {
+	color: #ff0;
+}
+#navigation li:hover { 
+	background: #383; 
+}
+.content {
+	clear: left;
+	padding: 40px 20px;
+}
+.demo {
+	display: inline;
+}
+.democn {
+	display: none;
+}
+<!--% 
+/*
+  3. Functions and operations to style sheet
+*/
+	var fontSize = "50%"; 
+	var lineHeight = "10px";
+%-->
+.content h3 {
+	color: #000;
+	font-size: <!--%= planner.addCssUnit(planner.stripCssUnit(fontSize) * 2 + 60 , "%"); %-->;
+	margin: <!--%= planner.addCssUnit(planner.stripCssUnit(lineHeight) * 4); %--> 0;
+}
+<!--%
+/*
+  4. Nesting mechanism to style sheet
+  Nesting style sheet under a root node as a multiline string literal, 
+  PlannerFw would parse nesting mechanism to generate CSS code
+*/
+var css = "\
+	.inner-content {\
+		padding: 20px 40px;\
+		.dtable {\
+			margin: 50px 10%;\
+			.dcap {\
+					font-style: italic;\
+					font-size: 1.3em;\
+				}\
+			line-height: 40px;\
+		}\
+	}\
+";
+
+/* Write parsed result to output stream */
+<!-%= planner.parseNestedCss(css); %->
+%-->
+.clock {
+	padding: 40px 20px;
+	float:right;
+}
+#footer {
+	background: #ccc;
+	text-align: right;
+	padding: 20px;
+	height: 2%;
+	margin: .5% 0;
+}
+.about-off {
+	display: none;
+}
+select { 
+	width:100%; height:30px;
+}
+li:nth-child(even) {
+	color: #707070;
+}
+td:nth-child(odd) {
+	background: #F0F0F0;
+}
+dl {
+	float:right;
+}
+dl dt {
+	border-bottom: 1px solid #000;
+}
+.w3planIcon {
+	margin: auto 10px auto 30px;
+	vertical-align: middle;
+}
+</style>
+
+<script type="text/javascript">
+function showHomeEn() {
+	document.getElementById("home-content").style.display = "inline";
+	document.getElementById("tool1").style.color = "#ff0";
+	document.getElementById("homecn-content").style.display = "none";
+	document.getElementById("tool2").style.color = "#fff";
+	document.getElementById("about-content").style.display = "none";
+	document.getElementById("calender-css").style.display = "none";
+	document.getElementById("tool4").style.color = "#fff";
+	document.getElementById("dynamic-css").style.display = "none";
+	document.getElementById("tool5").style.color = "#fff";
+}
+
+function showHomeCn() {
+	document.getElementById("home-content").style.display = "none";
+	document.getElementById("tool1").style.color = "#fff";
+	document.getElementById("homecn-content").style.display = "inline";
+	document.getElementById("tool2").style.color = "#ff0";
+	document.getElementById("about-content").style.display = "none";
+	document.getElementById("calender-css").style.display = "none";
+	document.getElementById("tool4").style.color = "#fff";
+	document.getElementById("dynamic-css").style.display = "none";
+	document.getElementById("tool5").style.color = "#fff";
+} 
+
+function showHomeRet() {
+	document.getElementById("home-content").style.display = "none";
+	document.getElementById("tool1").style.color = "#fff";
+	document.getElementById("homecn-content").style.display = "none";
+	document.getElementById("tool2").style.color = "#fff";
+	document.getElementById("about-content").style.display = "none";
+	document.getElementById("calender-css").style.display = "inline";
+	document.getElementById("tool4").style.color = "#ff0";
+	document.getElementById("dynamic-css").style.display = "none";
+	document.getElementById("tool5").style.color = "#fff";
+}
+
+function showDcss() {
+	document.getElementById("home-content").style.display = "none";
+	document.getElementById("tool1").style.color = "#fff";
+	document.getElementById("homecn-content").style.display = "none";
+	document.getElementById("tool2").style.color = "#fff";
+	document.getElementById("about-content").style.display = "none";
+	document.getElementById("calender-css").style.display = "none";	
+	document.getElementById("tool4").style.color = "#fff";
+	document.getElementById("dynamic-css").style.display = "inline";
+	document.getElementById("tool5").style.color = "#ff0";
+}
+
+<!--%=
+	/*
+	 Dynamic JavaScript Sample
+	 JavaScript code from HTTP response
+	*/ 
+	pfDataSet.startTime
+%-->
+
+</script>

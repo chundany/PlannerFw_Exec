@@ -1,0 +1,164 @@
+/* Sample of variable mechanism */
+ 
+<!--% 
+	var clr = "#4D926F";
+	var bg = "background-color";
+	var h2 = "h2"; 
+%--> 
+/* Apply Variables */
+#header {
+  color: <!--%= clr %-->;
+}
+<!--%= h2 %--> { 
+  <!--%= bg %-->: white;
+}
+
+/* Result code of compilation and transformation */
+
+#header {
+  color: #4D926F;
+}
+h2	{
+  background-color: white;
+}
+
+
+/* Sample of mixins mechanism */
+
+<!--% 
+	function mixin(radius) {
+		radius = radius || "5px"; 
+		return  "-webkit-border-radius: " + radius + "; " +
+				"-moz-border-radius: " + radius + "; " +
+				"border-radius: "+ radius + "; ";
+	}
+%-->
+#header {
+  <!--%= mixin(); %--> 
+}
+<!--% /* Mixins with Arguments / Dynamic Mixins */ %-->
+#footer {
+  <!--%= mixin("10px"); %--> 
+}
+
+/* Result code of compilation and transformation */
+
+#header {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+#footer {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}	
+	
+    
+/* Sample of nesting mechanism */
+
+<!--% 
+var nest = " \
+			#header { \
+			  h1 { \
+				font-size: 26px; \
+				font-weight: bold; \
+			  } \
+			  p { \
+				font-size: 12px; \
+				a { \
+				  text-decoration: none; \
+				} \
+				a:hover { \
+					border-width: 1px; \
+				} \
+			  } \
+			  background-color: #ccc; \
+			} \
+		";
+/* Write parsed result to output stream */ 
+<!-%= planner.parseNestedCss(nest); %->
+%-->
+
+
+/* Result code of compilation and transformation */
+
+#header {
+  background-color: #ccc;
+}
+#header h1 {
+  font-size: 26px;
+  font-weight: bold;
+}
+#header p {
+  font-size: 12px;
+}
+#header p a {
+  text-decoration: none;
+}
+#header p a:hover {
+  border-width: 1px;
+}
+	
+/* Sample of functions mechanism */
+ 
+<!--% 
+	/*  Arithmetic rules of CSS units calculation: 
+		2em * 3in => Error 		 
+		2em + 3em => 5em
+		2em + 3   => 5em
+		2in * 3in => 6in
+		2in * 3   => 6in
+		(3cm / 2em) * 4em => Error  
+		2in + 3cm + 2pc => Error 	 
+		3in / 2in => 1.5in
+		3in / 2   => 1.5in
+	*/
+	var fontSize = "50%";
+	var lineHeight = "10px";
+%-->
+.content h3 {
+	color: #000;
+	font-size: <!--%= planner.addCssUnit(planner.stripCssUnit(fontSize) * 2 + 60 , "%"); %-->;
+	margin: <!--%= planner.addCssUnit(planner.stripCssUnit(lineHeight) * 4); %--> 0;
+}
+
+/* Result code of compilation and transformation */
+
+.content h3 {
+  color: #000;
+  font-size: 160%; 
+  margin: 40px 0; 
+}
+
+/* Sample of operations mechanism */
+
+<!--% 
+	/* Looping operation */ 
+	for (var i = 1; i < 6; i++) {
+		<!-%= 
+            ".border-#" + i + "0 {" + 
+				" border: " + i + "px solid blue;" + 
+			"}" 
+		%->
+	}
+%-->
+
+/* Result code of compilation and transformation */
+
+.border-#10 { 
+	border: 1px solid blue; 
+} 
+.border-#20 { 
+	border: 2px solid blue; 
+} 
+.border-#30 { 
+	border: 3px solid blue; 
+} 
+.border-#40 { 
+	border: 4px solid blue; 
+} 
+.border-#50 { 
+	border: 5px solid blue; 
+}
+

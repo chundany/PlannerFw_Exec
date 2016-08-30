@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+
+<title>PlannerFw Exec Example</title>
+
+<style type="text/css">
+body{
+	margin:0;
+	padding:0;
+	line-height: 1.5em;
+}
+
+#topsection{
+	background: #f5f2f0;
+	height: 100px;
+}
+ 
+#contentwrapper{
+	float: left;
+	width: 100%;
+}
+ 
+#contentcolumn{
+	margin: 50px 20% 25px 20%;
+}
+
+#leftcolumn{
+	float: left;
+	width: 20%;
+	margin-left: -100%;
+}
+
+#rightcolumn{
+	float: left;
+	width: 20%;
+	margin-left: -45%;
+}
+
+#footer{
+	clear: left;
+	width: 100%;
+	background: #f5f2f0;
+	text-align: right;
+	padding: 5px 0;
+}
+
+#footer a{
+	color: #FFFF80;
+}
+
+.innertube{
+	margin: 10px;
+	margin-top: 10px;
+}
+
+.centertube {
+	text-align: left;
+}
+
+.feedList{
+	text-align: center;
+}
+
+.newsItems {
+	margin: 60px 0 30px;
+}
+
+.newsLink {
+	margin: 30px 30px;
+}
+
+.newsCategory {
+	margin: 30px 50px;
+}
+
+.newsDate {
+	margin: 30px 50px;
+}
+
+.newsDesTitle {
+	margin: 30px 50px;
+}
+
+.newsDes {
+	margin: 30px 50px;
+}
+
+.w3planIcon {
+	margin: auto 10px auto 30px;
+	vertical-align: middle;
+}
+</style>
+
+</head>
+
+<body>
+<div id="maincontainer">
+<div id="topsection"><div style="padding:5px;">
+	<img id="header_img" src="/app/plannerfw-logo.jpg" alt="Head image" width="120" height="60" title=" Planner Logo " style="float:left; margin:10px 10px;">
+	<h2>Sample of cross-domain XML data model</h2>
+	<div>XML data model from: https://news.google.com/?pz=1&cf=all&ned=us&hl=en&output=rss</div>
+	<p>&nbsp;</p>
+</div></div>
+
+<div id="contentwrapper">
+	<div id="contentcolumn">
+		<div class="innertube centertube">
+			<h2 class="feedList">Google New RSS Feed List</h2>
+			<div class="newsItems">
+			<!--% 
+				pfDataSet = pfDataSet.channel;
+				for(var key in pfDataSet.item) {
+					<!-%= '<div class="newsLink"><a href="' + pfDataSet.item[key].link + '" target="_blank"><strong>' + pfDataSet.item[key].title + "</strong></a></div>" %->
+					<!-%= '<div class="newsCategory">Category: ' + pfDataSet.item[key].category + '</div>' %->
+					<!-%= '<div class="newsDate">Publish date: ' + pfDataSet.item[key].pubDate + '</div>' %->
+					<!-%= '<div class="newsDesTitle">description:<br><div class="newsDes">' + pfDataSet.item[key].description.replace(/\\"/g, '"') + '</div></div>' %->			
+				}
+			%-->
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="leftcolumn">
+	<div class="innertube">
+	</div>
+</div>
+
+<div id="rightcolumn">
+	<div class="innertube">
+	</div>
+</div>
+
+<div id="footer">
+Copyright &copy; 2015-<script>document.write(new Date().getFullYear())</script> 
+<a href="http://w3plan.net/" target="_blank"><img class="w3planIcon" src="/images/w3plan-logo-small.png" width="25" height="15"></a> W3plan  &nbsp; &nbsp;
+</div>
+</div>
+</body>
+</html>

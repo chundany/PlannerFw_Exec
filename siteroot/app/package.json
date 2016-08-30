@@ -1,0 +1,16 @@
+{
+  "main": "transformer.html",
+  "name": "PlannerFw Exec",
+  "description": "Bidirectional XML and JSON Transformer",
+  "version": "0.1.0",
+  "window": {
+    "toolbar": true,
+    "resizable": true,
+    "width": 1200,
+    "height": 800,
+    "position": "center"
+  },
+  "webkit": {
+    "plugin": true
+  }
+}

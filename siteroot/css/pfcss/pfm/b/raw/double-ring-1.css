@@ -1,0 +1,39 @@
+<!--%
+/**
+ * PlannerFw Exec Example
+ *  
+ */
+
+/* Setting basic variable to this dynamic CSS */
+var base = 
+{  
+  "D" :  "280px",
+  "O" : .6,
+  "A" :  "2s"
+};
+
+/* CSS units calculation of PlannerFw */
+var R = planner.addCssUnit(planner.stripCssUnit(base.D) / 2, "px");
+var B = planner.addCssUnit(planner.stripCssUnit(R) / 8, "px");
+
+/* 
+ *	Mixins mechanism of PlannerFw
+ *  To see Mixins mechanism of PlannerFw at http://w3plan.net/customer/plannerfw
+ *  Mixins mechanism of LESS at http://en.wikipedia.org/wiki/Less_(stylesheet_language)
+ *  and Mixins mechanism of Sass at http://en.wikipedia.org/wiki/Sass_(stylesheet_language)
+ */
+function mixin1(a, b, c, d) {
+	return "inset " + a + " " + b + " 0 rgba(250, " + c + ", 0, " + d + ")";
+}
+
+function mixin2(a, b, c, d, e) {
+	return "inset " + a + " " + b + " 0 rgba(0, " + c + ", "+ d + ", " + e + ")";
+}
+
+function mixin(rate, degree, scaleX, scaleY) {
+	return  rate + " {" + 
+			"-webkit-transform:rotateZ("+ degree + ") scaleX(" + scaleX + ") scaleY(" + scaleY + ");" + 
+			"transform:rotateZ("+ degree + ") scaleX(" + scaleX + ") scaleY(" + scaleY + ");}";
+}
+
+%-->

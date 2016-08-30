@@ -1,0 +1,31 @@
+{
+	"name": "Layout configuration",
+	"description": [
+						" This file describes how Preprocessor mapping raw-template files to raw-layout template  ",
+						" file, any raw-template file changed would be leaded to layout template regenerated      ",
+						" automatically.                                                                          ",
+						" Name in value object of layoutMapping is a raw-layout template file and value is an     ",
+						" array with at least two raw-template files as its elements, all path in this file begin ",
+						" from website root, Windows directory separator has to be escaped, for example,          ",   
+						" a\\raw\\mbstyle-1.pfcss                                                                 "
+					],
+	"version": "0.1.0",
+	"author": "W3plan Technologies",
+	"package": "Preprocessor",
+	"copyright": "Copyright 2015-2016 W3plan Technologies, http://w3plan.net",
+	"licenses": "GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>",
+	
+	"layoutMapping": {
+			"/layout/pfm/a/raw/index.html": [
+											"/template/pfm/a/section/s-head.html", 
+											"/template/pfm/a/section/s-lang-en.html", 
+											"/template/pfm/a/section/s-lang-cn.html"
+										],
+			"/layout/pfm/b/raw/index.html": [
+											"/template/pfm/b/section/mb-head.html", 
+											"/template/pfm/b/section/mb-lang-en.html", 
+											"/template/pfm/b/section/mb-lang-cn.html"
+										]
+		},
+	"layoutFileComments": true
+}

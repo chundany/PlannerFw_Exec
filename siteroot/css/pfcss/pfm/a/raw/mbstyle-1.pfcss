@@ -1,0 +1,146 @@
+<!--%
+/**
+ * planner is a PlannerFw Exec object that was created by Page Processor
+ * Planner compile and transform the contents to normal CSS
+ * 
+ */
+
+/* Setting basic variable to this dynamic CSS */
+var base = 
+{	
+	"topnavWidth": "100%",
+	 
+	"topnav": ".top-nav",
+	
+	"spanMenu":  " display:block;\
+				background: url(/images/pfm/nav-icon.png) no-repeat 0px 0px;\
+				width:24px;\
+				height:22px;\
+				display:inline-block;\
+				cursor: pointer;\
+				position:absolute;\
+				right:0;\
+				top: -39px; ",
+	
+	"nestedCss":  "	.rslides_tabs{\
+					li {\
+						display: inline;\
+						float: none;\
+						margin-right: 1px;\
+					}\
+					a {\
+						width: auto;\
+						line-height: 20px;\
+						padding: 9px 20px;\
+						height: auto;\
+						background: transparent;\
+						display: inline;\
+					}\
+					li:first-child {\
+						margin-left: 0;\
+					}\
+					.rslides_here {\
+						font-weight: bold;\
+						a {\
+							  background: rgba(255,255,255,.1);\
+							  color: #fff;\
+						}\
+					}\
+				}"
+};
+
+/**
+ *  Dynamic CSS properties starting
+ *  
+ * 
+ */
+
+%-->
+
+/* reset */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
+ol,ul {list-style:none;margin:0px;padding:0px;}
+blockquote,q {quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after {content:'';content:none;}
+table {border-collapse:collapse;border-spacing:0;}
+
+/* start editing from here */
+a {text-decoration:none;}
+.txt-rt {text-align:right;}	/* text align right */
+.txt-lt {text-align:left;}	/* text align left */
+.txt-center {text-align:center;}	/* text align center */
+.float-rt {float:right;}	/* float right */
+.float-lt {float:left;}	/* float left */
+.clearfix {clear:both;}	/* clear float */
+.pos-relative {position:relative;}	/* Position Relative */
+.pos-absolute {position:absolute;}	/* Position Absolute */
+.vertical-base {vertical-align:baseline;}	/* vertical align baseline */
+.vertical-top {vertical-align:top;}	/* vertical align top */
+.underline {	padding-bottom:5px;	border-bottom:1px solid #eee; margin:0 0 20px 0;}	/* Add 5px bottom padding and a underline */
+nav.vertical ul li {display:block;}	 /* vertical menu */
+nav.horizontal ul li {display: inline-block;}	/* horizontal menu */
+img {max-width:100%;}
+<!--%
+	/* Set variables used in this file */
+	var bground1 = "#FFF";
+	var bground2 = "#F0F0F0";
+%-->
+html,body {
+  	font-family: Arial, Helvetica, sans-serif;
+    font-size: <!--%= 	/* base.topnavWidth set by Configuration */
+						base.topnavWidth; 
+				%-->;
+  	background: <!--%= bground1 %-->;
+}
+ 
+td:nth-child(odd) {background: <!--%= bground2 %-->;}
+caption { margin-top: 30px; height:50px;}
+li:nth-child(odd) {color: #0000FF;}
+
+/*-- header --*/
+.header { }
+.logo-img {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	margin-top:1em;
+	padding:1px;
+	border:1px solid #C0C0C0;
+	cursor:crosshair;
+}
+.logo-text {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	margin-top: 1em;
+	line-height:4em;
+	text-align: center;
+}
+span.menu {
+<!--%= planner.tab2Space(base.spanMenu); %-->
+}
+/* base.topnav set by Configuration */
+<!--%= base.topnav; %--> {
+	position: relative;
+	clear: both;
+	width: <!--%= base.topnavWidth; %-->;
+}
+<!--%= base.topnav; %--> ul li {
+	display:block;
+}
+<!--%= base.topnav; %-->  ul li a {
+	width: <!--%= base.topnavWidth; %-->;
+	margin:0;
+	padding:0.8em 0;
+	font-size:0.875em;
+	color:#FFF;
+}
+<!--%= base.topnav; %-->-links ul li a {
+	background:#2d2d2d;
+	display:block;
+	font-size:0.875em;
+	color:#FFF;
+	padding:0.4em 0.5em;
+	border-bottom:1px solid #3d3d3d;
+}

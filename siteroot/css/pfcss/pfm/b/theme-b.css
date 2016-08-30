@@ -1,0 +1,62 @@
+span.label {
+  color:#000;
+  width:30px;
+  height:18px;
+  text-align:center;
+  margin-top:0;
+  font:bold 13px Georgia, serif;
+}
+
+span.c1 {
+  cursor:hand;
+  color:#000;
+  width:30px;
+  height:18px;
+  text-align:center;
+  margin-top:0;
+  font:bold 13px Georgia, serif;
+}
+
+span.c2 {
+  cursor:hand;
+  color:red;
+  width:30px;
+  height:18px;
+  text-align:center;
+  margin-top:0;
+  font:bold 13px Georgia, serif;
+}
+
+span.c3 {
+  cursor:hand;
+  color:#b0b0b0;
+  width:30px;
+  height:18px;
+  text-align:center;
+  margin-top:0;
+  font:bold 12px Georgia, serif;
+}
+
+form {
+ display: inline-block;
+ text-align: center;
+}
+
+td {
+  padding: 10px;
+}
+
+select {
+  padding: 5px;
+  background-color: #F8E9C0;
+}
+
+table {
+  background-color: #F7F4EB;
+}
+
+.calender {
+  width: 1000px ;
+  margin: 50px auto;
+}
+

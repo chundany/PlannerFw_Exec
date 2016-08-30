@@ -1,0 +1,154 @@
+/*----slider----*/
+.benner{  }
+.img-slider{ }
+#slider2,
+#slider3 {
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  margin: 0 auto;
+}
+ 
+<!--%
+/*
+  Nesting mechanism to style sheet 
+  Nesting style sheet under a root node as a multiline string literal, 
+  PlannerFw would parse nesting mechanism to generate CSS code
+*/
+ 
+/* Write parsed result to output stream */
+<!-%= planner.parseNestedCss(base.nestedCss); %->
+
+%-->
+.events {
+  list-style: none;
+}
+.callbacks_container {
+  position: relative;
+  float: left;
+  width: 100%;
+}
+<!--%
+	/* Set functions used in this file */
+	function heiWid(h, w) {
+		return  "height: " + h + "; width: " + w + ";";
+	}
+    
+	function tsicon(num, lengths) {
+		return ".top-grid span.t-icon" + num + "{" + "background-position:" + lengths + ";}";
+	}
+%-->
+.rslides img {
+  <!--%= heiWid("auto", "100%") %-->
+  border: 0;
+}
+.callbacks_tabs{
+	list-style: none;
+	position: absolute;
+	bottom: 10%;
+	z-index: 999;
+	right: 4.5%;
+	padding: 0;
+	margin: 0;
+}
+.callbacks_tabs li {
+	display:inline-block;
+}
+
+/*-- slider-caption --*/
+.slider-caption {
+	position: absolute;
+	top: 0;
+	z-index: 999;
+	left: 0%;
+	top: 20%;
+	background: rgba(25, 181, 254, 0.21);
+	padding: 0.2em 0.2em 0.5em 0.5em;
+	width: 68%;
+}
+
+<!--%
+/*
+  Functions and operations to style sheet
+*/
+	var fweight = 100;
+	var fheight = "0.2em";
+	var fsize = "5pt";
+	var fcolor = "#111";
+%-->
+
+.slider-caption h1 {
+	font-weight: <!--%= fweight * 7 %-->;
+	text-transform: uppercase;
+	font-size: <!--%= planner.addCssUnit(planner.stripCssUnit(fsize) * 3, "pt"); %-->;
+	margin: 0;
+	padding: 0;
+	color: <!--%= planner.dec2HexColor(planner.hex2DecColor(fcolor) * 15); %-->;
+	line-height: <!--%= planner.addCssUnit(planner.stripCssUnit(fheight) * 6, "em"); %-->;
+}
+.slider-caption{
+}
+.slider-caption h1 span{
+	color:#2C3E50;
+}
+.slider-caption p{
+	color: #FFF;
+	font-weight: 100;
+	font-size: 0.9em;
+	width: 89%;
+	line-height: 1.6em;
+}
+a.caption-btn{
+	background: #2C3E50;
+	padding: 0.5em 1em;
+	text-transform: uppercase;
+	color: #FFF;
+	font-weight: 700;
+	display: inline-block;
+	margin-top: 0.3em;
+	text-decoration: none;
+	font-size: 0.6em;
+}
+
+/*-- //slider --*/
+/*-- top-grids --*/
+.top-grids {
+	padding: 1em 0;
+}
+
+<!--%
+/* Nesting mechanism to style sheet */
+var topGrid = "\
+.top-grid{\
+	border: 1px solid #EEE;\
+	padding: 0.5em 0 0.8em 0;\
+	transition: border-color 0.5s all;\
+	margin-bottom: 0.8em;\
+	h3{\
+		color: #2C3E50;\
+		font-size:1em;\
+		text-transform: uppercase;\
+		margin: 0;\
+		padding: 0.3em 0 0.2em;\
+		font-weight: 900;\
+	}\
+	p{\
+		color: #777;\
+		line-height: 1.5em;\
+		font-size: 0.8em;\
+		width: 90%;\
+		margin: 0 auto;\
+	}\
+}";
+
+<!-%= planner.parseNestedCss(topGrid); %->
+%-->
+.top-grid span{
+	<!--%= heiWid("64px", "64px") %-->
+	display:inline-block;
+	background:url(/images/pfm/top-icons.png) no-repeat 0px 0px;
+}
+<!--%= tsicon(1, "0px 0px"); %-->
+<!--%= tsicon(2, "-84px 0px"); %-->
+<!--%= tsicon(3, "-162px 0px"); %-->
+<!--%= tsicon(4, "-242px 0px"); %-->

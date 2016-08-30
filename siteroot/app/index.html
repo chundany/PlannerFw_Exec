@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Cache-Control" content="max-age=0">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="PlannerFw is an application layer or middleware between server output and result page on web browser with a collection of setting and rules">
+<meta name="keywords" content="PlannerFw, JSON data model, XML data model, layout, template, template compilation, PFCSS, storable CSS, CSS switch">
+
+<title>Client assigns a template URL or a layout template URL as query string parameter in the request</title>
+
+<!--
+  
+  URL formats of the Page Processor:
+  
+  Some URL for default models and default templates:
+  
+    scheme://host[:port]/app
+    scheme://host[:port]/app/index.html
+    scheme://host[:port]/app/index.html?tml=/template
+    scheme://host[:port]/app/index.html?tml=/layout
+    scheme://host[:port]/app/index.html?mdl=/
+    scheme://host[:port]/app/index.html?xmdl=/
+  
+  URL for models and templates or layouts:
+
+    scheme://host[:port]/app/index.html?tml=/path[?query]&mdl=/path[?query]
+    scheme://host[:port]/app/index.html?tml=/path[?query]&mdl=/path?method=get|post|put|delete
+    scheme://host[:port]/app/index.html?tml=/path[?query]&mdl=ws[s]://.../path[?query]
+    scheme://host[:port]/app/index.html?tml=/path[?query]&xmdl=/path[?query]
+    scheme://host[:port]/app/index.html?tml=/path[?query]&xmdl=/path?method=get|post|put|delete
+    scheme://host[:port]/app/index.html?tml=/path[?query]&xmdl=ws[s]://.../path[?query]
+  
+  tml for template or layout, mdl for JSON data model, xmdl for XML data model, value of tml, 
+  mdl and xmdl can include character "&", "?" and "/", ... in URL, default PlannerFw's 
+  WebSocket Port is 8060. template and layout must use absolute path that start from 
+  website root. Position of tml in query string is prior to mdl and xmdl. Template and 
+  layout must use absolute path that starts from website root
+  
+  File extension of template and layout depends on web server, it could be js, php, jsp, asp 
+  and others, extension of the Page Processor could be php, jsp, asp and others except html
+  
+  Browser compatibilities
+	Chrome  Firefox  IE    Opera  Safari  iOS Safari  Android Browser  Blackberry Browser
+	5+      3.5+    8.0+   10.5+  4.0+    4.1+        2.1+             7+
+  
+  Browser compatibilities of WebSocket
+	Chrome  Firefox  IE    Opera  Safari  iOS Safari  Android Browser
+	31+     31+     10.0+  27+    7+      7.1+        4.4+
+  
+  PlannerFw Exec v2.1.0 
+  
+  This file is covered by the GNU GPLv3 license <http://www.gnu.org/licenses/gpl.html>  
+  Copyright 2015-2016 W3plan Technologies, http://w3plan.net
+  
+-->
+
+<!--
+  Apply Page Processor Library
+-->
+<script src="/app/lib/planner.min.js"></script>
+
+<script>
+/**
+ * Page Processor configuration 
+ * 
+ */
+var pfConfig = {
+	/**
+	 * Set application environment either Development or Production
+	 * default value is Development
+	 * 
+	 */
+	environment : "Development",
+	
+	/**
+	 * Set current file path started from website root
+	 *  
+	 */
+	processorPath : "/app",
+	
+	/**
+	 * Set site default template URL, when value of tml is one of 
+	 * undefined, empty, '/', 'template', '/template', 'template/' or '/template/',  
+	 * this variable would be used to retrieve template
+	 *
+	 */
+	defaultTemplate : "/template/pfm/a/index.html.js",
+	
+	/**
+	 * Set site default template layout URL.  When value of tml is
+     * one of 'layout', '/layout', 'layout/' or '/layout/',    
+	 * this variable would be used to retrieve layout template
+	 *
+	 */
+	defaultLayout : "/layout/pfm/a/index.html.js",
+	
+	/**
+	 * Set site default model for defaultTemplate
+	 * When template is not layout and there are not specific 
+	 * values for mdl and xmdl, this variable would be applies
+	 *
+	 */
+	defaultModel : "/samples/template-model.json",
+	
+	/**
+	 * Set site default model for defaultLayout
+	 * When template is layout and there are not specific 
+	 * values for mdl and xmdl, this variable would be applies
+	 *
+	 */
+	defaultLayoutModel : "/samples/layout-model.json",
+		
+	/**
+	 * An server-side file to display error message or to log client errors of production environment
+	 * File extension varies depending on web servers 
+     *
+     * If server isn't PHP, replace it with related file 
+     *
+	 */
+    clientErrorHandler: "/errors/php/client-error-handler.php",
+	
+	/**
+	 * WebSocket default port is 8060
+	 * Port in WebSocket server-side has to be updated if the value is replaced
+	 * 
+	 */
+	defaultWebsocketPort : 8060,
+	
+	/**
+	 * Set maximum seconds to store key/value pairs in Session Storage
+	 * under PlannerFw storing mechanisms
+	 *
+	 */
+	storeMaxAge : 1800,
+	
+	/**
+	 * Set to track elapsed time 
+	 *
+	 */
+	trackExecutedTime : true
+}
+</script>
+
+<!--
+  Apply Page processor
+-->
+<script src="/app/lib/processor.min.js"></script>
+
+<noscript>
+	<meta http-equiv="refresh" content="0; url=noscript.html">
+</noscript>
+</head>
+
+<body>
+<!--
+  PlannerFw Exec would print error message on screen or the browser console
+-->
+</body>
+</html>

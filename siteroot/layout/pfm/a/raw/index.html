@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-control" content="max-age=0">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache-Control" content="must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+
+<title>PlannerFw Exec Example</title>
+
+<!--
+  
+  Copyright 2015-2016 W3plan Technologies, http://w3plan.net
+  
+-->
+
+<link type="text/css" href="/css/pfcss/pfm/b/double-ring.css" rel="stylesheet" >
+
+<!--%= 
+	/* If CSS code is not in Session Storage then saving it from URL to Session Storage */
+	planner.loadCss("/css/pfcss/pfm/b/theme-b.css")
+%-->
+
+<!--%= 
+	/* 
+	 * If CSS code is not in Session Storage then saving it from URL to Session Storage then 
+	 * output style tag that includes css code in current position 
+	 */ 
+	planner.importCss("/css/pfcss/pfm/a/theme-a.css")
+%-->
+
+<script type="text/javascript" src="/js/pfm/import-and-load-sample.js"></script>
+
+<script type="text/javascript" src="/app/lib/postprocessor.min.js"></script>
+
+<!--%= 
+	/* 
+	 * section method only be used by PlannerFw output tag 
+	 * the first parameter is JSON object from model, the second parameter
+     * is a raw-template file that was described by layout.json
+	 */
+	planner.section(pfDataSet.pfSet1, "/template/pfm/a/section/s-head.html")
+%-->
+
+</head>
+
+<body>
+<!--
+	When creating static HTML code to template using &nbsp; as a place holder in 
+	place of Plannner output tag because of Plannner tag is a HTML comment tag
+-->
+<div id="container">
+	<div id="header">
+		<div style="float:left;">
+		<img id="header_img" src="/app/plannerfw-logo.jpg" alt="Header image" width="120" height="60" 
+		     style="padding:1px;border:1px solid #C0C0C0;cursor:crosshair;" title=" PlannerFw Logo ">
+		</div>
+		<div class="clock" id="clocktxt"></div>
+		<h2>PlannerFw Exec Demo</h2>
+	</div>
+	<script type="text/javascript">
+		startTime();
+	</script>
+	<div id="navigation">
+		<ul>
+			<li id="tool1" onclick="showHomeEn()">Single-byte-charaset</li>
+			<li id="tool2" onclick="showHomeCn()">Multi-byte-charaset</li>
+			<li id="tool4" onclick="showHomeRet()">PostProcessor</li>
+			<li id="tool5" onclick="showDcss()">PFCSS</li>
+		</ul>
+	</div>
+	
+	<!--%= 
+		/* one output tag can not include more then one section method */ 
+		planner.section(pfDataSet.pfSet2, "/template/pfm/a/section/s-lang-en.html");
+	%-->
+	
+	<!--%= planner.section(pfDataSet.pfSet3, '/template/pfm/a/section/s-lang-cn.html') ; %-->
+	
+	<div id="dynamic-css" class="content about-off">
+		<div class="hoja">PlannerFw</div>
+	</div>
+	
+	<div id="about-content" class="content about-off">
+		<div class="inner-content">
+		</div>
+	</div>
+</div>
+
+<div id="footer">
+	Copyright &copy; 2015-<script>document.write(new Date().getFullYear())</script> <a href="http://w3plan.net/" target="_blank"><img class="w3planIcon" src="/images/w3plan-logo-small.png" width="25" height="15"></a> W3plan
+</div>
+</body>
+</html>

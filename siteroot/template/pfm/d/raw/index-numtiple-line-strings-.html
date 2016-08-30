@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>My CD Collection</h2>
+<table border="1">
+  <tr bgcolor="#9acd32">
+	<th style="text-align:left">Title</th>
+	<th style="text-align:left">Artist</th>
+  </tr>
+	<!--% 
+		// single line comment sample 
+		pfDataSet = pfDataSet.catalog;
+		for(var key in pfDataSet.cd) {
+			<!-%=
+					// single line comment sample for output tag
+					`<tr><td>
+					${pfDataSet.cd[key].title}
+					</td><td> 
+					${pfDataSet.cd[key].artist}
+					</td></tr>`
+			%->
+		}
+	%-->
+</table>
+</body>
+</html>

@@ -1,0 +1,3798 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="PlannerFw is an application layer or middleware between server output and result page on web browser with a collection of setting and rules">
+<meta name="keywords" content="PlannerFw, JSON data model, XML data model, layout, template, template compilation, PFCSS, storable CSS, CSS switch">
+
+<title>PlannerFw User Guide</title>
+
+<!--
+  
+  This file is covered by the GNU GPLv3 license <http://www.gnu.org/licenses/gpl.html>  
+  Copyright 2015-2016 W3plan Technologies, http://w3plan.net
+
+-->
+
+<link href="/app/vendor/prism/prism.css" rel="stylesheet" />
+<script src="/app/vendor/prism/prism.js"></script>
+
+<script>
+var menuId = "menu20";
+function showFeatures() {
+	document.getElementById("features").innerHTML = document.getElementById("feature20").innerHTML;
+}
+function showItem(num, elem) {
+	document.getElementById("features").innerHTML = document.getElementById("feature" + num).innerHTML;
+	if (menuId) {
+		document.getElementById(menuId).style.background = "#f7f7f7";
+	}
+	elem.style.background = "#e4f2fb";
+	menuId = "menu" + num;
+}
+function apiMenu(num, elem) {
+	var menuStatus = "none";
+	if (document.getElementById("menu71").style.display == "none") {
+		menuStatus = "block";
+		elem.innerHTML = "PlannerFw APIs &nbsp; &lArr;";
+	} else {
+		elem.innerHTML = "PlannerFw APIs &nbsp; &rArr;";
+	}
+	document.getElementById("menu71").style.display = menuStatus;
+	document.getElementById("menu72").style.display = menuStatus;
+	document.getElementById("menu73").style.display = menuStatus;
+	document.getElementById("menu74").style.display = menuStatus;
+	document.getElementById("menu75").style.display = menuStatus;
+}
+</script>
+
+<style>
+html, body {
+  height: 95%;
+  margin:0;
+  font-family:Sans-Serif;
+  font-size: 14pt;
+}
+#container {
+	margin: 0;
+	background: #fff;
+	min-height: 100%;
+}
+#header {
+	background: #f5f2f0;
+}
+#header img { 
+	margin: 15px 30px; 
+	padding:1px;
+	border:1px solid #C0C0C0;
+	cursor:crosshair;
+}
+#header h2 { 
+	margin: 0; padding: 30px;
+}
+#header p { 
+	margin: 0;
+}
+#navigation {
+	float: left;
+	width: 100%;
+	background: #333;
+}
+#navigation ul {
+	margin: 0;
+	padding: 0;
+}
+#navigation ul li {
+	list-style-type: none;
+	display: inline;
+	cursor:pointer;
+}
+#navigation li {
+	display: block;
+	float: left;
+	padding: 8px 16px;
+	color: #fff;
+	text-decoration: none;
+	border-right: 1px solid #fff;
+}
+#navigation li#tool {
+	color: #ff0;
+}
+#navigation li:hover { 
+	background: #383;
+}
+/* column container */
+.colmask {
+	position:relative;	/* This fixes the IE7 overflow hidden bug */
+	clear:both;
+	float:left;
+	width:100%;			/* width of whole page */
+	overflow:hidden;		/* This chops off any overhanging divs */
+}
+/* common column settings */
+.colright,
+.colmid,
+.colleft {
+	float:left;
+	width:100%;
+	position:relative;
+}
+.col1,
+.col2,
+.col3 {
+	float:left;
+	position:relative;
+	padding:0 0 1em 0;
+	overflow:hidden;
+}
+/* 2 Column (right menu) settings */
+.rightmenu {
+	background:#F7F7F7;		/* right column background colour */
+	
+}
+.rightmenu .colleft {
+	right:22%;			/* right column width */
+	background:#fff;	/* left column background colour */
+}
+.rightmenu .col1 {
+	width:74%;			/* left column content width (left column width minus left and right padding) */
+	left:24%;			/* (right column width) plus (left column left padding) */
+	
+}
+.rightmenu .col2 {
+	width:18%;			/* right column content width (right column width minus left and right padding) */
+	left:28%;			/* (right column width) plus (left column left and right padding) plus (right column left padding) */
+}
+th {
+    border:1px solid #ddd;
+}
+td {
+	padding-left: 10px;
+}
+tr:nth-child(even) {
+	background: #f5f2f0;
+}
+span.step {
+  background: #709D4B;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.4em;
+  margin-right: 15px;
+  text-align: center;
+  width: 1.4em;
+}
+.prods{
+    display: block;
+    text-align: left;
+	width: 90%;
+	margin-left: 5%;
+    padding-top: 100px;
+	padding-bottom: 100px;
+}
+#productrs th, #productrs td {
+    border:2px solid white;
+}
+.pfsteps {
+    margin:30px 60px; 
+}
+.pfsteps li {
+    padding:10px;
+}
+</style>
+
+<!--
+
+  Copyright 2015-2016 W3plan Technologies, http://w3plan.net
+
+-->
+</head>
+
+<body onload="showFeatures()">
+<div id="container">
+	<div id="header">
+		<div style="float:left;">
+		<img id="header_img" src="/app/plannerfw-logo.jpg" 
+		onerror="var altSrc='../app/plannerfw-logo.jpg'; if (this.src != altSrc) this.src = altSrc;"
+		alt="Header image" width="120" height="60" title=" PlannerFw Logo ">
+		</div>
+		<h2>
+			PlannerFw User Guide
+		</h2>
+		<div>
+			PlannerFw helps people build well-structured websites and web applications for the new web era
+		</div>
+		<p>&nbsp;</p>
+	</div>
+	<div id="navigation">
+	&nbsp;
+	</div>
+	
+	<div class="colmask rightmenu">
+	<div class="colleft">
+		<div class="col1">
+			<section class="prods">
+				<div id="features"></div>
+				<span class="sep_line sep_bottom"></span>
+				<span class="cta_sep"></span>
+			</section>
+		</div>
+		
+		<div class="col2">
+			<div class="caption" style="font-size: 1.1em;">
+				<img src="/images/pfm/menu_start.png" alt="Start of menu" width="360" height="25" style="margin-top:100px;margin-bottom:50px;">
+				<p id="menu20" style="cursor:pointer;padding-left:30px;background:#e4f2fb;" onClick="showItem(20, this);return false;">PlannerFw rules and features</p>
+				<p id="menu1" style="cursor:pointer;padding-left:30px;" onClick="showItem(1, this);return false;">PlannerFw conventions</p>
+				<p id="menu3" style="cursor:pointer;padding-left:30px;" onClick="showItem(3, this);return false;">Setting before applications</p>
+				<p id="menu2" style="cursor:pointer;padding-left:30px;" onClick="showItem(2, this);return false;">PlannerFw tags</p>
+				<p id="menu8" style="cursor:pointer;padding-left:30px;" onClick="showItem(8, this);return false;">RESTful model</p>
+				<p id="menu5" style="cursor:pointer;padding-left:30px;" onClick="showItem(5, this);return false;">Model member validation, check and encryption/decryption</p>
+				<p id="menu10" style="cursor:pointer;padding-left:30px;" onClick="showItem(10, this);return false;">XML data model</p>
+                <p id="menu60" style="cursor:pointer;padding-left:30px;" onClick="showItem(60, this);return false;">Template and layout template</p>
+				<p id="menu4" style="cursor:pointer;padding-left:30px;" onClick="showItem(4, this);return false;">PFCSS</p>
+   				<p id="menu6" style="cursor:pointer;padding-left:30px;" onClick="showItem(6, this);return false;">Error handling</p>
+                <p id="menu11" style="cursor:pointer;padding-left:30px;" onClick="showItem(11, this);return false;">Web security enhancements</p>
+   				<p id="menu15" style="cursor:pointer;padding-left:30px;" onClick="showItem(15, this);return false;">Processes and time tracking</p>
+                <p id="menu18" style="cursor:pointer;padding-left:30px;" onClick="showItem(18, this);return false;">PlannerFw Exec as views of server-side MVC frameworks</p>
+				<p id="menu7" style="cursor:pointer;padding-left:30px;" onClick="apiMenu(7, this);return false;">PlannerFw APIs &nbsp; &rArr;</p>
+				<p id="menu71" style="cursor:pointer;padding-left:90px;display:none;" onClick="showItem(71, this);return false;">Construction APIs</p>
+				<p id="menu72" style="cursor:pointer;padding-left:90px;display:none;" onClick="showItem(72, this);return false;">XML-JSON APIs</p>
+				<p id="menu73" style="cursor:pointer;padding-left:90px;display:none;" onClick="showItem(73, this);return false;">PFCSS APIs</p>
+				<p id="menu74" style="cursor:pointer;padding-left:90px;display:none;" onClick="showItem(74, this);return false;">Other Processor APIs</p>
+				<p id="menu75" style="cursor:pointer;padding-left:90px;display:none;" onClick="showItem(75, this);return false;">Postprocessor APIs</p>
+				<p>&nbsp;</p>
+				<p id="menu9" style="cursor:pointer;padding-left:30px;" onClick="showItem(9, this);return false;">PlannerFw releases</p>
+				<p id="menu12" style="cursor:pointer;padding-left:30px;" onClick="showItem(12, this);return false;">Installation and using</p>
+				<img src="/images/pfm/menu_end.png" alt="End of menu" width="360" height="25" style="margin-top:100px">
+				<p style="margin-top:150px;margin-left:30px;font-size:.8em">Website: <a href="http://w3plan.net/" target="_blank">http://w3plan.net/</a> <br>Copyright 2015-2016 W3plan Technologies</p>
+			</div>
+		</div>
+	</div>
+	</div>
+	
+	<div style="display:none;">
+	<div id="feature20">
+		<p><b>PlannerFw Rules</b></p>
+		<div style="margin:50px 50px;">
+            <p>PlannerFw transmits JavaScript code through network instead of HTML page code, PlannerFw automatically compile HTML and CSS code to JavaScript functions.</p>
+            <p>Data and presentation separated rule: There is no response including data model and template contents together, data model and template contents can not be output in one same response.</p>
+            <p>Presentation rule: Both client and server can assign template or layout template to the result page.</p>
+            <p>PlannerFw supports JSOM data model and XML data model, which could be retrieved through HTTP/HTTPS and WebSocket/WebSocket Secure, and PlannerFw supports JWT (JSON Web Token) to access data models for authentication and information exchange.</p>
+		</div>
+		<p>&nbsp;</p>
+		<p><b>PlannerFw Features</b></p>
+		<div style="margin:50px 50px;">			
+			<p>PlannerFw is an application layer or middleware between server output and result page on the browser, PlannerFw makes lower server requirements and higher server capacity.</p>
+			<p>PlannerFw is able to work with all web server languages (PHP, Java, Node.js, ASP, Python, Perl, Ruby...) and server-side frameworks, PlannerFw Exec could take over view part of a server-side framework( <a href="https://github.com/w3plan/PlannerFw-CodeIgniter" target="_blank">To see example project on GitHub</a> ).</p>
+			<p>PlannerFw completely separates data and data presentation, web server are used to create data (model) in JSON or XML, web servers are not responsible for any creation or processes of data presentation.</p>
+			<p>PlannerFw's model is dynamic server data in JSON or XML format which could be retrieved through HTTP or HTTPS and WebSocket or WebSocket Security.</p>
+			<p>PlannerFw supports HTTP method "GET", "POST", "PUT", "DELETE" and applying JWT(JSON Web Token) for model access, RESTful architecture is an option for PlannerFw's model system.</p>
+			<p>PlannerFw supports request authentication of WebSocket through JWT( <a href="https://jwt.io/" target="_blank">JSON Web Token</a> ).</p>
+			<p>PlannerFw supports XML-schema like of data types and data constraints for model exchange through network.</p>
+			<p>PlannerFw transfers JavaScript instead of HTML through network. PlannerFw uses JavaScript as template language, there is no learning required to write a data presentation.</p>
+			<p>PlannerFw supports template layout that creates data presentation from a group of templates.</p>
+			<p>PlannerFw implements Variable, Mixins, Nesting, Functions and Operations mechanisms like SASS or LESS for CSS. CSS could be saved to protected Session Storage and switching them without network connection from consecutive pages.</p>
+			<p>PlannerFw automatically compiles and transform updated raw templates into JavaScript functions and PFCSS (CSS code contains PlannerFw tags) files into CSS files through Preprocessor server run on background.</p>
+			<p>PlannerFw can creates updated package for production servers from directories and files that are watched by Preprocessor server in development environment.</p>
+			<p>Web servers are able to track each processes and time consumed from request start to page rendering completion on client.</p>
+			<p>PlannerFw provide mechanisms to improve better web security, for example, server encrptes model and client decyptes it at receiving time.</p>
+			<p>PlannerFw has excellent performance between processor request start and result page completion. PlannerFw's loosely coupled structure makes it good for team work and project management.</p>
+		</div>
+		<p>&nbsp;</p>
+	</div>
+	<div id="feature1">
+		<p><b>PlannerFw URLs and related variable names</b></p>
+		<p>&nbsp;</p>
+		<p>PlannerFw uses Page Processor (/app/index.html, /app/be-index.html) to retrieve model and template then generate result page, there are two ways to access the Page Processor: client request for Page Processor and server directly output the Page Processor, URL that client request for the Page Processor include</p>
+		<p>Some URL for default models and default templates:</p><p>
+		<div style="margin:10px 30px;line-height:165%;">
+			scheme://host[:port]/app<br>
+			scheme://host[:port]/app/index.html<br>
+            scheme://host[:port]/app/index.html?tml=/template<br>
+			scheme://host[:port]/app/index.html?tml=/layout<br>
+			scheme://host[:port]/app/index.html?mdl=/<br>
+			scheme://host[:port]/app/index.html?xmdl=/<br>
+		</div></p><p>URL for models and templates or layouts:</p>
+		<p><div style="margin:10px 30px;line-height:165%;">
+			scheme://host[:port]/app/index.html?<b>tml</b>=/path[?query]&<b>mdl</b>=/path[?query]<br>
+            scheme://host[:port]/app/index.html?<b>tml</b>=/path[?query]&<b>mdl</b>=/path?method=get|post|put|delete<br>
+            scheme://host[:port]/app/index.html?<b>tml</b>=/path[?query]&<b>mdl</b>=ws[s]://.../path[?query]<br>
+            scheme://host[:port]/app/index.html?<b>tml</b>=/path[?query]&<b>xmdl</b>=/path[?query]<br>
+            scheme://host[:port]/app/index.html?<b>tml</b>=/path[?query]&<b>xmdl</b>=/path?method=get|post|put|delete<br>
+            scheme://host[:port]/app/index.html?<b>tml</b>=/path[?query]&<b>xmdl</b>=ws[s]://.../path[?query]<br>
+		</div></p>
+        <p>tml for template or layout, mdl for JSON data model, xmdl for XML data model, value of tml, mdl and xmdl can include character "&", "?" and "/", ... in URL, default PlannerFw's WebSocket Port is 8060. template and layout must use absolute path that start from website root. Position of tml in query string is prior to mdl and xmdl. Template and layout must use absolute path that starts from website root.</p>
+        <p>File extension of template and layout depends on web server, it could be js, php, jsp, asp and others, extension of the Page Processor could be php, jsp, asp and others except html</p>
+        <p>PlannerFw requires to access models and templates from same host of the Page Processor</p>
+        <p>Web servers output following JavaScript variables for Page Processor</p>
+       	<table style="margin:10px 30px;line-height:50px;width:980px;">
+		<thead>
+			<tr style="background-color:#ddd;text-align:center;">
+				<th style="width:20%">JavaScript variable</th><th>Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>pftml</td><td>URL to template or layout</td>
+			</tr>
+			<tr>
+				<td>pfmdl</td><td>URL for JSON data model</td>
+			</tr>
+            <tr>
+				<td>pfxmdl</td><td>URL for XML data model</td>
+			</tr>
+		</tbody></table>
+		<p>PlannerFw does not output model and template in one same response for keeping model and template separation.</p>
+		<p>&nbsp;</p>
+		<p><b>PlannerFw modules</b></p>
+		<p>&nbsp;</p>
+        <p>A module is a group of templates, layouts, PFCSS that make up similar data presentation to same PlannerFw model, PlannerFw's module structures include:</p>
+        <table style="margin:10px 30px;line-height:50px;width:980px;">
+        <thead>
+            <tr style="background-color:#ddd;text-align:center;">
+                <th style="width:550px">Path structures from document root</th>
+                <th style="width:430px">Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>/template/module/submodule/raw/[subdirectory/]HTML-files</td><td>Raw page templates include HTML scripts and PlannerFw tags</td></tr>
+            <tr><td>/template/module/submodule/[subdirectory/]js-files</td><td>JavaScript files that are compiled from raw templates</td></tr>
+            <tr><td>/template/module/submodule/section/[subdirectory/]HTML-files</td><td>Raw section templates that are content sections of layout templates</td></tr>
+            <tr><td>/layout/module/submodule/raw/[subdirectory/]HTML-files</td><td>Raw layout template has to include one planner.section method at least</td></tr>
+            <tr><td>/layout/module/submodule/[subdirectory/]js-files</td><td>JavaScript files that are compiled from layout templates and section templates</td></tr>
+            <tr><td>/css/pfcss/module/submodule/raw/[subdirectory/]pfcss-files</td><td>PFCSS files include CSS and PlannerFw tags, extensions of PFCSS files include "pfcss" and "css"</td></tr>
+            <tr><td>/css/pfcss/module/submodule/[subdirectory/]css-files</td><td>css files that are compiled from PFCSS files</td></tr>
+            <tr><td>/directory-under-root/module/[submodule/][subdirectory/]files</td><td>static pages, images, media files and other</td></tr>
+        </tbody></table>
+        <p>&nbsp;</p>
+        <p>[subdirectory/] in path is optional, default PlannerFw's module name is 'pfm', you can create new modules or just update default module for your website/web application. Naming submodule with "a", "b", "c", .., "a1", "b1", "c1", ..., "a2", "b2", "c2", .... as PlannerFw's naming conventions.</p>
+        <p>"directory-under-root" is a directory name under website root, it could be "js", "images", "static", "media" or other name, [submodule/] in this structure is optional, it will store the files related to the modules in template, layout and PFCSS.</p>
+        <p>PlannerFw's Preprocessor can watch file size in siteroot/template, siteroot/layout and siteroot/css/pfcss on development server, automatic compile updated raw files into JavaScript or CSS files.</p>
+        <p>Extensions of raw templates, section templates and layout templates include "html", "htm", "xhtml", "xhtm", "xml" and "rss".</p>
+        <p>When PlannerFw Dev of PlannerFw Enterprise Edition creates product deployment from development server, raw directories in path structures would be bypassed.</p>
+        <p>&nbsp;</p>
+        <p><b>PlannerFw Model members</b></p>
+		<p>&nbsp;</p>
+		<p>Model in PlannerFw is a group of dynamic data that is created by web server for template to generated result web page, model format is either JSON or XML, model data members include required members and optional members two parts, required data members for JSON data model include:</p>
+		<table style="margin:10px 30px;line-height:50px;width:980px;">
+		<thead>
+			<tr style="background-color:#ddd;text-align:center;">
+				<th style="width:20%">Name</th><th>Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>expiration</td><td>0 or 1, default is 0. If value is 1, PlanenrFw would output error message and stop all processes.</td>
+			</tr>
+			<tr>
+				<td>pfDataSet</td><td>Dynamic data for template and layout template. If model is for layout template, pfDataSet immediate members, for example, pfSet1, pfSet2, pfSet3,... would be transferred to each section templates through PlannerFw section API in a layout template.</td>
+			</tr>
+		</tbody></table>
+		<p>&nbsp;</p>
+		<p>Optional data members for JSON data model include:</p>
+		<table style="margin:10px 30px;line-height:50px;width:980px;">
+		<thead>
+			<tr style="background-color:#ddd;text-align:center;">
+				<th style="width:20%">Name</th><th>Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>description</td><td>Description text of model</td>
+			</tr>
+			<tr>
+				<td>modelId</td><td>An unique identity of current model</td>
+			</tr>
+			<tr>
+				<td>jwtClaim</td><td>0 or 1, default value 0 represents no JWT (JSON Web Token) for model access</td>
+			</tr>
+			<tr>
+				<td>jwt</td><td>Value of JWT(JSON Web Token)</td>
+			</tr>
+            <tr>
+				<td>errorLevel</td><td>0 to 3 for Uncatchable error, Other catchable error, Catchable warning and Catchable information respectively</td>
+			</tr>
+			<tr>
+				<td>errorMessage</td><td>Related message with errorLevel</td>
+			</tr>
+			<tr>
+				<td>version</td><td>A number</td>
+			</tr>
+			<tr>
+				<td>category</td><td>Category that model belongs to</td>
+			</tr>
+			<tr>
+				<td>author</td><td>Model author</td>
+			</tr>
+			<tr>
+				<td>company</td><td>Company name</td>
+			</tr>
+			<tr>
+				<td>copyright</td><td>Copyright declaration</td>
+			</tr>
+			<tr>
+				<td>licenses</td><td>Licenses declaration</td>
+			</tr>
+		</tbody></table>		
+		<p>&nbsp;</p>
+		<p>If model format is XML, the model must have one root element, XML prolog and comments could be neglected, model member name would be elements names, all XML elements must be closed, and XML element without a value could be expressed as &lt;element_name&gt;&lt;/element_name&gt;or &lt;element_name /&gt;, replacing characters: < > & ' " with HTML entity in XML elements if applicable.</p>
+        <p></p>
+		<p>&nbsp;</p>
+		<p><b>Neglected directory and files by deployment builder</b></p>
+		<p>&nbsp;</p>
+		<p>Preprocessor server recursively monitor all files under siteroot/template, siteroot/layout and siteroot/css/pfcss in real time, any file changed under them will trigger a series of processes, deployment builder can create deployment or update archives for production server from siteroot/layout,  siteroot/template and siteroot/css/pfcss but neglect all raw subdirectories and files with extension html, htm, xhtml, xml and pfcss under them, so try to save files that you don't want to add to result archives in raw directories and subdirectories.</p>
+		<p>&nbsp;</p>		
+		<p><b>PlannerFw Cookies</b></p>
+		<p>&nbsp;</p>
+		<p>PlannerFw uses session Cookie pf_auth_token to save JWT(JSON Web Token) for user authentication and model access over HTTP/HTTPS or WebSocket/WebSocket Security. New JWT would be transmitted by model to client then wrote to Cookie pf_auth_token, an example of pf_auth_token value: </p>
+		<pre style="margin:20px 30px;white-space:pre-wrap;word-wrap:break-word;width:960px;"><code class="language-markup">
+     eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+     eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.
+     TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+		</code></pre>
+		<p>PlannerFw uses session Cookie pf_times to save processes time consumed from request start to page rendering completion on client. For example, 1.35.9.54.6 is a value of pf_times</p>
+		<p>PlannerFw uses session Cookie pfDataKey in short lifetime to transfer encryption password then immediately delete it after Page Processor received it.</p>
+		<p>&nbsp;</p>
+		<p><b>Encryption password transmission</b></p>
+		<p>PlannerFw requires to transfer password of PlannerFw's encryption from session Cookie pfDataKey in short expiry time in case of delete code failed, for example, expiry time is 2 seconds, if there is no password for PlannerFw's encryption then default password in length of 256 characters would be applied, stronger encryption depends on the length of password, try not to use same password for multiple models.</p>
+		<p>&nbsp;</p>
+		<p><b>Notations for JSON members</b></p>
+		<p>&nbsp;</p>
+		<p>PlannerFw uses "__pfenc", "__pfcrc" and "__pfvld" as suffix of JSON member name to trigger data decryption, check checksum and type validation in Page Processor, and remove suffix notations from member names after successfully pass related processes. If there are more than one notations applied to one JSON member at same time, PlannerFw only process last one and neglect others.</p>
+		<p>&nbsp;</p>
+		<p><b>Keys for CSS contents of Session Storage</b></p>
+		<p>&nbsp;</p>
+		<p>FCSS uses construction API: importCss(url) and loadCss(url) to save CSS contents to Session Storage to decrease requests and uses Postprocessor API to switch CSS contents in following pages, PFCSS converts CSS URL into key for contents saved to Session Storage, the key starts with "pf_" and followed by a base64 encoded string without +, / and = characters, CSS contents in Session Storage are protected by a 32-bits CRC checksum and a time stamp to against any unauthorized changes.<p>
+		<p>&nbsp;</p>
+	</div>
+	<div id="feature3">
+	<p>&nbsp;</p>
+	<p><b>pfConfig object</b></p>
+	<p>&nbsp;</p>
+	<p>JavaScript pfConfig is configuration of Page Processor /app/index.html, its default setting include:</p>
+	<pre style="margin:20px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1080px;"><code class="language-javascript">
+var pfConfig = {
+	/**
+	 * Set application environment either Development or Production
+	 * default value is Development
+	 * 
+	 */
+	environment : "Development",
+	
+	/**
+	 * Set current file path started from website root
+	 *  
+	 */
+	processorPath : "/app",
+	
+	/**
+	 * Set site default template URL, when value of tml is one of 
+	 * undefined, empty, '/', 'template', '/template', 'template/' or '/template/',  
+	 * this variable would be used to retrieve template
+	 *
+	 */
+	defaultTemplate : "/template/pfm/a/index.html.js",
+	
+	/**
+	 * Set site default template layout URL.  When value of tml is
+     * one of 'layout', '/layout', 'layout/' or '/layout/',    
+	 * this variable would be used to retrieve layout template
+	 *
+	 */
+	defaultLayout : "/layout/pfm/a/index.html.js",
+	
+	/**
+	 * Set site default model for defaultTemplate
+	 * When template is not layout and there are not specific 
+	 * values for mdl and xmdl, this variable would be applies
+	 *
+	 */
+	defaultModel : "/samples/template-model.json",
+	
+	/**
+	 * Set site default model for defaultLayout
+	 * When template is layout and there are not specific 
+	 * values for mdl and xmdl, this variable would be applies
+	 *
+	 */
+	defaultLayoutModel : "/samples/layout-model.json",
+	
+    /**
+	 * An server-side file to display error message or to log client errors of production environment
+	 * File extension varies depending on web servers 
+     *
+	 */
+    clientErrorHandler: "/errors/php/client-error-handler.php",
+    
+	/**
+	 * WebSocket default port is 8060
+	 * Port in WebSocket server-side has to be updated if the value is replaced
+	 * 
+	 */
+	defaultWebsocketPort : 8060,
+	
+	/**
+	 * Set maximum seconds to store key/value pairs in Session Storage
+	 * under PlannerFw storing mechanisms
+	 *
+	 */
+	storeMaxAge : 1800,
+	
+	/**
+	 * Set to track elapsed time 
+	 *
+	 */
+	trackExecutedTime : true
+}
+	</code></pre>
+	<p>Object pfConfig in Page Processor /app/be-index.html with less properties than object pfConfig in /app/index.html</p>
+	<p>&nbsp;</p>
+	<p><b>layout.json</b></p>
+	<p>&nbsp;</p>
+	<p>siteroot/layout/layout.json is layout configuration that maps section templates to raw layout template, section templates are some raw template files that result code would be a part of result page, Preprocessor server of PlannerFw Dev could convert section templates raw layout template to JavaScript functions as long as file size of section templates is changed, and section API applied in layout template would assign functions calling in layout template.</p>
+	<p>Example of layout.json</p>
+	<pre style="margin:20px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1080px;"><code class="language-json">{
+  "name": "Layout configuration",
+  "description": [
+      " This file describes how Preprocessor mapping raw-template files to raw-layout template  ",
+      " file, any raw-template file changed would be leaded to layout template regenerated      ",
+      " automatically.                                                                          ",
+      " Name in value object of layoutMapping is a raw-layout template file and value is an     ",
+      " array with at least two raw-template files as its elements, all path in this file begin ",
+      " from website root, Windows directory separator has to be escaped, for example,          ",   
+      " a\\raw\\mbstyle-1.pfcss                                                                 "
+    ],
+  "version": "0.1.0",
+  "author": "W3plan Technologies",
+  "package": "Preprocessor",
+  "copyright": "Copyright 2015-2016 W3plan Technologies, http://w3plan.net",
+  "licenses": "GNU GPLv3 &lt;http://www.gnu.org/licenses/gpl.html&gt;",
+  
+  "layoutMapping": {
+    "/layout/pfm/a/raw/index.html": [ 
+                                      "/template/pfm/a/section/s-head.html", 
+                                      "/template/pfm/a/section/s-lang-en.html", 
+                                      "/template/pfm/a/section/s-lang-cn.html"
+                                    ],
+    "/layout/pfm/b/raw/index.html": [ 
+                                      "/template/pfm/b/section/mb-head.html", 
+                                      "/template/pfm/b/section/mb-lang-en.html", 
+                                      "/template/pfm/b/section/mb-lang-cn.html"
+                                    ]
+    },
+  "layoutFileComments": true
+}</code></pre>
+	<p>&nbsp;</p>
+	<p><b>pfcss.json</b></p>
+	<p>&nbsp;</p>
+	<p>siteroot/css/pfcss/pfcss.json is PFCSS configuration that lets Preprocessor server know how to create result CSS files from pfcss files that CSS code contains PlannerFw tags, an example of pfcss.json are:</p>
+	<pre style="margin:20px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1080px;"><code class="language-json">{
+  "name": "PFCSS configuration",
+  "description": [
+        " PFCSS is an abbreviation of PlannerFw Cascading Style Sheets, this file describes   ",
+        " how Preprocessor mapping pfcss files to result css files, any pfcss file changed    ",
+        " would be leaded to result css file regenerated automatically.                       ",
+        "                                                                                     ",
+        " Name in value object of pfcssMapping is a css file and value is an array of pfcss   ",
+        " files or a string of pfcss file, all path for css and pfcss files are relative path ",
+        " to this file. value of comments will be output to each result css file. Windows     ",
+        " directory separator has to be escaped, for example,  a\\raw\\mbstyle-1.pfcss        "
+      ],
+  "version": "0.1.0",
+  "author": "W3plan",
+  "package": "Templates and PFCSS Preprocessor",
+  "copyright": "Copyright 2015-2016 W3plan Technologies, http://w3plan.net",
+  "licenses": "GNU GPLv3 &lt;http://www.gnu.org/licenses/gpl.html&gt;",
+  
+  "pfcssMapping": {
+     "pfm/mbstyle.css": [
+                         "pfm/a/raw/mbstyle-1.pfcss", 
+                         "pfm/a/raw/mbstyle-2.pfcss", 
+                         "pfm/a/raw/mbstyle-3.pfcss"
+                        ],
+     "pfm/b/double-ring.css": [
+                               "pfm/b/raw/double-ring-1.css", 
+                               "pfm/b/raw/double-ring-2.css"
+                              ],
+     "pfm/c/single-file.css": "pfm/c/raw/single-file.css"
+   },
+  "cssFileComments": true
+}</code></pre>
+	<p>PlannerFw Preprocessor server would use mapping configuration to generate new css file from changed pfcss file, for example, if any one of siteroot/css/pfcss/pfm/a/raw/mbstyle-1.pfcss, siteroot/css/pfcss/pfm/a/raw/mbstyle-2.pfcss or siteroot/css/pfcss/pfm/a/raw/mbstyle-3.pfcss was changed by code editor, new css file siteroot/css/mbstyle.css would be automatically generated and the value of comments in configuration would be wrote to the top of result css file.</p>
+    <p>PlannerFw only process the files in path siteroot/css/pfcss and there is mapping setting in pfcss.json</p>
+	<p>You can use this features to add multiple CSS files to a minified CSS file even CSS files without any PlannerFw tags.</p>
+    <p>&nbsp;</p>
+	<p><b>component.json</b></p>
+	<p>&nbsp;</p>
+	<p>pfcomponent/component.json in server component sets website root directory and secret key for JWT(JSON Web Token), property siteRootPath let PlannerFw's server-side component know the location of website as PlannerFw's server-side component could be installed in any place except website root and its subdirectories. Default component.json is </p>
+	<pre style="margin:20px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1080px;"><code class="language-json">
+{
+  "name": "pfcomponent configuration",
+  "description": "Set website root-path and secret key for JWT (JSON Web Token) verification",
+  "version": "2.0.1",
+  "author": "W3plan",
+  "package": "pfcomponent",
+  "copyright": "Copyright 2015-2016 W3plan Technologies, http://w3plan.net",
+  "licenses": "GNU GPLv3 &lt;http://www.gnu.org/licenses/gpl.html&gt;",
+	
+  "siteRootPath" : "z:/pfeeroot",
+  "jwtSecretKey" : "put your JWT(JSON Web Token) secret key here"
+}
+	</code></pre>
+	<p>&nbsp;</p>
+	<p><b>.htaccess or other similar file for non Apache HTTP server</b></p>
+	<p>&nbsp;</p>
+	<p>Set directory of PlannerFw's server-side component as a environment variable, so that website or application can find it, for example, SetEnv PFCOMPONENT_PATH "z:/pfcomponent"</p>
+	<p>&nbsp;</p>
+	<p><b>pfwatch.json</b></p>
+	<p>&nbsp;</p>
+	<p>pfdevelop/preprocessor/pfwatch.json sets website root directory and template file extension to Preprocessor of PlannerFw Dev, PlannerFw Dev could be installed in any place except website root and its subdirectories. Default pfwatch.json is:</p>
+	<pre style="margin:20px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1080px;"><code class="language-json">{
+  "name": "Preprocess watching",
+  "description":[
+        " Set website root-path that would be watched by Preprocessor    ",
+        " siteRootPath should be an absolute path of website root        ",
+        " comments could be wrote to result file, windows directory      ",
+        " separator has to be escaped, for example, z:\\buz\\public_html "
+       ],
+  "version": "2.0.1",
+  "author": "W3plan",
+  "package": "Templates and PFCSS Preprocessor",
+  "copyright": "Copyright 2015-2016 W3plan Technologies, http://w3plan.net",
+  "licenses": "W3plan Software License &lt;http://w3plan.net/customer/general/pflicense/&gt;",
+  
+  "siteRootPath": "z:\\pfeeroot",
+  "templateFileExtension": "js",
+  "comments": [
+      "/**",
+      " * This file was generated by PlannerFw's Preprocessor",
+      " * ",
+      " * Version    0.0.1",
+      " * Author     W3plan",
+      " * Category   Preprocessor",
+      " * Copyright  Copyright 2015-2016 W3plan Technologies, http://w3plan.net",
+      " * Licenses   GNU GPLv3 license &lt;http://www.gnu.org/copyleft/gpl.html&gt;",
+      " */"
+    ]
+}</code></pre>
+	<p>&nbsp;</p>
+	<p><b>pfbuild.json</b></p>
+	<p>&nbsp;</p>
+	<p>pfdevelop/deploybuilder/pfbuild.json sets website root directory, archive type, target file name and to add directories that updating builder does not process in default, deploybuilder is an application to create an archive that contained all files and subdirectories of website's template, css, layout directories and appended not watching directories for updating production severs. Default pfbuild.json is</p>
+	<pre style="margin:20px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1080px;"><code class="language-json">{
+  	"name": "Deployment Builder",
+	"description": [ 
+        " Create an archive from updated /template, /layout, /css/pfcss and other directories for   ",
+        " product server. siteRootPath should be an absolute path of website root, targetFile is the",
+        " path to save result archive file, addDirsToBuilder includes subdirectories of website root",
+        " except /template, /layout and /css/pfcss folders, subdirectories to addDirsToBuilder can  ",
+        " not include the part of website root, archiveType should be one of zip and tar. Windows   ",
+        " directory separator has to be escaped, for example, c:\\htdocs, z:\\buz\\public_html      "
+	],
+  "version": "0.1.0",
+  "author": "W3plan",
+  "package": "Deployment builder",
+  "copyright": "Copyright 2015-2016 W3plan Technologies, http://w3plan.net",
+  "licenses": "W3plan Software License &lt;http://w3plan.net/customer/general/pflicense/&gt;",
+  
+  "siteRootPath": "z:/pfeeroot",
+  "allowedTemplateExtension": ["js", "php"], 
+  "archiveType": "zip",
+  "targetFile": "./updated-deploy.zip",
+  "addDirsToBuilder": ["js"]
+}</code></pre>
+	<p>&nbsp;</p>
+	<p><b>jwt-handle.*</b></p>
+	<p>&nbsp;</p>
+	<p>pfcomponent/server-type/pfjwt/jwt_handle.* in server component provides functions for server using JWT(JSON Web Token) for model access, here server-type includes php, nodejs, python, java, perl, .net, ruby, jwt-handle file extension depends on server type. default contents of jwt_handle.php are</p>
+	<pre class="line-numbers" style="margin:20px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1030px;"><code class="language-php">&lt;?php
+/**
+ * Read JWT from Cookie, decode it then return it or do other processes 
+ * according to JWT issued time. You have to use this file for all 
+ * PlannerFw model access if you want to use JWT
+ * 
+ * As long as start to use JWT for model access, jwtClaim has to be 1 to model in 
+ * following response otherwise PlannerFw would turn off model access from JWT
+ * 
+ */
+
+// Load JWT Library
+require __DIR__ . "/../vendor/jwt/JWT.php";
+
+use \Firebase\JWT\JWT;
+
+/**
+ * beginning to use JWT for model access
+ *
+ * Update JWT claims with user data that collects from sign-in code or server-side storage
+ *
+ * To apply RESTful architecture for model system, startJwt() have to run with sign-in code 
+ * so that transfers user data into JWT because REST application is stateless, the server 
+ * does not store client context
+ * 
+ */
+function startJwt() {	
+	// Unix time stamp
+	$timestamp = time();
+
+	// user private data, for example, 
+	$firest_name = "Mary";
+	$last_name = "Kay";
+	$email = "mary.kay@gmail.com";
+	$country_code = "US";
+	$ownership = "public";
+	
+	/**
+     * Registered Claim Names for JWT
+	 *   iss: (mandatory) The issuer of the token
+	 *   sub: The subject of the token
+	 *   aud: The audience of the token
+	 *   exp: Token expiration time defined in Unix time
+	 *   nbf: "Not before" time that identifies the time before 
+     *        which the JWT must not be accepted for processing
+	 *   iat: (mandatory) "Issued at" time, in Unix time, at which the token was issued
+	 *   jti: JWT ID claim provides a unique identifier for the JWT
+	 *   
+     * Public Claim Names for JWT used by PlannerFw
+     *   permission: read, create, replace or delete. read is default value
+     *   ownership: owner, group or public. public is default value
+     * 
+	 * Following fname, lname, email, country and ownership are examples of JWT public claims
+     *     
+	 * Be mind: do not put sensitive information to claims because they are not encrypted  
+	 * 
+	 */
+	
+	$token = array (
+		"iss" => "http://w3plan.net",
+		"sub" => "Model in JSON or XML",
+		"iat" => $timestamp,
+		"fname" => $firest_name,				
+		"lname" => $last_name,		
+		"email" => $email,
+		"country" => $country_code,
+		"ownership" => $ownership
+	);
+    
+	/**
+	 * Encoding token
+	 * 
+	 */
+	try {
+		$jwt = JWT::encode($token, $scretKey);
+	}
+	catch(Exception $e) {
+		echo getEmptyModel(2, "PlannerFw can not encode JWT");
+		exit();
+	}
+	
+	return array("jwtClaim" => 1, "jwt" => $jwt);	
+}
+
+/**
+ * Decode JWT, verify JWT, return an array with jwtClaim element or jwtClaim and 
+ * jwt elements. If there is an error happen getEmptyModel would be called to output
+ * an empty model with error message to the client
+ *
+ * @param string $pf_type    "http" or "ws"
+ * @param string $pf_jwt     The value of JWT
+ * @return array      An array with jwtClaim element or jwtClaim and jwt elements
+ */
+function checkPfJwt($pf_jwt, $pf_type = "http") {
+	if (isset($pf_jwt) && strlen(trim($pf_jwt)) > 10) {
+		/**
+		 * Save JWT secret key to $_SERVER or $_ENV variable would get 
+		 * better performance than saving them in the file 
+		 *
+		 */
+		$config = file_get_contents(__DIR__ . "/../../component.json");
+		
+		try {
+			$config = json_decode($config, true);
+		}
+		catch(Exception $e) {
+			if (strtolower($pf_type) == "ws") {
+				throw $e;
+			} else {
+				/**
+				 * Output empty model as a string with message in description
+				 */
+				echo getEmptyModel(2, $e->getMessage());
+				exit();
+			}
+		}
+		
+		$scretKey = $config['jwtSecretKey'];
+		
+		/**
+		 *  You have to specify algorithms to decode JWT 
+		 *  this library supports: HS256, HS384, RS256, RS384 and ES256
+		 *
+		 */		
+		try {
+			$decodedJwt = JWT::decode( $pf_jwt, 
+									   $scretKey, 
+									   array('HS256','HS384', 'RS256', 'RS384', 'ES256')
+									  );
+		}
+		catch(Exception $e) {
+				if (strtolower($pf_type) == "ws") {
+					throw $e;				
+				} else {
+					echo getEmptyModel(2, $e->getMessage());
+					exit();
+				}
+			}
+		
+		// Unix time stamp
+		$timestamp = time();
+
+		/**
+		 *  Refresh issued time with current Unix time stamp. If JWT issued
+		 *  time is large then 12 minutes then delete cookie pf_auth_token
+		 *  
+		 *  You are able to replace it with your value
+		 * 
+		 */
+		if ($timestamp - $decodedJwt->iat < 720) {
+			
+			// rewrite issued time to JWT if it is between 60 and 720 seconds 
+			if ($timestamp - $decodedJwt->iat >= 60) {
+				
+				// set new Unix time stamp
+				$decodedJwt->iat = $timestamp;
+				
+				/**
+				 * Encoding existing token
+				 *
+				 */
+				try {
+					$jwt = JWT::encode($decodedJwt, $scretKey);
+				}
+				catch(Exception $e) {
+					if (strtolower($pf_type) == "ws") {
+						throw $e;				
+					} else {
+						echo getEmptyModel(2, "PlannerFw can not encode JWT", true);
+						exit();
+					}
+				}
+				
+				return array("jwtClaim" => 1, "jwt" => $jwt);
+			} else {
+				// do not rewrite issued time to JWT if it is no more then 6 seconds 
+				return array("jwtClaim" => 1);
+			}
+		} else {
+			// if JWT issued time is more than 720 seconds, turn off model access from JWT
+			return array("jwtClaim" => 0);
+		}
+		
+	} else {
+		// Client computer does not use JWT to access model
+		return array("jwtClaim" => 0);
+	}
+}
+
+/**
+ * output a empty PlannerFw model with errorLevel and errorMessage properties
+ * 
+ * @param string $errorLevel      One of "Error", "Warning", "Notice"
+ * @param string $errorMessage   Error message
+ *
+ * @return string      Empty model in string
+ */
+function getEmptyModel($errorLevel, $errorMessage, $jwtClaim = 0 ) {
+	return &lt;&lt;&lt;DOC
+		{	
+			"description": "An empty model",
+			"expiration": 0,
+			"jwtClaim": $jwtClaim,
+			"pfDataSet": null,
+			"errorLevel": $errorLevel,
+			"errorMessage": $errorMessage
+		}
+DOC;
+}
+
+/**
+ * Execute startJwt() to start JWT for model, then use checkPfJwt() to verify JWT. 
+ * If you do not use JWT to access model, do not use this file
+ *
+ * The value of JWT from client would be $_COOKIE['pf_auth_token'] for a HTTP request, 
+ * and the value of JWT would be got through Cookie parse of WebSocket server
+ * 
+ * $this->jwtInfo = array("jwtClaim" => 0);	or $this->jwtInfo = checkPfJwt("") would 
+ * turn off model access from JWT
+ * 
+ */
+?&gt;</code></pre>
+	<p>&nbsp;</p>
+	</div>
+	<div id="feature2">
+		<p>PlannerFw tags are some special HTML comment tags that could be used to implement dynamic data presentation on static HTML pages, there are two types of PlannerFw tags:</p>
+		<div style="margin-left:30px">
+			<p>Operation tag: &lt;!--% ... %--&gt;</p>
+			<p>Output tag: &lt;!--%= ... %--&gt; and &lt;!-%= ... %-&gt;</p>
+		</div>
+		<p>Operation tag wrap JavaScript code, PlannerFw APIs and model data members to implement data presentation, output tag is used to output contents of expressions or variables to result page. PlannerFw's Preprocessor can automatically compile HTML file that contains PlannerFw tags into a JavaScript file which is called template in development environment, and PlannerFw's Processor would retrieve dynamic data (or called model) and template then generate result web page from them.</p>
+        <p>PlannerFW operation tag can't nest operation tag and output tag &lt;!--%= ... %--&gt;, only output tag &lt;!-%= ... %-&gt; can be used inside Operation tag.</p>
+        <p>PlannerFW output tag can't nest operation tag and output tag.</p>
+        <p>PlannerFW tags have to be closed.</p>
+		<p>Any web browser would parse PlannerFw tags as PlannerFw tags are HTML comments, HTML code with and without PlannerFw tags would be rendered in same result to all web browser.</p>
+        <P>PlannerFw raw template, raw section template and raw layout template is a HTML file or HTML code that include PlannerFw tag inside, PlannerFw PFCSS is a CSS file or CSS code that include PlannerFw tag inside. Examples of raw template, model (dynamic data) and result code are:</p>
+		<p style="margin-left:50px">Raw template</p>
+<pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-javascript">&lt;!--% /* A typical template of PlannerFw  */ %--&gt; 
+&lt;table border="1" cellpadding="1" cellspacing="1" width="60%"&gt; 
+&lt;caption class="dcap"&gt;&lt;strong&gt;User data grid&lt;/strong&gt;&lt;/caption&gt; 
+&lt;tr&gt; 
+&lt;th rowspan="2"&gt;City&lt;/th&gt; 
+&lt;th colspan="3"&gt;Users&lt;/th&gt; 
+&lt;/tr&gt; 
+&lt;tr&gt; 
+&lt;th&gt;Name&lt;/th&gt; 
+&lt;th&gt;Age&lt;/th&gt; 
+&lt;th&gt;Education&lt;/th&gt; 
+&lt;/tr&gt; 
+&lt;!--% 
+	for(var key in pfDataSet.grid) { 
+		if (pfDataSet.grid.hasOwnProperty(key)) { 
+%--&gt; 
+&lt;tr&gt; 
+&lt;td&gt;&lt;!--%= pfDataSet.grid[key].city %--&gt;&lt;/td&gt; 
+&lt;td&gt;&lt;!--%= pfDataSet.grid[key].name %--&gt;&lt;/td&gt; 
+&lt;td&gt;&lt;!--%= pfDataSet.grid[key].age %--&gt;&lt;/td&gt; 
+&lt;td&gt;&lt;select name="Education" style="cursor:pointer"&gt; 
+&lt;!--% 
+	var educations = ["No College", "Some College", "Graduate School", "College"]; 
+	/* PlannerFw can use all JavaScript code except single line comment */ 
+	for (var i = 0, len = educations.length; i &lt; len; i++) { 
+		if (pfDataSet.grid[key].education.toLowerCase() == educations[i].toLowerCase()) { 
+			&lt;!-%= /* Tag nested sample */  
+					'&lt;option value="' +  
+					educations[i] + 
+					'" selected&gt;' + 
+					educations[i] + 
+					"&lt;/option&gt;" 
+			%-&gt; 
+		} else { 
+			&lt;!-%= '&lt;option value="' + 
+					educations[i] + 
+					'"&gt;' + 
+					educations[i] + 
+					"&lt;/option&gt;" 
+			%-&gt; 
+		} 
+	} 
+%--&gt; 
+&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt; 
+&lt;!--% 
+	}
+}
+%--&gt;
+&lt;/table&gt;</code></pre>
+<p style="margin-left:50px">Model (dynamic data)</p>
+<pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-json">var pfDataSet = 
+{"grid": { 
+		"gridRow1": {
+			"city": "New York",
+			"name": "Jonesy Band",
+			"age": 16,
+			"education": "No College"
+		},
+		"gridRow2": {
+			"city": "Chicago",
+			"name": "Mary Kay",
+			"age": 35,
+			"education": "Graduate School"
+		},
+		"gridRow3": {
+			"city": "Los Angeles",
+			"name": "James Franco",
+			"age": 28,
+			"education": "College"
+		},
+		"gridRow4": {
+			"city": "San Diego",
+			"name": "Ellen Compell",
+			"age": 20,
+			"education": "Some College"
+		}
+	}
+};</code></pre>
+<p style="margin-left:50px">Result code</p>
+<pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-markup">&lt;table border="1" cellpadding="1" cellspacing="1" width="60%"&gt; 
+	&lt;caption class="dcap"&gt;&lt;strong&gt;User data grid&lt;/strong&gt; 
+	&lt;/caption&gt; 
+	&lt;tr&gt; 
+		&lt;th rowspan="2"&gt;City&lt;/th&gt; 
+		&lt;th colspan="3"&gt;Users&lt;/th&gt; 
+	&lt;/tr&gt; 
+	&lt;tr&gt; 
+		&lt;th&gt;Name&lt;/th&gt; 
+		&lt;th&gt;Age&lt;/th&gt; 
+		&lt;th&gt;Education&lt;/th&gt; 
+	&lt;/tr&gt; 
+	&lt;tr&gt; 
+		&lt;td&gt;New York&lt;/td&gt; 
+		&lt;td&gt;Jonesy Band&lt;/td&gt; 
+		&lt;td&gt;16&lt;/td&gt; 
+		&lt;td&gt; 
+			&lt;select name="Education" style="cursor:pointer"&gt; 
+				&lt;option value="No College" selected&gt;No College&lt;/option&gt; 
+				&lt;option value="Some College"&gt;Some College&lt;/option&gt; 
+				&lt;option value="Graduate School"&gt;Graduate School&lt;/option&gt; 
+				&lt;option value="College"&gt;College&lt;/option&gt; 
+			&lt;/select&gt; 
+		&lt;/td&gt; 
+	&lt;/tr&gt; 
+	&lt;tr&gt; 
+		&lt;td&gt;Chicago&lt;/td&gt; 
+		&lt;td&gt;Mary Kay&lt;/td&gt; 
+		&lt;td&gt;35&lt;/td&gt; 
+		&lt;td&gt; 
+			&lt;select name="Education" style="cursor:pointer"&gt; 
+				&lt;option value="No College"&gt;No College&lt;/option&gt; 
+				&lt;option value="Some College"&gt;Some College&lt;/option&gt; 
+				&lt;option value="Graduate School" selected&gt;Graduate School&lt;/option&gt; 
+				&lt;option value="College"&gt;College&lt;/option&gt; 
+			&lt;/select&gt; 
+		&lt;/td&gt; 
+	&lt;/tr&gt; 
+	&lt;tr&gt; 
+		&lt;td&gt;Los Angeles&lt;/td&gt; 
+		&lt;td&gt;James Franco&lt;/td&gt; 
+		&lt;td&gt;28&lt;/td&gt; 
+		&lt;td&gt; 
+			&lt;select name="Education" style="cursor:pointer"&gt; 
+				&lt;option value="No College"&gt;No College&lt;/option&gt; 
+				&lt;option value="Some College"&gt;Some College&lt;/option&gt; 
+				&lt;option value="Graduate School"&gt;Graduate School&lt;/option&gt; 
+				&lt;option value="College" selected&gt;College&lt;/option&gt; 
+			&lt;/select&gt; 
+		&lt;/td&gt; 
+	&lt;/tr&gt; 
+	&lt;tr&gt;
+		&lt;td&gt;San Diego&lt;/td&gt; 
+		&lt;td&gt;Ellen Compell&lt;/td&gt; 
+		&lt;td&gt;20&lt;/td&gt; 
+		&lt;td&gt; 
+			&lt;select name="Education" style="cursor:pointer"&gt; 
+				&lt;option value="No College"&gt;No College&lt;/option&gt; 
+				&lt;option value="Some College" selected&gt;Some College&lt;/option&gt; 
+				&lt;option value="Graduate School"&gt;Graduate School&lt;/option&gt; 
+				&lt;option value="College"&gt;College&lt;/option&gt; 
+			&lt;/select&gt; 
+		&lt;/td&gt; 
+	&lt;/tr&gt; 
+&lt;/table&gt;</code></pre>
+		<p>&nbsp;</p>
+		<p>PlannerFw's code style include</p>
+		<div style="margin:10px 30px auto 50px;">
+			<p>Try to comment code in PlannerFw tags.</p>
+
+			<p>Add at least one whitespace between PlannerFw tag name and code.</p>
+			
+			<p>Use multiple lines for an long expression.</p>
+			
+			<p>Last code line or one line code only in PlannerFw tag does not need to be added semicolon at the end, PlannerFw is able to handle it.</p>
+			
+			<p>If there are multiple nest of " and ' in PlanenrFw tags, using String.fromCharCode(34) for " and String.fromCharCode(39) for ' are available.</p>
+			
+			<p>A template file can use dynamic data in PlannerFw tags, if dynamic data from outside of template file then it has to be JSON with name "pfDataSet", if dynamic data was defined in template file then there is no requirements for data type and naming, for example, data using in PFCSS files.</p>
+			
+			<p>Apply JavaScript style for JavaScript, for example, Google JavaScript Style.</p>	
+		</div>
+		<p>PlannerFw convert single-line comments to multiple-line comments at time of compilation, non whitespace(s), newline(\n), carriage return(\r) and tab(\t) characters before "//" would be considered as URL or path instead of single-line comment.</p>
+		
+		<p>PlannerFw code style sample</p>
+		<pre style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-javascript">	&lt;!--%= users[i].name %--&gt;
+
+	&lt;!--%=
+		/* Output value of expression */
+		users[i].name +
+		"&lt;br&gt;" + 
+		["novel", "magazine", "period"].join(" ; ") + 
+		"&lt;br&gt;"+
+		"Sum: " +
+		(12 * 8 / 3 + 15) +
+		(function(a,b){return a + b})(2, 5)
+	%--&gt;
+
+	&lt;!--%
+		/* Nesting tags sample */
+		var k = 2/6 + 3*5;
+		&lt;!-%= k / 2 %-&gt;;
+	%--&gt;</code></pre>
+    <p>&nbsp;</p>
+    <p>ECMAScript 6 supports multi-line strings and simple templating via template literals, it is working perfect with PlannerFw, for example, the previous code could be wrote as</p>
+    <pre style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-javascript">	&lt;!--%= users[i].name %--&gt;
+
+	&lt;!--%=
+		 /* 
+          * Output value of expression 
+          * 
+          * ECMAScript 6 example of multi-line strings and 
+          * simple templating via template literals with PlannerFw
+          *
+          */
+	     <b>`</b>
+           ${users[i].name}
+           &lt;br&gt;
+           ${["novel", "magazine", "period"].join(" ; ")} 
+           &lt;br&gt;
+           Sum: 
+           ${(12 * 8 / 3 + 15)}
+           ${(function(a,b){return a + b})(2, 5)}
+         <b>`</b>
+	%--&gt;
+
+	&lt;!--%
+		/* Nesting tags sample */
+		var k = 2/6 + 3*5;
+		&lt;!-%= k / 2 %-&gt;;
+	%--&gt;</code></pre>
+	<p>&nbsp;</p>
+	<p>PlannerFw tags are used to implement data presentation, and data presentation have to be convert to normal web page before result page rendering completion, so following JavaScript APIs are not proper to use in PlannerFw's operation tags as they could break or delay PlannerFw processes,</p>
+	<div style="margin:10px 10px auto 30px;">
+		<p>Document objects.</p>
+		<p>Browser objects, for example, Navigator, History, Location.</p>
+		<p>Popup (boxes alert, confirm, prompt), Timing events(setInterval, setTimeout), XMLHttpRequest and WebSocket.</p>
+	</div>	
+	<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature8">
+		<p>PlannerFw provides following processes to support RESTful model:</p>
+		<ol class="pfsteps">
+			<li>Create JWT(JSON Web Token) to keep user information at the time of user sign-in.</li>
+			<li>Save and transmit JWT with session Cookie pf_auth_token.</li>
+			<li>Requests for HTTP server and WebSocket transmit Cookie automatically, so HTTP server can authenticate user with the data got from Cookie pf_auth_token and request, WebSocket server can authenticate user with the data got from Cookie pf_auth_token and request URL at the time of handshake.</li>
+			<li>HTTP server and WebSocket server would compare timestamp of JWT to decide whether keeping, updating or deleting Cooke pf_auth_token.</li>
+			<li>WebSocket server does not keep connection after output model, it immediately close connection after output data, so every WebSocket requests could be authenticated.</li>
+			<li>User sign-out or time stamp expired will delete Cooke pf_auth_token.</li>
+			<li>User can submit HTTP/HTTPS request with methods: "GET", "POST", "PUT" and "DELETE" through request header other than URI.</li>
+			<li>User can implement pseudo-methods: "GET", "POST", "PUT" and "DELETE" for WebSocket server with well-designed URL.</li>
+		</ol>
+		<div><img src="/images/pfm/request-with-put.jpg" alt="HTTP request with PUT method" height="613" width="1200" style="position:relative;margin-top:50px;margin-bottom:50px;left:50%;margin-left:-600px;max-width:1200px;"></div>
+		<p style="margin:30px auto;text-align:center;">[HTTP request with PUT method]</p>
+		<div><img src="/images/pfm/websocket-handshake-header.jpg" alt="WebSocket request headers with JWT" height="569" width="1200" style="position:relative;margin-top:50px;margin-bottom:50px;left:50%;margin-left:-600px;max-width:1200px;"></div>
+		<p style="margin:30px auto;text-align:center;">[WebSocket request headers with JWT(JSON Web Token)]</p>
+		<div><img src="/images/pfm/websocket-handshake-frame.jpg" alt="WebSocket response frame" height="558" width="1200" style="position:relative;margin-top:50px;margin-bottom:50px;left:50%;margin-left:-600px;max-width:1200px;"></div>
+		<p style="margin:30px auto;text-align:center;">[WebSocket response frame]</p>
+		<div><img src="/images/pfm/websocket-server.jpg" alt="WebSocket PHP server" height="204" width="800" style="position:relative;margin-top:50px;margin-bottom:50px;left:50%;margin-left:-400px;max-width:800px;"></div>
+		<p style="margin:30px auto;text-align:center;">[PHP WebSocket server]</p>
+		<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature4">
+	<p>PFCSS is a system that compile and transform it's contents with same syntax and mechanism of PlannerFw's template, the contents of a PFCSS file are some CSS mixed with PlannerFw tags, PFCSS files can be compiled and transformed without model requirement as dynamic data was defined with data presentation together. PlannerFw's pfdevelop can watch PFCSS directories and files in development environment, automatically compile and transform files that are modified by user to normal CSS file.</p>
+	<p><strong><a href="http://en.wikipedia.org/wiki/Sass_(stylesheet_language)" target="_blank">Sass</a>-like or <a href="http://en.wikipedia.org/wiki/Less_(stylesheet_language)" target="_blank">Less</a>-like mechanisms that PlannerFw implemented</strong></p>
+	<p style="margin-left:50px">Variable mechanism of dynamic CSS<p>
+	<pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-css">/* Sample of variable mechanism */
+
+&lt;!--% 
+	var clr = "#4D926F";
+	var bg = "background-color";
+	var h2 = "h2"; 
+%--&gt;
+/* Apply Variables */
+#header {
+  color: &lt;!--%= clr %--&gt;;
+}
+&lt;!--%= h2 %--&gt; { 
+  &lt;!--%= bg %--&gt;: white;
+}
+
+/* Result code of compilation and transformation */
+
+#header {
+  color: #4D926F;
+}
+h2	{ 
+  background-color: white;
+}
+	</code></pre>
+
+	<p>&nbsp;</p>
+	<p style="margin-left:50px">Mixins mechanism of dynamic CSS<p>
+	<pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-css">/* Sample of mixins mechanism */
+
+&lt;!--% 
+	function mixin(radius) {
+		radius = radius || "5px"; 
+		return  "-webkit-border-radius: " + radius + "; " +
+				"-moz-border-radius: " + radius + "; " +
+				"border-radius: "+ radius + "; ";
+	}
+%--&gt;
+#header {
+  &lt;!--%= mixin(); %--&gt; 
+}
+&lt;!--% /* Mixins with Arguments / Dynamic Mixins */ %--&gt;
+#footer {
+  &lt;!--%= mixin("10px"); %--&gt; 
+}
+
+/* Result code of compilation and transformation */
+
+#header {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+#footer {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}	
+	</code></pre>
+	<p>&nbsp;</p>
+	<p style="margin-left:50px">Nesting mechanism of dynamic CSS</p>
+	<pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-css">/* Sample of nesting mechanism */
+
+&lt;!--% 
+var nest = " \
+			#header { \
+			  h1 { \
+				font-size: 26px; \
+				font-weight: bold; \
+			  } \
+			  p { \
+				font-size: 12px; \
+				a { \
+				  text-decoration: none; \
+				} \
+				a:hover { \
+					border-width: 1px; \
+				} \
+			  } \
+			  background-color: #ccc; \
+			} \
+		";
+/* Write parsed result to output stream */ 
+&lt;!-%= planner.parseNestedCss(nest); %-&gt;
+%--&gt;
+
+/* Result code of compilation and transformation */
+
+#header {
+  background-color: #ccc;
+}
+#header h1 {
+  font-size: 26px;
+  font-weight: bold;
+}
+#header p {
+  font-size: 12px;
+}
+#header p a {
+  text-decoration: none;
+}
+#header p a:hover {
+  border-width: 1px;
+}
+	</code></pre>
+	<p>&nbsp;</p>
+	<p style="margin-left:50px">Functions mechanism of dynamic CSS</p>
+	<pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-css">/* Sample of functions mechanism */
+
+&lt;!--% 
+	/*  Arithmetic rules of CSS units calculation: 
+		2em * 3in => Error 		 
+		2em + 3em => 5em
+		2em + 3   => 5em
+		2in * 3in => 6in
+		2in * 3   => 6in
+		(3cm / 2em) * 4em => Error  
+		2in + 3cm + 2pc => Error 	 
+		3in / 2in => 1.5in
+		3in / 2   => 1.5in
+	*/
+	var fontSize = "50%";
+	var lineHeight = "10px";
+%--&gt;
+.content h3 {
+	color: #000;
+	font-size: &lt;!--%= planner.addCssUnit(planner.stripCssUnit(fontSize) * 2 + 60 , "%"); %--&gt;;
+	margin: &lt;!--%= planner.addCssUnit(planner.stripCssUnit(lineHeight) * 4); %--&gt; 0;
+}
+
+/* Result code of compilation and transformation */
+
+.content h3 {
+  color: #000;
+  font-size: 160%; 
+  margin: 40px 0; 
+}
+	</code></pre>
+	<p>&nbsp;</p>
+	<p style="margin-left:50px">Operations mechanism of dynamic CSS</p>
+	<pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-css">/* Sample of operations mechanism */
+
+&lt;!--% 
+	/* Looping operation */ 
+	for (var i = 1; i < 6; i++) {
+		&lt;!-%= 
+			".border-#" + i + "0 {" + \
+				" border: " + i + "px solid blue;" + \
+			"}" 
+		%-&gt;
+	}
+%--&gt;
+
+/* Result code of compilation and transformation */
+
+.border-#10 { 
+	border: 1px solid blue; 
+} 
+.border-#20 { 
+	border: 2px solid blue; 
+} 
+.border-#30 { 
+	border: 3px solid blue; 
+} 
+.border-#40 { 
+	border: 4px solid blue;
+} 
+.border-#50 { 
+	border: 5px solid blue; 
+}
+	</code></pre>
+	<p>&nbsp;</p>
+	<p><strong>Comparison PFCSS and LESS</strong></p>
+	<p>&nbsp;</p>
+	<p>Double ring from <a href="http://codepen.io/fixcl/pen/lvCFr" target="_blank">http://codepen.io/fixcl/pen/lvCFr</a> is a good sample of LESS, we rewrite it with PlannerFw and fix browser compatibility problems:</p>
+	<table style="margin:10px 0;line-height:50px;width:90%;font-size:.95em;">
+	<thead>
+		<tr style="background-color:#ddd;text-align:center;">
+			<th style="width:45%">Double ring with LESS</th>
+			<th>Double ring with PlannerFw</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<pre style="margin:10px 0;"><code class="language-css">
+
+@import url(http://fonts.googleapis.com/css?
+                   family=Open+Sans:700);
+
+// =========================== VAR
+@D:280px; // size control // diametro
+@R:(@D/2); // radio
+@B:(@R/8);
+@O: 0.6; // opacity
+@A: 2s; // accelerate
+
+html,
+body{
+  height: 100%;
+}
+
+.hoja{
+  color: rgb(220,220,226);
+  position:absolute;
+  top:50%; left:50%;
+  margin-left:-@R;
+  margin-top:-@R;
+  width:@D;
+  height:@D;
+  text-align:center;
+  font-family: 'Open Sans', sans-serif;
+  font-size:@R/4;
+  line-height:@D;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hoja:after, 
+.hoja:before{
+  content:"";
+  border-radius:100%;
+  position:absolute;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  transform-origin:center center;
+}
+
+.hoja:after{
+  box-shadow: inset 0 @B 0 rgba(250, 250, 0, @O),
+			  inset @B 0 0 rgba(250, 200, 0, @O),
+			  inset 0 -@B 0 rgba(250, 150, 0, @O),
+			  inset -@B 0 0 rgba(250, 100, 0, @O);
+			  
+  animation: rotar @A -0.5s linear infinite;
+}
+
+.hoja:before{
+  box-shadow: inset 0 @B 0 rgba(0, 250, 250, @O),
+			  inset @B 0 0 rgba(0, 200, 200, @O),
+			  inset 0 -@B 0 rgba(0, 150, 200, @O),
+			  inset -@B 0 0 rgba(0, 200, 250, @O);
+			  
+  animation: rotarIz @A -0.5s linear infinite;
+}
+
+@keyframes rotar{
+  0%{
+	transform:rotateZ(0deg) scaleX(1) scaleY(1);
+  }
+  
+  50%{
+	transform:rotateZ(180deg) scaleX(0.82) scaleY(0.95);
+  }
+  
+  100%{
+	transform:rotateZ(360deg) scaleX(1) scaleY(1);
+  }
+}
+
+@keyframes rotarIz{
+  0%{
+	transform:rotateZ(0deg) scaleX(1) scaleY(1);
+  }
+  
+  50%{
+   transform:rotateZ(-180deg) scaleX(0.95) scaleY(0.85);
+  }
+  
+  100%{
+	transform:rotateZ(-360deg) scaleX(1) scaleY(1);
+  }
+}
+
+
+
+
+
+
+
+			</code></pre>
+			</td>
+			<td>
+				<pre style="margin:10px 0;"><code class="language-css">&lt;!--%
+/* Setting basic variable to this dynamic CSS */
+var base = {
+  "D" :  "280px",
+  "O" : .6,
+  "A" :  "2s"
+};
+/* CSS units calculation of PlannerFw */
+var R = planner.addCssUnit(planner.stripCssUnit(base.D) / 2, "px");
+var B = planner.addCssUnit(planner.stripCssUnit(R) / 8, "px");
+/* Mixins mechanism of PlannerFw */
+function mixin1(a, b, c, d) {
+  return "inset " + a + " " + b + " 0 rgba(250, " + 
+          c + ", 0, " + d + ")";
+}
+function mixin2(a, b, c, d, e) {
+  return "inset " + a + " " + b + " 0 rgba(0, " + 
+          c + ", " + d + ", " + e + ")";
+}
+function mixin(rate, degree, scaleX, scaleY) {
+  return rate + " {" + 
+        "-webkit-transform:rotateZ("+ degree + ") scaleX("+ scaleX + 
+		") scaleY(" + scaleY + ");" + "transform:rotateZ("+ degree + 
+		") scaleX(" + scaleX + ") scaleY(" + scaleY + ");}";
+}
+%--&gt;
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700);
+html, body{
+  height: 100%;
+}
+.hoja{
+  color: #dcdce2;
+  position:absolute;
+  top:50%; left:50%;
+  margin-left: -&lt;!--%= R %--&gt;;
+  margin-top: -&lt;!--%= R %--&gt;;
+  width: &lt;!--%= base.D %--&gt;;
+  height: &lt;!--%= base.D %--&gt;;
+  text-align:center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: &lt;!--%= 
+               planner.addCssUnit(planner.stripCssUnit(R) / 4, "px")
+			 %--&gt;;
+  line-height: &lt;!--%= base.D %--&gt;;
+  -webkit-font-smoothing: antialiased;
+}
+.hoja:after, .hoja:before{
+  content:"";
+  border-radius:100%;
+  position:absolute;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  -webkit-transform-origin:center center;
+  -ms-transform-origin:center center;
+  transform-origin:center center;
+}
+.hoja:after{
+  box-shadow: &lt;!--%= mixin1(0, B, 250, base.O) %--&gt;,
+              &lt;!--%= mixin1(B, 0, 200, base.O) %--&gt;,
+              &lt;!--%= mixin1(0, "-" + B, 150, base.O) %--&gt;,
+              &lt;!--%= mixin1("-" + B, 0, 100, base.O) %--&gt;;
+  -webkit-animation: rotar &lt;!--%= base.A %--&gt; -0.5s linear infinite;
+  animation: rotar &lt;!--%= base.A %--&gt; -0.5s linear infinite;
+}
+.hoja:before{
+  box-shadow: &lt;!--%= mixin2(0, B, 250, 250, base.O) %--&gt;,
+              &lt;!--%= mixin2(B, 0, 200, 200, base.O) %--&gt;,
+              &lt;!--%= mixin2(0, "-" + B, 150, 200, base.O) %--&gt;,
+              &lt;!--%= mixin2("-" + B, 0, 200, 250, base.O) %--&gt;;
+  -webkit-animation: rotar &lt;!--%= base.A %--&gt; -0.5s linear infinite;
+  animation: rotar  &lt;!--%= base.A %--&gt; -0.5s linear infinite;
+}
+/* Standard syntax */ 
+@keyframes rotar{
+  &lt;!--%= mixin("0%", "0deg", 1, 1); %--&gt;
+  &lt;!--%= mixin("50%", "180deg", 0.82, 0.95); %--&gt;
+  &lt;!--%= mixin("100%", "360deg", 1, 1); %--&gt;
+}
+@keyframes rotarIz{
+  &lt;!--%= mixin("0%", "0deg", 1, 1); %--&gt;
+  &lt;!--%= mixin("50%", "-180deg", 0.95, 0.85); %--&gt;
+  &lt;!--%= mixin("100%", "-360deg", 1, 1); %--&gt;
+}
+/* Chrome, Safari, Opera */ 
+@-webkit-keyframes rotar {
+  &lt;!--%= mixin("0%", "0deg", 1, 1); %--&gt;
+  &lt;!--%= mixin("50%", "180deg", 0.82, 0.95); %--&gt;
+  &lt;!--%= mixin("100%", "360deg", 1, 1); %--&gt;
+}
+@-webkit-keyframes rotarIz {
+  &lt;!--%= mixin("0%", "0deg", 1, 1); %--&gt;
+  &lt;!--%= mixin("50%", "-180deg", 0.95, 0.85); %--&gt;
+  &lt;!--%= mixin("100%", "-360deg", 1, 1); %--&gt;
+}</code></pre>
+			</td>
+		</tr>
+	</tbody></table>
+	<p>&nbsp;</p>
+	<p><strong>CSS files and Session Storage</strong></p>
+	<p>PlannerFw include a group of API to retrieve external CSS files and save it to protected Session Storage, using URL of CSS files as key to interactive value in Session Storage, so user can use JavaScript to switch current CSS with contents saved in Session Storage without network connections,  PlannerFw calls it as CSS Switch. A simple example of CSS Switch is:</p>
+	<p>Put style on head of the page with PlannerFw tags at first,</p>
+	<pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-javascript">&lt;!--%=
+    /* 
+     * If CSS code is not in Session Storage then retrieving it from URL, 
+     * otherwise from Session Storage 
+     */
+    planner.importCss("/css/pfcss/pfm/a/theme-a.css")
+%--&gt;</code></pre>
+	<p>then create JavaScript code to execute CSS contents switching with "/css/pfcss/pfm/a/theme-a.css" as key,</p>
+	<pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-javascript">&lt;script type="text/javascript"&gt;
+  var num = 0;
+  function doSwitch() {
+    if (num % 2) {
+      postplanner.switchCssByUrl("/css/pfcss/pfm/a/theme-a.css", "/css/pfcss/pfm/a/theme-a.css");
+    } else {
+      postplanner.switchCssByUrl("/css/pfcss/pfm/a/theme-a.css", "/css/pfcss/pfm/b/theme-b.css");
+    }
+  num += 1;
+}
+&lt;/script&gt;	</code></pre>
+	<p>last call switching function writeCalendar() at the place you want.</p>
+	<img src="/images/pfm/theme-switch.jpg" alt="CSS Switch" height="493" width="800" style="position: relative; margin-top:30px;margin-bottom:30px;left:50%;margin-left:-400px;max-width:800px;">
+	<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature5">	
+	<p><b>Model member encryption/decryption</b></p>
+	<p>&nbsp;</p>
+	<p>If data member name includes "__pfenc" in the end, page processor would consider its value was encrypted by PlannerFw's encryption mechanisms, automatically start decryption processes to replace the value with decrypted value and remove "__pfenc" suffix from name if passed encryption successfully. data type of model member has to be one of string, number, boolean and null to apply this feature, if value is an object, convert it to a string then encrypt it, Page processor would reset string back to object after decrypted the value automatically, so this feature could be applied to all JSON members. Some samples of model member encryption/decryption,</p>
+	<table style="margin:10px 20px;line-height:30px;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;width:96%;">
+	<thead>
+		<tr style="background-color:#ddd;line-height:60px;">
+			<th style="width:15%">&nbsp; Name</th>
+			<th style="width:45%">&nbsp; Value</th>
+			<th style="width:10%">&nbsp; Result name</th>
+			<th style="width:30%">&nbsp; Result value</th>
+		</tr>
+	</thead>
+    <tbody>
+		<tr>
+			<td>"member84__pfenc"</td>
+			<td> "djBhBH1BbjFmdmo3LkEaAE90dh0YDgErPj0WC1drUho4OQkOBmh0Vj08IxZTWmAtIx8ZIDdSAGkCLH9GfU0DKXIEfTcgAABSJAwWS1hoKjkeF1sHcXxFc1cyWhNGexxAU0YNAjUbXWhiQy0pVXNgcg8GbWFEamRgU3x3ACNTQn5FVEQvZQlhCl4qVXoReQkBfBx3S2FFMDEPVVNxDDB2Z1YWDwVOcVshMhMEWFNhQ1JmC0EqIgomHhtYPjA="</td>
+			<td>"member84"</td>
+			<td style="padding-right:10px">"NASA's Terra satellite passed over Karina in the eastern Pacific &lt;br&gt; Ocean on Aug. 14 at 2:40 pm. EDT when it was still a hurricane"</td>
+		</tr>
+		<tr>
+			<td>"member82__pfenc"</td>
+			<td>"bBlXYGpDKDcqJzFGeQMKEwUxKEtLSgIoKnFQXhgsDxo8Ll9ZUiIwAyBvdFQCADVDcF0cLywOF2tbJjUTaAtbYXIEfXcERVEOY0cLP019fX9PNRcmY2swYUFIeURbfHwgV1MDUnVDBmgVS2d/SWQSAV8kdGFOGHBtRmsCVnJOMms1SVIraRwGD0sYC3FxcxwGfm1qTnR3bHEjMUR5U2EWY0NZWVNScU4XcV9QdlNqRA=="</td>
+			<td>"member82"</td>
+			<td style="padding-right:10px">"The quick brown fox jumped over the lazy dog - 敏捷的棕色狐狸跳过了懒狗"</td>
+		</tr>
+		<tr>
+			<td>"member87__pfenc"</td>
+			<td>"HURwYGpBPislYR9VbnJYRCgFYytMXyYEd2wkS0BrR1gab0hbR390DCItYyFATRFWZy8zaxNCFxsoZ2IyaAtZaWV1aGBxVkYFPBJWHk19fX82QRcmF2swY0Eze0RbDnxXU1NwInVIA2hiQTIpF2QVBV8gc2E0GXARQ2sFInJONmtFQ1JcEhx2CEtoCiBdLRwBDm0TSXRwG3EkRUQDJmFrE0NTXFNeBw=="</td>
+			<td>"member87"</td>
+			<td style="padding-right:10px">["gif格式", "jpg格式", "jpeg格式", "png格式", "tif格式"]</td>
+		</tr>
+		<tr>
+			<td>"image__pfenc"</td>
+			<td>"HUZwYGpBKjAgYWhRbgApRFh2Y1xLX1YBOzkDCRcqR1gfIRsZCyMnOSE%2BKRYbWX4MMgpVfGRSABpOcGpRfwsKICNlPzFkQUYSZSMWS1gdeWgfBUYUcX00c1Y3HVMlJTwBCBdsBCUIViYxHyc1BG8%2FQR1EcQIbLzkgHyMiBT4XLz4FHhNLY380TQx%2FChJDLlthCg5lTmkAawsWFQNvDzQ0cFRTS0Ev"
+			</td>
+			<td>"image"</td>
+			<td style="padding-right:10px">{"src": "/images/pfm/karina_storm1.jpg", "altSrc": "http://media.eurekalert.org/multimedia_prod/pub/web/77823_web.jpg"}</td>
+		</tr>
+	</tbody></table>	
+	<p>&nbsp;</p>
+	<p><b>Model member check</b></p>
+	<p>&nbsp;</p>
+	<p>If data member name includes "__pfcrc" in the end and its value is an array with two elements, page processor would consider the second element would be a 32-bits CRC checksum to the first element, automatically start to calculate checksum of the first element and compare it with the second elements in array, and remove "__pfcrc" suffix from name if passed comparison. data type of model member has to be string or number to apply this feature.  Some samples of model member check,</p>
+	<table style="margin:10px 20px;line-height:30px;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;width:96%;">
+	<thead>
+		<tr style="background-color:#ddd;line-height:60px;">
+			<th style="width:15%">&nbsp; Name</th>
+			<th style="width:45%">&nbsp; Value</th>
+			<th style="width:10%">&nbsp; Result name</th>
+			<th style="width:30%">&nbsp; Result value</th>
+		</tr>
+	</thead>
+    <tbody>
+		<tr>
+			<td>"member62__pfcrc"</td>
+			<td style="padding-right:10px">["/images/pfm/karina_storm1.jpg", "1856105291"]</td>
+			<td>"member62"</td>
+			<td style="padding-right:10px">"/images/pfm/karina_storm1.jpg"</td>
+		</tr>
+		<tr>
+			<td>"member64__pfcrc"</td>
+			<td style="padding-right:10px">["The quick brown fox jumped over the lazy dog - 敏捷的棕色狐狸跳过了懒狗", "1520042642"]</td>
+			<td>"member64"</td>
+			<td style="padding-right:10px">"The quick brown fox jumped over the lazy dog - 敏捷的棕色狐狸跳过了懒狗"</td>
+		</tr>
+		<tr>
+			<td>"member66__pfcrc"</td>
+			<td style="padding-right:10px">["Le rapide renard brun sauta par dessus le chien paresseux - Быстрая коричневая лиса прыгает через ленивую собаку", "2728971735"]</td>
+			<td>"member66"</td>
+			<td style="padding-right:10px">"Le rapide renard brun sauta par dessus le chien paresseux - Быстрая коричневая лиса прыгает через ленивую собаку"</td>
+		</tr>
+		<tr>
+			<td>"member68__pfcrc"</td>
+			<td style="padding-right:10px">["float: left; width: 100%; background: #333;", "2064493575"]</td>
+			<td>"member68"</td>
+			<td style="padding-right:10px">"float: left; width: 100%; background: #333;"</td>
+		</tr>
+	</tbody></table>
+	<p>&nbsp;</p>
+	<p><b>Model member validation</b></p>
+	<p>&nbsp;</p>
+	<p>If data member name includes "__pfvld" in the end and its value is an array with two elements, the second element in array is an object with "type" property or "type" and "constraint" properties, page processor would consider the second element would be validating conditions to the first element, automatically start to validate data type of the first element and remove "__pfvld" suffix from name if validation is matched. data type of model member has to be one of string, number, boolean or null to apply this feature. Member validation will not work with XML data model as PlannerFW may change data type at the time that converts XML data model to JSON data model.</p>
+	<p>Some samples of model member check</p>
+	<table style="margin:10px 20px;line-height:30px;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;width:96%;">
+	<thead>
+		<tr style="background-color:#ddd;line-height:60px;">
+			<th style="width:15%">&nbsp; Name</th>
+			<th style="width:45%">&nbsp; Value</th>
+			<th style="width:10%">&nbsp; Result name</th>
+			<th style="width:30%">&nbsp; Result value</th>
+		</tr>
+	</thead>
+    <tbody>
+		<tr>
+			<td>"member30__pfvld"</td>
+			<td>["Sunny", {"type": "str", "constraint":<br> {"enums": ["Rainy", "Sunny", "Cloudy", "Windy"]}<br>}]</td>
+			<td>"member30"</td>
+			<td>"Sunny"</td>
+		</tr>
+		<tr>
+			<td>"member35__pfvld"</td>
+			<td>["3.1415", {"type": "fltnum",<br>"constraint": {"minInc": 3.14, "maxInc": 3.1415}<br>}]</td>
+			<td>"member35"</td>
+			<td>"3.1415"</td>
+		</tr>
+		<tr>
+			<td>"member50__pfvld"</td>
+			<td>["5385566611108568", {"type": "tokstr",<br> "constraint": {"pattern": /^5[1-5][0-9]{14}$/g}<br>}]</td>
+			<td>"member50"</td>
+			<td>"5385566611108568"</td>
+		</tr>
+		<tr>
+			<td>"member10__pfvld"</td>
+			<td>["Karina在8月14日越过卡琳娜时它还是一个飓风", <br> {"type": "unistr"}]</td>
+			<td>"member10"</td>
+			<td>"Karina在8月14日越过卡琳娜时它还是一个飓风"</td>
+		</tr>
+		<tr>
+			<td>"member5__pfvld"</td>
+			<td>["UGxhbm5lciBmcmFtZXdvcms=", <br> {"type": "b64str"}]</td>
+			<td>"member5"</td>
+			<td>"UGxhbm5lciBmcmFtZXdvcms="</td>
+		</tr>
+	</tbody></table>
+	<p>&nbsp;</p>
+	<p>Data type and its label of validation</p>	
+	<table style="margin:10px 50px;line-height:30px;width:90%;">
+	<thead>
+		<tr style="background-color:#ddd;line-height:60px;">
+			<th style="width:35%">&nbsp; Data type </th>
+			<th style="width:15%">&nbsp; Label</th>
+			<th style="width:50%">&nbsp; Examples or Comments</th>
+		</tr>
+	</thead>
+    <tbody>
+		<tr><td>String</td><td>str</td><td>default JSON member type</td></tr>
+		<tr><td>Number string</td><td>numstr</td><td>"1234.56789", "89.451"</td></tr>
+		<tr><td>Integer string</td><td>intstr</td><td>"127", "8"</td></tr>
+		<tr><td>Float string</td><td>fltstr</td><td>"3.14", "10.52"</td></tr>
+		<tr><td>Empty string</td><td>empstr</td><td>"", ''</td></tr>		
+		<tr><td>Exponential number string</td><td>expstr</td><td>"5.827e+3"</td></tr>
+		<tr><td>Hexadecimal number string</td><td>hexstr</td><td>"0x60a2fb"</td></tr>
+		<tr><td>Octal number string</td><td>octstr</td><td>"03571040"</td></tr>
+		<tr><td>Binary number string</td><td>binstr</td><td>"11000010100"</td></tr>
+		<tr><td>Date or datetime string</td><td>datstr</td><td>"October 13, 2014 11:13:00" </td></tr>
+		<tr><td>Regular expression string</td><td>regstr</td><td>"/^[a-z0-9_-]{6,18}$/gi"</td></tr>
+		<tr><td>URL encoded string</td><td>uecstr</td><td>"PlannerFw%20CE"</td></tr>
+		<tr><td>Token string</td><td>tokstr</td><td>"5385566611108568"</td></tr>				
+		<tr><td>Normalized string</td><td>nrmstr</td><td>string without line feeds, carriage returns, and tab characters</td></tr>
+		<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		<tr><td>JSON string</td><td>jsnstr</td><td>'{"a":[5,3,1],"b":"test"}'</td></tr>
+		<tr><td>Base64 encoded string</td><td>b64str</td><td>"UGxhbm5lciBmcmFtZXdvcms="</td></tr>
+		<tr><td>ASCII string</td><td>ascstr</td><td>"Karina in the eastern Pacific"</td></tr>
+		<tr><td>Unicode string</td><td>unistr</td><td>"Karina在8月14日越过卡琳娜时它还是一个飓风"</td></tr>
+		<tr><td>Email string</td><td>emlstr</td><td>"plannerfw@gmail.com"</td></tr>
+		<tr><td>Absolute URL string</td><td>urlstr</td><td>"http://en.wikipedia.org/wiki/JSON"</td></tr>
+		<tr><td>CSS color string</td><td>clrstr</td><td>"#ccc", "#cccccc", "rgb(255,0,0)"</td></tr>
+		<tr><td>CSS length string</td><td>lenstr</td><td>"30px", "25pt", "15mm"</td></tr>
+		<tr><td>CSS angle string</td><td>angstr</td><td>"45deg", "400grad"</td></tr>
+		<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		<tr><td>Number</td><td>num</td><td>default JSON member type</td></tr>
+		<tr><td>Integer</td><td>intnum</td><td>-1, 0, -1</td></tr>
+		<tr><td>Positive Integer</td><td>posnum</td><td>1, 10, 100</td></tr>
+		<tr><td>Negative Integer</td><td>negnum</td><td>-1, -5, -10</td></tr>
+		<tr><td>Non Positive Integer</td><td>npsnum</td><td>0, -1, -5</td></tr>
+		<tr><td>Non Negative Integer</td><td>nngnum</td><td>0, 1, 5</td></tr>
+		<tr><td>Float</td><td>fltnum</td><td>3.1415</td></tr>
+		<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		<tr><td>Boolean</td><td>bln</td><td>default JSON member type</td></tr>
+		<tr><td>true</td><td>trubln</td><td></td></tr>
+		<tr><td>false</td><td>flsbln</td><td></td></tr>
+		<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		<tr><td>null</td><td>nul</td><td>default JSON member type</td></tr>
+	</tbody></table>
+	<p>&nbsp;</p>
+	<p>Data constraints and its labels of validation</p>
+	<table style="margin:10px 50px;line-height:40px;width:90%;">
+	<thead>
+		<tr style="background-color:#ddd;line-height:60px;">
+			<th style="width:35%">&nbsp; Data constraints</th>
+			<th style="width:15%">&nbsp; Label</th>
+			<th style="width:50%">&nbsp; Comments</th>
+		</tr>
+	</thead>
+    <tbody>
+		<tr><td>maxExclusive</td><td>maxExc</td><td>number</td></tr>
+		<tr><td>minExclusive</td><td>minExc</td><td>number</td></tr>
+		<tr><td>maxInclusive</td><td>maxInc</td><td>number</td></tr>
+		<tr><td>minInclusive</td><td>minInc</td><td>number</td></tr>
+		<tr><td>totalDigits</td><td>totalDigi</td><td>a positive Integer</td></tr>
+		<tr><td>fractionDigits </td><td>fractDigi</td><td>a float number</td></tr>
+		<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		<tr><td>length</td><td>length</td><td>string</td></tr>
+		<tr><td>maxLength</td><td>maxLen</td><td>string</td></tr>
+		<tr><td>minLength</td><td>minLen</td><td>string</td></tr>
+		<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		<tr><td>pattern</td><td>pattern</td><td>a regular expression</td></tr>
+		<tr><td>enumeration</td><td>enums</td><td>a specified set of values</td></tr>
+	</tbody></table>
+	<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature6">
+    <p>PlannerFw defined two error levels or types from catchable JavaScript errors, all PlannerFw's error levels include:</p>
+	<table style="margin:10px 50px;line-height:40px;width:90%;">
+	<thead>
+		<tr style="background-color:#ddd;text-align:center;">
+			<th style="width:10%">Error Level</th>
+			<th style="width:20%">Error Level Name</th>
+			<th style="width:70%">Comments</th>
+		</tr>
+	</thead>
+    <tbody>
+		<tr><td>0</td><td>Uncatchable errors</td><td>Errors that can't be catched by try...catch statements but can be handled by window.onerror, for example, try { :( } catch(e) { }</td></tr>
+		<tr><td>1</td><td>Other catchable errors</td><td>Other catchable errors except Catchable warning and catchable information</td></tr>
+		<tr><td>2</td><td>Catchable warning</td><td>Catched PlannerFw errors belong to PlannerFw warning</td></tr>
+        <tr><td>3</td><td>Catchable information</td><td>Catched PlannerFw errors belong to PlannerFw information</td></tr>
+	</tbody></table>
+	<p>&nbsp;</p>
+    <p>PlannerFw error handling include</p>
+    <div style="margin:50px 50px;">
+        <p>Catchable information would be printed to the browser console only.</p>
+        <p>In production status, PlannerFw would print all catchable warning to the browser console, continuously processes.</p>
+        <p>In testing status, PlannerFw would print all catchable warning to the page that pfConfig.clientErrorHandler represents, then stop further processes</p>
+        <p>In testing status, PlannerFw would print all catchable warning to the current screen, then stop further processes.</p>
+        <p>PlannerFw uses window.onerror to print other catchable errors and uncatchable errors to the page that pfConfig.clientErrorHandler represents, then stop further processes. If PlannerFw is in production status, web server would write client errors and user information to the log.</p>        
+    </div>
+    <p>PlannerFw APIs and error levels</p>
+    <div style="margin:50px 50px;">
+        <p>PlannerFw APIs with catchable information: hex2DecColor, dec2HexColor and addCssUnit</p>
+        <p>PlannerFw APIs with catchable warning: pfEncryption, pfDecryption, pfCheckCrc,  secureModel and checkEnvironment</p>
+        <p>PlannerFw APIs with other catchable errors: responseJsonEncode, checkResponseData, checkAllowedRequest and checkEnvironment</p>
+    </div>  
+	<p>The sources that generates other catchable errors and uncatchable errors include</p>
+	<div style="margin:50px 50px;">
+        <p>Retrieve model, get template, parse template configuration, access WebSocket, convert XML data model to JSON data model, model decryption, generate result code from template and model, error transferred by model properties "errorLevel" and "errorMessage" from server to client.</p>
+   		<p>JavaScript errors: Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError and URIError.</p>
+	</div>
+	<p>&nbsp;</p>
+	</div>
+	
+    <div id="feature60">
+    <p>PlannerFw raw template is a HTML file or a HTML code snippet include PlannerFw tags, raw template could be automatically compiled into JavaScript file by PlannerFw Preprocessor, raw templates include single-page template, section template and layout template,layout template uses planner. section method to connect each section templates, a section template represents a part of html page. siteroot/layout/layout.json is a configuration file for setting relationship of a layout and its section templates.</p>
+    <p><b>Some rules of PlannerFw raw templates include:</b></p>
+    <div style="margin:30px 60px;">
+        <p>Raw template does not include any PlannerFw tag, a general html file could be considered as a raw template.</p>
+        <p>Single-page templates and raw section templates would be stored in one or multiple modules in siteroot/template folder, layout templates would be stored in siteroot/layout folder.</p>
+        <p>If a raw section template does not include any PlannerFw tags, then related first parameter of planner.section in raw layout could be "", {} or null, and there is no data required for it from model.</p>
+        <p>PlannerFw Preprocessor only processor file with size greater than 10 bytes and less than 1MB</p>
+        <p>The web browser renders raw template with and without PlannerFw tags in same results because PlanenrFw tags belong to HTML comment, web browser and HTML editor would not parse them.</p>
+        <p>There is configuration required for single-page templates.</p>
+        <p>PFCSS have similar features of raw templates, and PFCSS is specific for CSS processing.</p>
+    </div>
+    
+    <p><b>Using template and layout template in PlannerFw</b></p>
+    <p>There are two ways to use a template or a layout template in PlannerFw, the first way is that client assigns a template URL or a layout template URL as query string parameter in the request, the second way is that server assigns a template URL or a layout template URL to contents of be-index.html in the response when request without a template URL assigned, if request with a template URL assigned, server can transfer the template URL from the request to contents of be-index.html in the response. A typical scenario is that PlannerFw takes over server-side MVC framework, actions of the framework controller always output model and a template URL or a layout template URL as JavaScript variable in contents of be-index.html, in this scenario the server output contents of be-index.html instead of template or layout template because of PlannerFw's Data and presentation separated rule: There is no response including model and template contents together, model and template contents can not be output in one same response.</p>
+    <p>&nbsp;</p>
+    
+    <p><b>An example of raw layout template</b></p>
+		<p>&nbsp;</p>
+		<pre class="line-numbers" style="margin:20px 30px;white-space:pre-wrap;word-wrap:break-word;max-width:1030px;"><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta http-equiv="Cache-control" content="max-age=0"&gt;
+&lt;meta http-equiv="Cache-control" content="no-cache"&gt;
+&lt;meta http-equiv="Cache-Control" content="must-revalidate"&gt;
+&lt;meta http-equiv="Pragma" content="no-cache"&gt;
+&lt;meta http-equiv="Expires" content="-1"&gt;
+&lt;title&gt;PlannerFw Exec Demo&lt;/title&gt;
+ 
+&lt;!--
+
+  Copyright 2015-2016 W3plan Technologies, http://w3plan.net
+  
+--&gt;
+
+&lt;link type="text/css" href="/css/pfcss/pfm/b/double-ring.css" rel="stylesheet" &gt;
+
+&lt;!--%= 
+  /* If CSS code is not in Session Storage then saving it from URL to Session Storage */
+  planner.loadCss("/css/pfcss/pfm/b/theme-b.css")
+%--&gt;
+
+&lt;!--%= 
+  /* 
+   * If CSS code is not in Session Storage then saving it from URL to Session Storage then 
+   * output style tag that includes css code in current position 
+   */
+  planner.importCss("/css/pfcss/pfm/a/theme-a.css")
+%--&gt;
+
+&lt;script type="text/javascript" src="/js/pfm/import-and-load-sample.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript" src="/app/lib/postprocessor.min.js"&gt;&lt;/script&gt;
+
+&lt;!--%= 
+  /* 
+   * section method only be used by PlannerFw output tag 
+   * the first parameter is JSON object from model, if raw-template file 
+   * without PlannerFw tags, it could be "", {} or null. The second parameter
+   * is a raw-template file that was described by layout.json
+   *
+   */
+  planner.section(pfDataSet.pfSet1, "/template/pfm/a/section/s-head.html")
+%--&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;div id="container"&gt;
+  &lt;div id="header"&gt;
+    &lt;div style="float:left;"&gt;
+    &lt;img id="header_img" src="/app/plannerfw-logo.jpg" alt="Header image" width="120" height="60"
+        style="padding:1px;border:1px solid #C0C0C0;cursor:crosshair;" title=" PlannerFw Logo "&gt;
+    &lt;/div&gt;
+    &lt;div class="clock" id="clocktxt"&gt;&lt;/div&gt;
+    &lt;h2&gt;PlannerFw Exec Demo - Multiple sections model&lt;/h2&gt;
+  &lt;/div&gt;
+  &lt;script type="text/javascript"&gt;
+    startTime();
+  &lt;/script&gt;
+  &lt;div id="navigation"&gt;
+    &lt;ul&gt;
+      &lt;li id="tool1" onclick="showHomeEn()"&gt;Single-byte-charaset&lt;/li&gt;
+      &lt;li id="tool2" onclick="showHomeCn()"&gt;Multi-byte-charaset&lt;/li&gt;
+      &lt;li id="tool4" onclick="showHomeRet()"&gt;PostProcessor&lt;/li&gt;
+      &lt;li id="tool5" onclick="showDcss()"&gt;PFCSS&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+  
+  &lt;!--%= 
+    /* one output tag can not include more then one section method */ 
+    planner.section(pfDataSet.pfSet2, "/template/pfm/a/section/s-lang-en.html");
+  %--&gt;
+  
+  &lt;!--%= planner.section(pfDataSet.pfSet3, '/template/pfm/a/section/s-lang-cn.html') %--&gt;
+  
+  &lt;div id="dynamic-css" class="content about-off"&gt;
+    &lt;div class="hoja"&gt;PlannerFw&lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div id="about-content" class="content about-off"&gt;
+    &lt;div class="inner-content"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id="footer"&gt;
+  Copyright 2015 - &lt;script&gt;document.write(new Date().getFullYear())&lt;/script&gt; 
+  &lt;a href="http://w3plan.net/" target="_blank"&gt;
+    &lt;img class="w3planIcon" src="/images/w3plan-logo-small.png" width="25" height="15"&gt;
+  &lt;/a&gt; W3plan Technologies
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    <p>&nbsp;</p>
+	</div>
+    
+	<div id="feature71">
+		<p><b>Construction APIs of Processor</b></p>
+		<p>&nbsp;</p>
+		
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">importCss(url)</p>
+			<p>This method except executing loadCss would output style tag with key as id and value as contents of style, if key can not be found from Session Storage, then output a link tag with url as value of href.</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>url</td><td>string</td><td>URL or URL path to retrieve CSS files</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; HTML link tag with url as value of href</p>	
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">loadCss(url)</p>
+			<p>Processor use this method to retrieve external CSS file and use url as key to check Session Storage weather it exist in Session Storage, if does not exist then save url and css code as key/value pair to Session Storage</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>url</td><td>string</td><td>URL or URL path to retrieve CSS files</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; Empty string</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">loadPostProcessor()</p>
+			<p>Load postprocessor library</p>
+			<p>Return: string &nbsp; HTML script tag to load Post-Processor library</p>	
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">section(mdl, tml)</p>
+			<p>A dummy function that is used in layout template</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>mdl</td><td>object|string|number|boolean|null</td><td>An JSON member value</td>
+				</tr>
+				<tr>
+					<td>tml</td><td>string</td><td>Raw template</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; Empty string</p>	
+			<p>&nbsp;</p>
+		</div>		
+		<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature72">
+		<p><b>XML-JSON APIs of Processor</b></p>
+		<p>&nbsp;</p>
+		
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">string2Xml(xmlStr)</p>
+			<p>Convert XML string into XML document object</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>xmlStr</td><td>string</td><td>An XML string</td>
+				</tr>
+			</tbody></table>
+			<p>Return: object &nbsp; An XML document object</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">xml2String(xmlObj)</p>
+			<p>Convert XML document object into serialized string</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>xmlObj</td><td>object</td><td>An XML document object</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; A serialized string</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">xml2Json(xmlObj, verbosity, nesteAttr)</p>
+			<p>Convert XML document object into JSON</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>xmlObj</td><td>object</td><td>An XML document object</td>
+				</tr>
+				<tr>
+					<td>verbosity</td><td>integer</td><td>An optional verbosity level of conversion</td>
+				</tr>
+				<tr>
+					<td>nesteAttr</td><td>boolean</td><td>True to nest attributes as value to keyAttrs, default is false</td>
+				</tr>
+			</tbody></table>
+			<p>Return: object &nbsp; A JSON</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">json2Xml(obj, namespaceURI, qualifiedName, documentType)</p>
+			<p>Convert JSON into XML document object</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>obj</td><td>object</td><td>A JSON</td>
+				</tr>
+				<tr>
+					<td>namespaceURI</td><td>string</td><td>A optional namespace URI to XML document</td>
+				</tr>
+				<tr>
+					<td>qualifiedName</td><td>string</td><td>A optional prefix to root node of XML document</td>
+				</tr>
+				<tr>
+					<td>documentType</td><td>object</td><td>A optional XML documentType object</td>
+				</tr>
+			</tbody></table>
+			<p>Return: object &nbsp; An XML document object</p>
+			<p>&nbsp;</p>
+		</div>		
+		<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature73">		
+		<p><b>PFCSS APIs of Processor</b></p>
+		<p>&nbsp;</p>
+		
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">addCssUnit(expression, unit)</p>
+			<p>Return CSS amount and unit in success, or return "0" and print error message to browser console if failed</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>expression</td><td>expression</td><td>An JavaScript expression</td>
+				</tr>
+				<tr>
+					<td>unit</td><td>string</td><td>A option of CSS unit, default unit with px</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; CSS amount and unit or "0"</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">dec2HexColor(expression)</p>
+			<p>Return color hexadecimal value in success, or return #fff and print error message to browser console if failed</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>expression</td><td>expression</td><td>An JavaScript expression</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; Formatted color hexadecimal value or $fff</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">hex2DecColor(hexColor)</p>
+			<p>Return color decimal value in success, or return 0 and print error message to browser console if failed</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>hexColor</td><td>string</td><td>Color hexadecimal value</td>
+				</tr>
+			</tbody></table>
+			<p>Return: number &nbsp; Formatted color decimal value or 0</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">isHexColor(color)</p>
+			<p>Return true if color is hexadecimal value, false if it is not</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>color</td><td>string</td><td>CSS color value</td>
+				</tr>
+			</tbody></table>
+			<p>Return: boolean &nbsp; true or false</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">parseNestedCss(cssStr, option)</p>
+			<p>Parse generic nesting mechanism to CSS code</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>cssStr</td><td>string</td><td>Nesting CSS code under a root node</td>
+				</tr>
+				<tr>
+					<td>option</td><td>string</td><td>A option object with minified property, default value: {minified: true}</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; CSS code without nesting</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">prettyCss(cssStr)</p>
+			<p>Output pretty CSS code</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>cssStr</td><td>string</td><td>Compact CSS code</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; CSS code</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">stripCssUnit(num)</p>
+			<p>Strip CSS unit to do unit calculation. Supported CSS units including cm, in, mm, pc, pt, ch, em, ex, gd, px, rem, vh, vw, vm, deg, grad, rad, turn, ms, s, hz and khz</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>num</td><td>string</td><td>CSS amount and unit</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp;  CSS amount</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">getRemainedStorage()</p>
+			<p>Return size of Session Storage is able to stored new key/value pairs</p>
+			<p>Return: number &nbsp;  Integer or 0 if there is no JavaScript, CSS and HTML contents stored</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">getStoredValue(url, maxAge)</p>
+			<p>Get stored value from related URL and keeping stored time in maximum seconds if maxAge applied</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody> 
+				<tr>
+					<td>url</td><td>string</td><td>URL or URL path to retrieve CSS files</td>
+				</tr>
+				<tr>
+					<td>maxAge</td><td>number</td><td>Optional maximum seconds to store key/value pairs in Session Storage</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp;  Stored value by PlannerFw or null if failed</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">getUrlStorageSize()</p>
+			<p>Return size of all key/value pairs in Session Storage</p>
+			<p>Return: number &nbsp;   Integer or -1 if there is no JavaScript, CSS and HTML contents stored</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">removeAllCollections()</p>
+			<p>Deletes all key/value pairs related with remote JavaScript, CSS and HTML files from Session Storage</p>
+			<p>Return: boolean &nbsp;  True at success or false if failed</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">removePartCollections(urls)</p>
+			<p>Converts URL string or array to key or key array, then deletes result key/value pairs in Session Storage</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody> 
+				<tr>
+					<td>urls</td><td>string or object</td><td>A string or array of URLs</td>
+				</tr>
+			</tbody></table>
+			<p>Return: boolean &nbsp;  True at success or false if failed</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">searchStoredKeys(regexp)</p>
+			<p>Return a object that contains key/related-URL pairs in Session Storage</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody> 
+				<tr>
+					<td>regexp</td><td>string or object or void</td><td>A regular expression object, a string will be converted to a regular expression object, or no parameter</td>
+				</tr>
+			</tbody></table>
+			<p>Return: object &nbsp;  An object of key/related-URL pairs. Returns empty object if no match is not found.</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">searchStoredValues(regexp)</p>
+			<p>Return a object that contains URL/content pairs in Session Storage</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody> 
+				<tr>
+					<td>regexp</td><td>string or object</td><td>A regular expression object, or a string will be converted to a regular expression object</td>
+				</tr>
+			</tbody></table>
+			<p>Return: object &nbsp;  An object of URL/content pairs. Returns empty object if no match is not found.</p>
+			<p>&nbsp;</p>
+		</div>		
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">updateUrlStorage(url, value)</p>
+			<p>Saves URL or URL path as key and related file content as value to Session Storage</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody> 
+				<tr>
+					<td>url</td><td>string</td><td>URL or URL path to retrieve JavaScript, CSS and HTML files</td>
+				</tr>
+			</tbody></table>
+			<p>Return: boolean &nbsp;  True at success or false if failed</p>
+			<p>&nbsp;</p>
+		</div>
+		
+		<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature74">
+		<p><b>Other Processor APIs</b></p>
+		<p>&nbsp;</p>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">checkAllowedRequest(requ)</p>
+			<p>Return true if request URL in allowed hosts otherwise show error message and stop processing</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>requ</td><td>string</td><td>Request URL</td>
+				</tr>
+			</tbody></table>
+			<p>Return: boolean &nbsp; </p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">checkEnvironment()</p>
+			<p>Check browser whether supports JSON, XMLHttpRequest and Cookie</p>
+			<p>Return: undefined &nbsp; </p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">checkResponseData(pfResp)</p>
+			<p>Check HTTP response data is received and data formats are legal otherwise show error message and stop processing</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>pfResp</td><td>JSON</td><td>HTTP response data</td>
+				</tr>
+			</tbody></table>
+			<p>Return: boolean &nbsp; Return true if success</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">crc32CheckSum(str, radix)</p>
+			<p>Calculates a string's CRC32 checksum to check data integrity of stored data to see whether the data has been modified or changed and returns as a hexadecimal string</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>str</td><td>string</td><td>A string in Latin1 (ISO8859-1) character set</td>
+				</tr>
+				<tr>
+					<td>radix</td><td>string</td><td>10 or 16, it can be omitted</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; A decimal string if radix is 10 otherwise a hexadecimal string</p>
+			<p>&nbsp;</p>
+		</div>
+       <div style="margin:30px 50px;">
+			<p style="margin-left:-25px">errorHandler(errorLevel, errorMsg)</p>
+			<p>Show error message with Planner's error handler</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>errorLevel</td><td>string</td><td>PlannerFw defined error level from 0 to 3</td>
+                    <td>errorMsg</td><td>string</td><td>Error message</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; Escaped string</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">escapeRegExp(str)</p>
+			<p>Escape regular expression string</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>str</td><td>string</td><td>Regular expression</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; Escaped string</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">minimizeCode(str)</p>
+			<p>Minimized code by strip white spaces and line breaks</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>str</td><td>string</td><td>Code to minimize</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; Minimized code</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">omitProtocol(url)</p>
+			<p>Omit protocol from an URL</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>url</td><td>string</td><td>A request UR</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; An URL without protocol portion</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">pfCheckCrc(val, csm, Msg)</p>
+			<p>Check data weather matching gave CRC32 checksum, if does not match PlannerFw show error message and stop processing</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>val</td><td>string</td><td>Original data</td>
+				</tr>
+				<tr>
+					<td>csm</td><td>string</td><td>decimal string of CRC32 checksum</td>
+				</tr>
+				<tr>
+					<td>msg</td><td>string</td><td>Error message</td>
+				</tr>
+			</tbody></table>
+			<p>Return: boolean &nbsp;  True</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">pfDecryption(str, pword)</p>
+			<p>Decrypt data and return result</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>str</td><td>string</td><td>Plain text</td>
+				</tr>
+				<tr>
+					<td>pword</td><td>string</td><td>Optional password for encryption</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp;  cypher text</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">pfEncryption(str, pword)</p>
+			<p>Encrypt data and return result</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>str</td><td>string</td><td>PlannerFw encrypted data</td>
+				</tr>
+				<tr>
+					<td>pword</td><td>string</td><td>Optional password for decryption</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp;  plain text</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">responseJsonEncode(rdata)</p>
+			<p>Return encoded JSON otherwise show error message and stop processing</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>rdata</td><td>string or object</td><td>A string or JSON object</td>
+				</tr>
+			</tbody></table>
+			<p>Return: object &nbsp; A JSON</p>
+			<p>&nbsp;</p>
+		</div>		
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">secureMode(jdata)</p>
+			<p>Strip type notations and return true if all JSON members are legal types otherwise show error message and stop processing</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>jdata</td><td>object</td><td>An JSON</td>
+				</tr>
+			</tbody></table>
+			<p>Return: undefined &nbsp; </p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">tab2Space(str)</p>
+			<p>Convert tabs in CSS code into spaces</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>str</td><td>string</td><td>CSS code</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; CSS code</p>
+			<p>&nbsp;</p>
+		</div>
+		<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature75">
+		<p><b>Postprocessor APIs</b></p>
+		<p>&nbsp;</p>
+		<p>Postprocessor APIs are APIs that would be used in result page that was generated by PlannerFw, you could use Postprocessor APIs to access CSS contents in Session Storage, switch style with contents from Session Storage, and access external files over HTTP or WebSocket.</p>
+		<p>&nbsp;</p>
+        <div style="margin:30px 50px;">
+			<p style="margin-left:-25px">errorHandler(errorLevel, errorMsg)</p>
+			<p>Show error message with Planner's error handler</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>errorLevel</td><td>string</td><td>PlannerFw defined error level from 0 to 3</td>
+                    <td>errorMsg</td><td>string</td><td>Error message</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; Escaped string</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">crc32CheckSum(str, radix)</p>
+			<p>Calculates a string's CRC32 checksum to check data integrity of stored data to see whether the data has been modified or changed and returns as a hexadecimal string</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>str</td><td>string</td><td>A string in Latin1 (ISO8859-1) character set</td>
+				</tr>
+				<tr>
+					<td>radix</td><td>string</td><td>10 or 16, it can be omitted</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; A decimal string if radix is 10 otherwise a hexadecimal string</p>
+			<p>Note: It is a same API in Processor Library</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">getQueryData(data)</p>
+			<p>Prepare data to send to server for httpRequest and wsRequest</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th style="width:50px">&nbsp; Name &nbsp;</th><th style="width:50px">&nbsp; Type &nbsp;</th><th style="width:120px">&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>data</td><td>object</td><td>A name/value pairs data object to send to server, valueS could include one of
+								[value, "pfcrc"], [value, "pfenc"] or [value, "pfvld", "type_label"], for example, 
+								{"key1": ["book", "pfenc"], "key2": ["year 2016", "pfcrc"], "key3": [257, "pfvld", "intnum"]}</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; Query string of key/value pairs</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">getRemainedStorage()</p>
+			<p>Return size of Session Storage is able to stored new key/value pairs</p>
+			<p>Return: number &nbsp; Integer or 0 if there is no JavaScript, CSS and HTML contents stored</p>
+			<p>Note: It is a same API in Processor Library</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">getStoredValue(url)</p>
+			<p>Return stored value from related URL</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>url</td><td>string</td><td>URL or URL path to retrieve external CSS files</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; Stored value by PlannerFw or null if failed.</p>
+			<p>Note: It is a same API in Processor Library</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">httpRequest(url, data, method, responseType)</p>
+			<p>Submit HTTP requests with HTTP method, response type and data with encryption, crc32 checksum and validation</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>url</td><td>string</td><td>An URL without query part</td>
+				</tr>
+				<tr>
+					<td>data</td><td>object</td><td>A name/value pairs data object to send to server, value could include
+													one of "pfcrc", "pfenc" or ["pfvld", "type_label"]</td>
+				</tr>
+				<tr>
+					<td>method</td><td>string</td><td>One of "Head", "Get", "POST", "PUT" and "DELETE"</td>
+				</tr>
+				<tr>
+					<td>responseType</td><td>string</td><td>One of "", "text", "xml", "json", "document", "blob" and "arraybuffer"</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string or boolean &nbsp; Return response contents or false if failed.</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">jscssRequest(url, type, cbfunc)</p>
+			<p>Load external JavaScript or CSS file then execute a callback function</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>url</td><td>string</td><td>An URL of external JavaScript or CSS file</td>
+				</tr>
+				<tr>
+					<td>type</td><td>string</td><td>One of "text/javascript" and "text/css"</td>
+				</tr>
+				<tr>
+					<td>dbfunc</td><td>function</td><td>Optional callback function name</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string or boolean &nbsp; Execute callback function after external file loaded or false if error</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">md5Hash(str)</p>
+			<p>Calculate the md5 hash of a string</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>str</td><td>string</td><td>A string</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; A md5 hash string</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">pfCheckCrc(val, csm, Msg)</p>
+			<p>Check data weather matching gave CRC32 checksum, if does not match PlannerFw show error message and stop processing</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>val</td><td>string</td><td>Original data</td>
+				</tr>
+				<tr>
+					<td>csm</td><td>string</td><td>decimal string of CRC32 checksum</td>
+				</tr>
+				<tr>
+					<td>msg</td><td>string</td><td>Error message</td>
+				</tr>
+			</tbody></table>
+			<p>Return: boolean &nbsp;  True</p>
+			<p>Note: It is a same API in Processor Library</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">pfDecryption(str, pword)</p>
+			<p>Decrypt data and return result</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>str</td><td>string</td><td>Plain text</td>
+				</tr>
+				<tr>
+					<td>pword</td><td>string</td><td>Optional password for encryption</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp;  cypher text</p>
+			<p>Note: It is a same API in Processor Library</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">pfEncryption(str, pword)</p>
+			<p>Encrypt data and return result</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>str</td><td>string</td><td>PlannerFw encrypted data</td>
+				</tr>
+				<tr>
+					<td>pword</td><td>string</td><td>Optional password for decryption</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp;  plain text</p>
+			<p>Note: It is a same API in Processor Library</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">searchStoredKeys(regexp)</p>
+			<p>Return a object that contains key/related-URL pairs in Session Storage</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>regexp</td><td>string or object or void</td><td>A regular expression object, a string will be converted to a regular expression object, or no parameter</td>
+				</tr>
+			</tbody></table>
+			<p>Return: object &nbsp; An object of key/related-URL pairs. Returns empty object if no match is not found</p>
+			<p>Note: It is a same API in Processor Library</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">searchStoredValues(regexp)</p>
+			<p>Return a object that contains URL/content pairs in Session Storage</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>regexp</td><td>string or object</td><td>A regular expression object, or a string will be converted to a regular expression object</td>
+				</tr>
+			</tbody></table>
+			<p>Return: object &nbsp; An object of URL/content pairs. Returns empty object if no match is not found</p>
+			<p>Note: It is a same API in Processor Library</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">secureField(target, data)</p>
+			<p>Replace input value with PlannerFw encryption, add new input elements with validation or CRC32 checksum as value to HTML form</p>
+			<p>Usage: add onsubmit="return postplanner.secureField(this, your_data_object)" to HTML form of web page</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th style="width:50px">&nbsp; Name &nbsp;</th><th style="width:50px">&nbsp; Type &nbsp;</th><th style="width:120px">&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>target</td><td>object</td><td>A form element to contain new input element(s)</td>
+				</tr>
+				<tr>
+					<td>data</td><td>object</td><td>A name/value pairs object, name is a field name of query, value is 
+								one of "pfcrc", "pfenc" or ["pfvld", "type_label"], for example, 
+								{"field1": "pfenc", "field2": "pfcrc", "field3": ["pfvld", "unistr"]}</td>
+				</tr>
+			</tbody></table>
+			<p>Return: boolean &nbsp; True</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">secureUrl(url, data)</p>
+			<p>Replace value with PlannerFw encryption, add new validation or CRC32 checksum field(s) to use query string </p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th style="width:50px">&nbsp; Name &nbsp;</th><th style="width:50px">&nbsp; Type &nbsp;</th><th style="width:120px">&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>url</td><td>string</td><td>An URL with query string</td>
+				</tr>
+				<tr>
+					<td>data</td><td>object</td><td>A name/value pairs object, name is a field name of query, value is 
+								one of "pfcrc", "pfenc" or ["pfvld", "type_label"], for example, 
+								{"field1": "pfenc", "field2": "pfcrc", "field3": ["pfvld", "unistr"]}</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; new URL</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">styleId2Url(id)</p>
+			<p>Converts style id to URL or URL path</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>id</td><td>string</td><td>Style tag id that was generated by importCss method of Planner object</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; URL or URL path</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">switchCssById(styleId, toStyleUrl)</p>
+			<p>Switches style with id generated by importCss method of PlannerFw object and style stored by Session Storage</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>styleId</td><td>string</td><td>Style tag id that was generated by importCss method of Planner object</td>
+				</tr>
+				<tr>
+					<td>toStyleUrl</td><td>string</td><td>URL or URL path</td>
+				</tr>
+			</tbody></table>
+			<p>Return: boolean &nbsp; True at success or false if failed.</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">switchCssByUrl(styleUrl, toStyleUrl)</p>
+			<p>Convert URL to id then switches style with id generated by importCss method of PlannerFw and style stored by Session Storage</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>styleUrl</td><td>string</td><td>URL or URL path related to style tag id of current page</td>
+				</tr>
+				<tr>
+					<td>toStyleUrl</td><td>string</td><td>URL or URL path</td>
+				</tr>
+			</tbody></table>
+			<p>Return: boolean &nbsp; True at success or false if failed.</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">url2StyleId(url)</p>
+			<p>Converts URL or URL path to style id used by current page</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th>&nbsp; Name &nbsp;</th><th>&nbsp; Type &nbsp;</th><th>&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>url</td><td>string</td><td>URL or URL path</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string &nbsp; Style id used by current page.</p>
+			<p>&nbsp;</p>
+		</div>
+		<div style="margin:30px 50px;">
+			<p style="margin-left:-25px">wsRequest(url, data)</p>
+			<p>Send request to WebSocket server then close connection after response received</p>
+			<p>Parameters:</p>
+			<table style="line-height:30px;width:80%"><thead>
+			<tr style="background-color:#ddd">
+				<th style="width:50px">&nbsp; Name &nbsp;</th><th style="width:50px">&nbsp; Type &nbsp;</th><th style="width:120px">&nbsp;  Description &nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>url</td><td>string</td><td>An URL without query part</td>
+				</tr>
+				<tr>
+					<td>data</td><td>object</td><td>A name/value pairs data object to send to server, valueS could include 
+													one of "pfcrc", "pfenc" or ["pfvld", "type_label"]</td>
+				</tr>
+			</tbody></table>
+			<p>Return: string or boolean &nbsp; Data string sent by WebSocket server or boolean if WebSocket communication failed.</p>
+			<p>&nbsp;</p>
+		</div>		
+		<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature9">
+	<p>PlannerFw releases with PlannerFw Community Edition and PlannerFw Enterprise Edition, Structure of PlannerFw releases are</p>       
+    <p>&nbsp;</p>
+    <table id="productrs" style="margin:30px 50px;line-height:60px;width:80%;text-align:center;">
+    <thead>
+        <tr style="background-color:#F4F6F6;"><th colspan="6">PlannerFw Community Edition</th></tr>
+        <tr style="background-color:#E5E7E9;"><th colspan="3">PlannerFw Exec</th><th colspan="3">PlannerFw Dev</th></tr>
+        <tr style="background-color:#ddd;"><th style="width:20%;">Packages</th><th>Distribution</th><th>License</th><th style="width:20%;">Package</th><th>Distribution</th><th>License</th></tr>
+    </thead>
+    <tbody style="background-color:#F5F2F0;">            
+        <tr><td>SiteRoot</td><td rowspan="2">ASCII</td><td rowspan="2">GNU GPL v3.0</td><td rowspan="2">Preprocessor</td><td rowspan="2">Binary</td><td rowspan="2">W3plan Software License</td></tr>
+        <tr><td>pfComponent</td></tr>
+    </tbody></table>
+    <p>&nbsp;</p> 
+    <table id="productrs" style="margin:30px 50px;line-height:60px;width:80%;text-align:center;">
+    <thead>
+        <tr style="background-color:#F4F6F6;"><th colspan="6">PlannerFw Enterprise Edition</th></tr>
+        <tr style="background-color:#E5E7E9;"><th colspan="3">PlannerFw Exec</th><th colspan="3">PlannerFw Dev</th></tr>
+        <tr style="background-color:#ddd;"><th style="width:20%;">Packages</th><th>Distribution</th><th>License</th><th style="width:20%;">Packages</th><th>Distribution</th><th>License</th></tr>
+    </thead>
+    <tbody style="background-color:#F5F2F0;">            
+        <tr><td>SiteRoot</td><td rowspan="2">ASCII</td><td rowspan="2">GNU GPL v3.0</td><td>Preprocessor</td><td rowspan="2">Binary</td><td rowspan="2">W3plan Software License</td></tr>
+        <tr><td>pfComponent</td><td>DeployBuilder</td></tr>
+    </tbody></table>
+    <p>&nbsp;</p> 
+    
+    <p>PlannerFw Exec in PlannerFw Community Edition and PlannerFw Enterprise Edition is same, comparing tables of PlannerFw Devs in PlannerFw Community Edition and PlannerFw Enterprise Edition</p>
+    
+    <p>&nbsp;</p> 
+    <table style="margin:30px 50px;line-height:40px;width:80%;">
+    <thead>
+        <tr style="background-color:#ddd;text-align:center;">
+        <th style="width:50%;">PlannerFw Dev of PlannerFw Community Edition</th><th>PlannerFw Dev of PlannerFw Enterprise Edition</th></tr>
+    </thead>
+    <tbody>            
+        <tr><td>Free to use</td><td>Pay to use</td></tr>
+        <tr><td>No DeployBuilder package</td><td>DeployBuilder package included</td></tr>
+        <tr><td>5-levels deep of subdirectories started from /template, /layout and /css/pfcss would be watched</td><td>Unlimited</td></tr>
+        <tr><td>Per execution of Preprocessor server in 30 minutes</td><td>Unlimited</td></tr>
+        <tr><td>No tickets support</td><td>1 year's tickets support</td></tr>
+        <tr><td>No registration required</td><td>Registration required at first usage</td></tr>
+    </tbody></table>
+    <p>&nbsp;</p>
+    
+    <p>&nbsp;</p>
+	<p><strong>Main features of SiteRoot package in PlannerFw Exec</strong></p>
+    <div style="margin:30px 60px;">
+        <p>JSON data model and XML data model</p>
+        <p>Retrieve model over HTTP/HTTPS and WS/WSS</p>
+        <p>Support user authentication with JWT (JSON Web Token)</p>
+        <p>Access model with JWT for stateless (session-less) architectures</p>
+        <p>WebSocket user authentication at WebSocket handshake</p>
+        <p>Model member encryption and decryption</p>
+        <p>Model member validation with data type and data constraints</p>
+        <p>Model member CRC32 checksum</p>
+        <p>&nbsp;</p>
+        <p>Template and layout template</p>
+        <p>Support SASS-like and LESS-like mechanisms (Variable, Mixins, Nesting, Functions, Operations and more) for CSS</p>
+        <p>Store CSS to Session Storage and access it in security</p>
+        <p>Switch CSS for the rendered page without network accesses</p>
+        <p>Crossing-domains models and templates via server-side proxy</p>
+        <p>Bidirectional XML and JSON transformation supports</p>
+        <p>APIs for raw templates, PFCSS and rendered page</p>
+        <p>&nbsp;</p>
+        <p>Single-byte and multiple-byte character set support</p>
+        <p>Powerful configuration supports for the application</p>
+        <p>Web security enhancements</p>
+        <p>Extended error handling system</p>
+        <p>PlannerFw Exec processes and time tracking</p>
+        <p>SiteRoot package is in module structures</p>
+        <p>Model-View-Controller-Module architecture</p>
+        <p>Abilities to take over views of general server-side MVC frameworks</p>
+        <p>&nbsp;</p>
+    </div>
+    <p>&nbsp;</p>
+    
+    <p><strong>pfComponent package in PlannerFw Exec</strong></p>
+    <p>&nbsp;</p>
+    <p>pfComponent package is a server-side component, it include a some tools and libraries to aid server-side development for PlannerFw application, current pfComponent includes a complete implementation of functionalities for PHP, and a part implementation of functionalities for Java, ASP.NET, Node.js, Python, Ruby and Perl, user may refer PHP implementation to write server-side code for PlannerFw applications.</p>
+	<table style="margin: 30px 50px; line-height:40px;width:80%;"><thead>
+		<tr style="background-color:#ddd;">
+			<th style="width:20%">Server-side languages</th>
+			<th style="width:16%">Secure processes</th>
+			<th style="width:16%">JWT libraries</th>
+			<th style="width:16%">JWT handle</th>
+			<th style="width:16%">Server-side proxy for model</th>
+			<th style="width:16%">WebSocket server</th>
+		</tr>
+		</thead>
+		<tbody>
+			<tr><td>PHP    </td><td>✔</td><td>✔</td><td>✔</td><td>✔</td><td>✔</td></tr>
+			<tr><td>Java   </td><td>✔</td><td>✔</td><td>✘</td><td>✘</td><td>✘</td></tr>
+			<tr><td>ASP.NET</td><td>✔</td><td>✔</td><td>✘</td><td>✘</td><td>✘</td></tr>
+   			<tr><td>Node.js</td><td>✔</td><td>✔</td><td>✘</td><td>✔</td><td>✘</td></tr>
+			<tr><td>Python </td><td>✔</td><td>✔</td><td>✘</td><td>✘</td><td>✘</td></tr>
+   			<tr><td>Ruby   </td><td>✔</td><td>✔</td><td>✘</td><td>✘</td><td>✘</td></tr>
+   			<tr><td>Perl   </td><td>✔</td><td>✔</td><td>✘</td><td>✘</td><td>✘</td></tr>
+	</tbody></table>
+	<p>&nbsp;</p>
+    
+    <p><b>PlannerFw Dev</b></p>
+	<p>&nbsp;</p>
+    <P>PlannerFw Dev in PlannerFw Community Edition and PlannerFw Enterprise Edition were distributed with binaries for operation systems:</P>
+	<div style="margin:30px 50px;">
+  		<p>Windows 32-bit &nbsp; &nbsp; (Vista and up)</p>
+		<p>Windows 64-bit &nbsp; &nbsp; (Vista and up)</p>
+		<p>&nbsp;</p>
+		<p>Ubuntu/Mint 64-bit</p>
+		<p>Debian 64-bit</p>
+		<p>&nbsp;</p>
+		<p>Red Hat/Centos/Fedora 64-bit</p>
+		<p>Suse 64-bit</p>
+	</div>    
+    <p>&nbsp;</p>
+    <p><strong>PlannerFw open-source-projects on GitHub</strong></p>
+    <p>&nbsp;</p>
+    <p>PlannerFw Exec &nbsp; - &nbsp; <a href="https://github.com/w3plan/PlannerFw-Exec" target="_blank">https://github.com/w3plan/PlannerFw-Exec</a></p>
+    <p>PlannerFw Exec as views of CodeIgniter framework &nbsp; - &nbsp; <a href="https://github.com/w3plan/PlannerFw-CodeIgniter" target="_blank">https://github.com/w3plan/PlannerFw-CodeIgniter</a></p>
+    <p>&nbsp;</p>
+    <p><strong>Licenses</strong></p>
+    <p>&nbsp;</p>
+	<p>PlannerFw Exec released under GNU GPL v3.0 &nbsp; &lt;<a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">http://www.gnu.org/copyleft/gpl.html</a>&gt;</p>
+    <p>PlannerFw Dev released under W3plan Software License &nbsp; &lt;<a href="http://w3plan.net/customer/general/pflicense/" target="_blank">http://w3plan.net/customer/general/pflicense/</a>&gt;</p>
+	<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature10">	
+	<p>Model except JSON could be XML format, PlannerFw does not directly use XML to template, PlannerFw transforms XML data into JSON at first then use it with template to generate result page, some constraints to XML data model include:</p>
+	<div style="margin:30px 60px;">
+		<p>XML documents must have a root element, and root element's attributes would not be processed.</p>
+		<p>All XML elements must have a closing tag.</p>
+		<p>XML tags are case sensitive.</p>
+		<p>XML attribute values must be quoted.</p>
+		<p>Always replacing characters < > & ' " inside an XML node with &lt; &gt; &amp; &apos; &quot; respectively.</p>
+		<p>Comments in XML are similar to Comments in HTML.</p>
+		<p>XML data model have to include elements expiration, encryption, count and pfDataSet or pfDataSet1, pfDataSet2, pfDataSet3...</p>
+	</div>
+	<p>PlannerFw can transform general XML, XML Schema, WSDL, WDDX, RSS, XHTML and SVG into JSON and JSON to XML on the contrary, syntax rules of transforming XML and JSON include:</p>
+	<div style="margin:30px 60px;">
+		<p>Only XML node types are ELEMENT_NODE(type 1),TEXT_NODE(type 3) and CDATA_SECTION_NODE(type 4) can be transformed.</p>
+		<p>Document prologue and comments would be neglected.</p>
+		<p>An XML element without value can be expressed as &lt;node_name&gt; &lt;node_name&gt; or &lt;node_name /&gt;<p>
+		<p>If an XML element with attributes then attribute would be add a prefix _ on name, key name of element value would be "keyVal" in result JSON.</p>
+		<p>Date in XML would not be parsed.</p>
+		<p>XML element name can include prefix.</p>
+		<p>Other rules of XML elements.</p>
+	</div>
+	<p>PlannerFw does not support encryption of model in XML formats at present, XML data model is always transferred with plain text over network.</p>
+	<p>An example of transforming XML code to JSON,</p>
+	<table style="margin:10px 0; line-height:50px; width:90%; font-size:.9em;">
+	<thead>
+		<tr style="background-color:#ddd;text-align:center;">
+			<th style="width:50%">XML</th>
+			<th>JSON</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<pre style="margin:10px 0;"><code class="language-markup">
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;!-- An XML needs a root node with any valid name,
+     and root node could be with namespace declaring --&gt;
+&lt;root&gt;
+  &lt;description&gt;Example model with XML formats&lt;/description&gt;
+  &lt;expiration&gt;0&lt;/expiration&gt;
+  &lt;pfDataSet&gt;          
+    &lt;!-- Data part that would be used in templates  --&gt;
+    &lt;item&gt;NO1295&lt;/item&gt;
+    &lt;price&gt;19.25&lt;/price&gt;
+    &lt;size type="Medium"&gt;
+      &lt;color image="red_cardigan.jpg"&gt;Red&lt;/color&gt;
+      &lt;color image="burgundy_cardigan.jpg"&gt;Burgundy&lt;/color&gt;
+    &lt;/size&gt;
+    &lt;script type="text/javascript"&gt;
+      &lt;![CDATA[function matchwo(a,b) {
+        if (a &lt; b && a &lt; 0) { return 1; 
+        } else { return 0; }}]]&gt;
+    &lt;/script&gt;
+  &lt;/pfDataSet&gt;
+&lt;/root&gt;
+			</code></pre>
+			</td>
+			<td>
+				<pre style="margin:10px 0;"><code class="language-json">
+{
+"root":{
+  "description": "Example model with XML formats",
+  "expiration": 0,
+  "pfDataSet":
+  {
+    "item": "NO1295",
+    "price": 19.25,
+    "size":{
+      "color":[{"_image":"red_cardigan.jpg", "keyVal":"Red" },
+        {"_image":"burgundy_cardigan.jpg","keyVal":"Burgundy"}
+      ],
+      "_type": "Medium"
+    },
+    "script":{
+      "_type": "text/javascript",
+      "keyVal": "function matchwo(a,b){if (a &lt; b && a &lt; 0) \
+				{return 1;} else {return 0;}}"
+    }
+  }
+}
+}</code></pre>
+			</td>
+		</tr>
+	</tbody></table>	
+	<p>XSLT stands for XSL Transformations, XSLT transforms XML into other XML documents such as HTML, We compare XMLT and PlannerFw solution with a sample from <a href="http://www.w3schools.com/xsl/tryxslt.asp?xmlfile=cdcatalog&xsltfile=cdcatalog" target="_blank">http://www.w3schools.com/xsl/tryxslt.asp?xmlfile=cdcatalog&xsltfile=cdcatalog</a></p>
+	<p>Sample XML and XSLT</p>
+	<table style="margin:10px 0; line-height:50px; width:90%;">
+	<thead>
+		<tr style="background-color:#ddd;text-align:center;">
+			<th style="width:50%">XML</th>
+			<th>XSLT</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<pre style="margin:10px 0;"><code class="language-markup">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;catalog&gt;
+  &lt;cd&gt;
+    &lt;title&gt;Empire Burlesque&lt;/title&gt;
+    &lt;artist&gt;Bob Dylan&lt;/artist&gt;
+    &lt;country&gt;USA&lt;/country&gt;
+    &lt;company&gt;Columbia&lt;/company&gt;
+    &lt;price&gt;10.90&lt;/price&gt;
+    &lt;year&gt;1985&lt;/year&gt;
+  &lt;/cd&gt;
+  &lt;cd&gt;
+    &lt;title&gt;Hide your heart&lt;/title&gt;
+    &lt;artist&gt;Bonnie Tyler&lt;/artist&gt;
+    &lt;country&gt;UK&lt;/country&gt;
+    &lt;company&gt;CBS Records&lt;/company&gt;
+    &lt;price&gt;9.90&lt;/price&gt;
+    &lt;year&gt;1988&lt;/year&gt;
+  &lt;/cd&gt;
+  &lt;cd&gt;
+    &lt;title&gt;Greatest Hits&lt;/title&gt;
+    &lt;artist&gt;Dolly Parton&lt;/artist&gt;
+    &lt;country&gt;USA&lt;/country&gt;
+    &lt;company&gt;RCA&lt;/company&gt;
+    &lt;price&gt;9.90&lt;/price&gt;
+    &lt;year&gt;1982&lt;/year&gt;
+  &lt;/cd&gt;
+&lt;/catalog&gt;</code></pre>
+			</td>
+			<td>
+				<pre style="margin:10px 0;"><code class="language-markup">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet version="1.0" 
+ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+
+&lt;xsl:template match="/"&gt;
+  &lt;html&gt;
+  &lt;body&gt;
+  &lt;h2&gt;My CD Collection&lt;/h2&gt;
+    &lt;table border="1"&gt;
+      &lt;tr bgcolor="#9acd32"&gt;
+        &lt;th style="text-align:left"&gt;Title&lt;/th&gt;
+        &lt;th style="text-align:left"&gt;Artist&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;xsl:for-each select="catalog/cd"&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;xsl:value-of select="title"/&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;xsl:value-of select="artist"/&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;/xsl:for-each&gt;
+    &lt;/table&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
+&lt;/xsl:template&gt;
+
+&lt;/xsl:stylesheet&gt;
+
+				</code></pre>
+			</td>
+		</tr>
+	</tbody></table>
+	<p>Equivalent XML data model and raw template in PlannerFw</p>
+	<table style="margin:10px 0; line-height:50px; width:90%;">
+	<thead>
+		<tr style="background-color:#ddd;text-align:center;">
+			<th style="width:50%">XML data model</th>
+			<th>Raw template</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<pre style="margin:10px 0;"><code class="language-markup">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;root&gt;
+&lt;description&gt;XSLT features with PlannerFw
+&lt;/description&gt;
+&lt;expiration&gt;0&lt;/expiration&gt;
+&lt;pfDataSet&gt;
+&lt;catalog&gt;
+  &lt;cd&gt;
+    &lt;title&gt;Empire Burlesque&lt;/title&gt;
+    &lt;artist&gt;Bob Dylan&lt;/artist&gt;
+    &lt;country&gt;USA&lt;/country&gt;
+    &lt;company&gt;Columbia&lt;/company&gt;
+    &lt;price&gt;10.90&lt;/price&gt;
+    &lt;year&gt;1985&lt;/year&gt;
+  &lt;/cd&gt;
+  &lt;cd&gt;
+    &lt;title&gt;Hide your heart&lt;/title&gt;
+    &lt;artist&gt;Bonnie Tyler&lt;/artist&gt;
+    &lt;country&gt;UK&lt;/country&gt;
+    &lt;company&gt;CBS Records&lt;/company&gt;
+    &lt;price&gt;9.90&lt;/price&gt;
+    &lt;year&gt;1988&lt;/year&gt;
+  &lt;/cd&gt;
+  &lt;cd&gt;
+    &lt;title&gt;Greatest Hits&lt;/title&gt;
+    &lt;artist&gt;Dolly Parton&lt;/artist&gt;
+    &lt;country&gt;USA&lt;/country&gt;
+    &lt;company&gt;RCA&lt;/company&gt;
+    &lt;price&gt;9.90&lt;/price&gt;
+    &lt;year&gt;1982&lt;/year&gt;
+  &lt;/cd&gt;
+&lt;/catalog&gt;
+&lt;/pfDataSet&gt;
+&lt;/root&gt;</code></pre>
+			</td>
+			<td>
+				<pre style="margin:10px 0;"><code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;body&gt;
+&lt;h2&gt;My CD Collection&lt;/h2&gt;
+&lt;table border="1"&gt;
+  &lt;tr bgcolor="#9acd32"&gt;
+    &lt;th style="text-align:left"&gt;Title&lt;/th&gt;
+    &lt;th style="text-align:left"&gt;Artist&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;!--% 
+    /* 
+	 * Multiple line comments 
+	 *
+	 */
+    pfDataSet = pfDataSet.catalog;
+	
+    for(var key in pfDataSet.cd) 
+	{
+      &lt;!-%= 
+          // Single line comment to output tag
+          "&lt;tr&gt;&lt;td&gt;" +  
+          pfDataSet.cd[key].title + 
+          "&lt;/td&gt;&lt;td&gt;" + 
+          pfDataSet.cd[key].artist +
+          "&lt;/td&gt;&lt;/tr&gt;"
+      %-&gt;
+    }
+  %--&gt; 
+&lt;/table&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+            </code></pre>
+			</td>
+		</tr>
+	</tbody></table>
+	<p>PlannerFw uses URL /app/index.html?tml=/template/pfm/d/index.html.js&xmdl=/samples/xml-for-xslt-with-plannerfw.html to transform template and XML daat model into HTML page, XSLT needs an XSLT Processor to implement transformation</p>
+	<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature11">
+	<p><b>HTTP request header</b></p>
+	<div style="margin:30px 50px;">	
+		<p>Referer always is Page Processor to all HTTP requests for model and template.</p>
+		<p>The relationship of X-Requested-With and HTTP Request type:</p>
+	</div>
+	<table style="margin:10px 80px; line-height:40px; width:60%;">
+	<thead>
+		<tr style="background-color:#ddd;">
+			<th style="width:50%">Value of X-Requested-With</th>
+			<th>HTTP Request type</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td>ModelXMLHttpRequest</td><td>JSON data model</td></tr>
+		<tr><td>XModelXMLHttpRequest</td><td>XML data model</td></tr>
+		<tr><td>TemplateXMLHttpRequest</td><td>Template</td></tr>
+		<tr><td>LayoutTemplateXMLHttpRequest</td><td>Layout template</td></tr>
+		<tr><td>PFCSSXMLHttpRequest</td><td>PFCSS</td></tr>
+		<tr><td>OtherXMLHttpRequest</td><td>All others except previous requests</td></tr>
+	</tbody></table>
+	<img src="/images/pfm/model-xml-response.jpg" alt="XML data model" height="609" width="1200" style="position:relative;margin-top:50px;margin-bottom:50px;left:50%;margin-left:-600px;max-width:1200px;">
+	<p style="margin:30px auto;text-align:center;">[Response with XML data model]</p>	
+	<p>&nbsp;</p>
+	<p><b>User authentication</b></p>
+	<p>PlannerFw supports general HTTP user authentication and role based authentication and authorization policies, for example, session-based authentication, database-based authentication and authorization, PlannerFw also supports stateless authentication through JWT(JSON Web Token) and Cookie.</p>
+	<p>PlannerFw supports user authentication over WebSocket through JWT(JSON Web Token) and Cookie.</p>	
+	<p>&nbsp;</p>
+	<p><b>Data transmission</b></p>
+	<p>PlannerFw supports data transmission security with:</p>
+	<div style="margin:30px 50px;">	
+		<p>Encrypt model data on server, decrypt model data on client.</p>
+		<p>Add 32-bits CRC checksum to data member on server, check data with checksum on client</p>
+		<p>Add type and constraints to data member on server, validate data with type and constraints on on client</p>
+		<p>Encrypt data, add checksum or add type validation to data before sent by HTTP or WwebSocket requests, do related processes with pfcomponent on server.</p>
+	</div>
+	<img src="/images/pfm/model-json-encryption.jpg" alt="Encrypted mode of JSON" height="399" width="1200" style="position:relative;margin-top:50px;margin-bottom:50px;left:50%;margin-left:-600px;max-width:1200px;">
+	<p style="margin:30px auto;text-align:center;">[Encrypted mode of JSON]</p>	
+	<p>&nbsp;</p>
+	<p><b>Crossing-domains data access</b></p>
+	<p>PlannerFw models, templates and /app/index.html have to share the same host, client can not retrieve model or template from different host with /app/index.html having. web server can use server-side proxy accessing models and templates that are provided by different host to implement crossing-domains models or templates for the client</p>
+    <p>PlannerFw releases provide a example that server retrieves Google News RSS Feeds then output it as model in response for reference.</p>
+	<p>&nbsp;</p>
+	<p><b>Session Storage</b></p>
+	<p>PlannerFw implemented following procedures to secure Session Storage:</p>
+	<div style="margin:30px 50px;">	
+		<p>Sets maximum seconds as expiration to all key/value pairs in Session Storage.</p>
+		<p>Applies checksum of CRC32, a 32-bit cyclic redundancy check to verify stored data integrity, against unauthorized data modification.</p>
+		<p>Checks remaining size of Session Storage before data append/update to it.</p>
+		<p>Disabled clear() method of sessionStorage to delete all stored data.</p>
+	</div>
+	<p>PlannerFW always check all these procedures before read, append or update key/value pairs in Session Storage so that ensures key/value pairs in Session Storage are readable and writeable for Page Preprocessor and read only in result pages safely.</p>
+	<img src="/images/pfm/session-storage.jpg" alt="Session Storage" height="302" width="1200" style="position:relative;margin-top:50px;margin-bottom:50px;left:50%;margin-left:-600px;max-width:1200px;">
+	<p style="margin:30px auto;text-align:center;">[PlannerFw's Session Storage]</p>	
+	<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature12">
+	<p><b>Install PlannerFw to development server</b></p>
+    <p>At first you need to sign in the computer with root user or administrator permission, then release PlannerFw archive, copy files and directories in siteroot folder to website root directory, copy pfcomponent folder and pfdevelop folde to the parent directory of website root directory, at last do setting for your copies according environment of development server, installed paths and user guide. Do not install pfcomponent folder and pfdevelop folder to website root directory.</p>
+    <p>Preprocessor server in pfdevelop folder could automatically compile and transform raw-template files to JavaScript files when file size was changed, build tool in pfdevelop folder would create an archive for product server from template, layout and css/pfcss under website root directory. Do not install pfdevelop folder to production server.</p>
+    <p>If URL Rewrite are set to the server, update setting to allow PlannerFw's URLs getting through it.</p>
+    <p>&nbsp;</p>
+	
+    <p><b>Install PlannerFw to production server</b></p>
+	<p>At first sign in production server with proper permission, then release PlanenrFw archive, copy files and directories in siteroot folder to website root directory of  production server, delete invalid files and directories from copies, for example, test and docs folders, plannerfw-demos.html and plannerfw-demos-php.html files, then copy related server-language folder from pfcomponent folder to production server, at last do setting for your copies according environment of production server, installed paths and user guide. Do not install pfcomponent folder to website root director.</p>
+    <p>If URL Rewrite are set to the server, update setting to allow PlannerFw's URLs getting through it.</p>
+    
+    <p>&nbsp;</p>
+	<p><b>Development, maintenance and upgrade</b></p>
+	<p>Servers only are data model provider for all PlannerFw websites and web applications, web servers are not responsible for any creation of templates, so you are able to separate model creation from entire development or maintenance and take it as a isolation part from development or maintenance, user are able to follow these steps to speed development, maintenance and upgrade</p>
+        <ol class="pfsteps">
+			<li>Create all static HTML pages and related CSS files.</li>
+            <li>Design output model data formats according to your business logic, create some instance for designed models, save model instances to file extension with json, xml or other server supports in website root directory.</li>
+			<li>Run Preprocessor server from pfdevelop/preprocessor/pfwatch.exe (there is no file extension to Unix and OS X).</li>
+			<li>Write data presentation with PlannerFw tags to use model instances to static page files.</li>
+			<li>Modify CSS code for static pages with mechanisms that PlannerFw supports.</li>
+			<li>Use pfComponent in PlannerFw Exec to create your customized code for WebSocket and JWT(JSON Web Token) support, model member validation, check and encryption/decryption, server-side proxy and client errors log.</li>
+			<li>Test templates and model instances with /app/index.html and /app/be-index.html</li>
+			<li>Repeats step 4 to 7 to complete all development of raw templates and PFCSS files.</li>
+            <li>Develop server-side code to provide real models instead of model instances.</li>
+            <li>Testing and QA (Quality Assurance) processing.</li>
+			<li>Run DeployBuilder from pfdevelop/deploybuilder/pfbuild.exe(there is no file extension to Unix and OS X) to generate deployment archive.</li>
+			<li>Copy deployment archive to website root directory on production server, then release and overwrite existed directories and files on production server.</li>
+            <li>Deploy server-side code for the project from development server to production server</li>
+		</ol>        
+	<p>If you have any questions or problems during development or maintenance, please refers PlannerFw documentation or send your question tickets to us.</p>
+	<p>&nbsp;</p>
+	<p><b>Documentation and help</b></p>
+	<p>PlannerFw documentation: siteroot/docs/user-guide.html or <a href="http://w3plan.net/customer/plannerfw" target="_blank">http://w3plan.net/customer/plannerfw</a></p>
+	<p>General inquiries and feedback: contact@w3plan.net</p>
+	<p>Purchase and licensing inquiries: sales@w3plan.net</p>
+	<p>Send question tickets: <a href="http://w3plan.net/support/index" target="_blank">http://w3plan.net/support/index</a></p>
+	<p>&nbsp;</p>
+	<p><b>PlannerFw Exec Demo without web server required</b></p>
+    <p>To quickly evaluate main features of PlannerFw without web server support, you can download SiteRoot archive from <a href="https://github.com/w3plan/SiteRoot" target="_blank">https://github.com/w3plan/SiteRoot</a>, release it on your computer then go to <a href="http://nwjs.io/downloads" target="_blank">http://nwjs.io/downloads</a> and download a normal version for your computer OS, install it, at last run NW.js executive file with the path that SiteRoot released as parameter from computer command line.</p>
+    <p>You can open DevTools for each examples with keyboard shortcut F12 on Windows and Linux or <kbd>⌘</kbd>+<kbd>⌥</kbd>+<kbd>i</kbd> on Mac.</p>
+    <p>&nbsp;</p>
+	<p><b>Browser supports</b></p>
+	<p>Browser versions and supports:</p>
+	<table style="margin:10px 80px; line-height:40px; width:80%;text-align:center;">
+	<thead>
+		<tr style="background-color:#ddd;">
+			<th style="width:12%">Chrome</th>
+			<th style="width:12%">Firefox</th>
+			<th style="width:12%">IE</th>
+			<th style="width:12%">Opera</th>
+			<th style="width:13%">Safari</th>
+			<th style="width:13%">iOS Safari</th>
+			<th style="width:13%">Android Browser</th>
+			<th style="width:13%">Blackberry Browser</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr style="background-color:#f5f2f0;"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+		<tr><td>5+</td><td>3.5+</td><td>8.0+</td><td>10.5+</td><td>4.0+</td><td>4.1+</td><td>2.1+</td><td>7+</td></tr>
+		<tr style="background-color:#f5f2f0;"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+	</tbody></table>
+	<p>&nbsp;</p>
+	</div>
+	
+	<div id="feature15">
+		<p>PlannerFw can track processing times from the browser received request for Page Processor(/app/index.html) and planner.min.js loading completion to result page rendered completion, PlannerFw's time tracking mechanism include printing processes elapsed time in milliseconds on the browser console, save processing times to session Cookie pf_times at time of page rendering, web server would can receive Cookie pf_times at next request for Page Processor.</p>
+		<p>PlannerFw uses property trackExecutedTime of Processor configure to control processes and time tracking, if its value is false, Page Processor will not track processes and time, but still printing total elapsed time on the browser console at result page rendered completion. A calculation formula of PlannerFw processes and time would be:</p>
+		<p style="margin-left: 50px">Total elapsed time = Phase 1 + Phase 2 + Phase 3 + Phase 4 + Phase 5</p>
+		<p>The value format of Cookie pf_times are Phase 1 . Phase 2 . Phase 3 . Phase 4 . Phase 5</p>
+		<img src="/images/pfm/processes-and-tracking.jpg" width="1200" height="545" style="margin: 50px 50px;" alt="PlannerFw processes and times tracking">
+		<p>&nbsp;</p>
+		<p>The value format of Cookie pf_times are Phase 1 . Phase 2 . Phase 3 . Phase 4 . Phase 5, each phase includes processes are:</p>
+		<p>&nbsp;</p>
+		<p>Processes in Phase 1</p>
+		<div style="margin:50px 50px;">
+			<p>Check the browser support, parse URL of template and URL of model from query string, check URLs, set process routes</p>
+		</div>
+		<p>Processes in Phase 2</p>
+		<div style="margin:50px 50px;">
+			<p>Retrieve model from URL over HTTP/HTTPS or WebSocket/WebSocket Secure connection, if model is XML then transform it into JSON, 
+			model member decryption, CRC checksum check and type validation.</p>
+		</div>
+		<p>Processes in Phase 3</p>
+		<div style="margin:50px 50px;">
+			<p>Retrieve template from URL.</p>
+		</div>
+		<p>Processes in Phase 4</p>
+		<div style="margin:50px 50px;">
+			<p>Use URL of importCss or loadCss method as key to check whether CSS contents exists in Session Storage, if exists then read it out from Session Storage otherwise retrieve it from network and save URL and CSS contents as name/value pair to Session Storage.</p>
+		</div>
+		<p>Processes in Phase 5</p>
+		<div style="margin:50px 50px;">
+			<p>Generate result page code from model and template, render result page code, load postprocess library and other JavaScript libraries,  load related CSS files, images, media or flash animation.</p>
+		</div>
+		<p>&nbsp;</p>
+	</div>
+    
+    <div id="feature18">
+        <p>PlannerFw Exec's Page Processor be-index.html could take over all views of server-side framework as long as controller pass variables of template URL and model to view be-index.html(extension depends on server types, for example, php, jsp, aspx), we will introduce how PlannerFw works with different server-side frameworks based on suppose that controller pass variables with "/template/pfm/a/personlist.html.js" and following value to views.</p>
+        <pre style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1080px;"><code class="language-json">{
+    "description": "Example of PlannerFw model",
+    "expiration": 0,
+    "pfDataSet": {
+        "id": 1,
+        "name": "Rod Wiley", 
+        "gender": "Male", 
+        "dob": "1985-09-09"
+    }
+}</code></pre>
+        <p>&nbsp;</p>
+        <p><strong>1. PlannerFw with PHP frameworks</strong></p>
+        <p>&nbsp;</p>
+        <p>1.1. PlannerFw working with CodeIgniter</p>
+        <p>Actions of controllers include:</p>
+        <pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-php">    // assigned PlannerFw template url
+    $data['pftml'] = "/template/pfm/a/personlist.html.js";
+    
+    // assigned PlannerFw model variable 
+    $person = array(
+                    "id" => 1, 
+                    "name" => "Rod Wiley", 
+                    "gender" => "Male", 
+                    "dob" => "1985-09-09"
+                );
+   	$person = json_encode($person);
+    $data['pfmdl'] = &lt;&lt;&lt;EOD
+{
+  "description": "Example of PlannerFw model",
+  "expiration": 0,
+  "pfDataSet": $person
+}
+EOD;
+    $this->load->view('be-index', $data);</code></pre>
+        <p>View file application/views/be-index.php includes:</p>
+        <pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-markup">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+
+    &lt;title&gt;View of CodeIgniter&lt;/title&gt;
+
+    &lt;!-- Apply Page Processor Library --&gt;
+    &lt;script src="/app/lib/planner.min.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Output a template URL and model --&gt;
+    &lt;script type="text/javascript"&gt;
+        var pftml = "&lt;?php echo $pftml ?&gt;";
+        var pfmdl = &lt;?php echo $pfmdl ?&gt;;
+    &lt;/script&gt;
+
+    &lt;!-- Apply Page processor --&gt;
+    &lt;script src="/app/lib/be-processor.min.js"&gt;&lt;/script&gt;
+
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
+        <p>&nbsp;</p>
+        <p>1.2. PlannerFw working with Zend Framework</p>
+        <p>Actions of controllers include:</p>
+        <pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-php">    // assigned PlannerFw template url
+    $this->view->data['pftml'] = "/template/pfm/a/personlist.html.js";
+    
+    // assigned PlannerFw model variable 
+    $person = array(
+                    "id" => 1, 
+                    "name" => "Rod Wiley", 
+                    "gender" => "Male", 
+                    "dob" => "1985-09-09"
+                );
+   	$person = json_encode($person);
+    $this->view->data['pfmdl'] = &lt;&lt;&lt;EOD
+{
+  "description": "Example of PlannerFw model",
+  "expiration": 0,
+  "pfDataSet": $person
+}
+EOD;
+    $this->load->view('be-index', $data); </code></pre>
+        <p>View file application/views/be-index.php includes:</p>
+        <pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-markup">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+
+    &lt;title&gt;View of Zend Framework&lt;/title&gt;
+
+    &lt;!-- Apply Page Processor Library --&gt;
+    &lt;script src="/app/lib/planner.min.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Output a template URL and model --&gt;
+    &lt;script type="text/javascript"&gt;
+        var pftml = "&lt;?php echo $this-&gt;data['pftml'] ?&gt;";
+        var pfmdl = &lt;?php echo $this-&gt;data['pfmdl'] ?&gt;;
+    &lt;/script&gt;
+
+    &lt;!-- Apply Page processor --&gt;
+    &lt;script src="/app/lib/be-processor.min.js"&gt;&lt;/script&gt;
+
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+    &lt;/html&gt; </code></pre>
+        <p>&nbsp;</p>
+        <p><strong>2. PlannerFw with Java</strong></p>
+        <p>Java servlets include:</p>
+        <pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-java">    // assigned PlannerFw template url
+    request.setAttribute("pftml", "/template/pfm/a/personlist.html.js");
+    
+    StringWriter out = new StringWriter();
+    
+    HashMap pa = new HashMap();
+    pa.put("id", 1);
+    pa.put("name", "Rod Wiley");
+    pa.put("gender", "Male");
+    pa.put("dob", "1985-09-09");
+    
+    JSONObject pajs = new JSONObject(pa);
+    
+    pajs.writeJSONString(out);
+    String jsonPa = out.toString();
+    
+    JSONObject mdl = new JSONObject();
+    mdl.put("description", "Example of PlannerFw model");
+    mdl.put("expiration", 0);
+    mdl.put("pfDataSet", jsonPa);
+    
+    mdl.writeJSONString(out);    
+    String pfmdl = out.toString();
+    
+    // assigned PlannerFw model variable
+    request.setAttribute("pfmdl", pfmdl);
+    request.getRequestDispatcher("/WEB-INF/be-index.jsp").forward(request, response);</code></pre>
+    <p>Jsp file /WEB-INF/be-index.jsp includes:</p>
+    <pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-markup">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+    
+    &lt;title&gt;View of Java framework&lt;/title&gt;
+
+    &lt;!-- Apply Page Processor Library --&gt;
+    &lt;script src="/app/lib/planner.min.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Output a template URL and model --&gt;
+    &lt;script type="text/javascript"&gt;
+        var pftml = "${pftml}";
+        var pfmdl = ${pfmdl};
+    &lt;/script&gt;
+
+    &lt;!-- Apply Page processor --&gt;
+    &lt;script src="/app/lib/be-processor.min.js"&gt;&lt;/script&gt;
+
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+    &lt;/html&gt; </code></pre>
+        <p>&nbsp;</p>
+        <p><strong>3. PlannerFw with ASP.NET</strong></p>
+        <p>Actions of controllers include:</p>
+        <pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-javascript">    ViewData["pftml"] = "/template/pfm/a/person-list.html.js";
+    
+    public class Person {
+        public string id {
+            get;
+            set;
+        }
+        public string name {
+            get;
+            set;
+        }
+        public string gender {
+            get;
+            set;
+        }
+        public string dob {
+            get;
+            set;
+        }
+    }
+    
+    Person person = new Person();
+    person.id = 1;
+    person.name = "Rod Wiley";
+    person.gender = "Male";
+    person.dob = "1985-09-09";
+    
+    JavaScriptSerializer serializer = new JavaScriptSerializer();
+    
+    String mdl1 = "{\"description\":\"Example of PlannerFw model\", \"expiration\":0, \"pfDataSet\":";
+    string mdl2 = "}";    
+    ViewData["pfmdl"] = mdl1 + serializer.Serialize(person).ToString() + mdl2;
+    
+    return View("be-index"); </code></pre>
+        <p>view file includes:</p>
+        <pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-markup">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+
+    &lt;title&gt;View of ASP.NET framework&lt;/title&gt;
+
+    &lt;!-- Apply Page Processor Library --&gt;
+    &lt;script src="/app/lib/planner.min.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Output a template URL and model --&gt;
+    &lt;script type="text/javascript"&gt;
+        var pftml = '&lt;%= ViewData["pftml"] %&gt;';
+        var pfmdl = &lt;%= ViewData["pfmdl"] %&gt;;
+    &lt;/script&gt;
+
+    &lt;!-- Apply Page processor --&gt;
+    &lt;script src="/app/lib/be-processor.min.js"&gt;&lt;/script&gt;
+
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+    &lt;/html&gt; </code></pre>
+        <p>&nbsp;</p>
+        <p><strong>4. PlannerFw with Ruby</strong></p>
+        <p>Actions of controllers include:</p>
+        <pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-javascript">    def be_index
+        @pftml = "/template/pfm/a/personlist.html.js"
+        
+        person = Hash[
+                    "id" => 1, 
+                    "name" => "Rod Wiley", 
+                    "gender" => "Male", 
+                    "dob" => "1985-09-09"
+                ]        
+        mdl = Hash[
+                    "description" => "Example of PlannerFw model",
+                    "expiration" => 0,
+                    "pfDataSet" => person
+                ]
+        
+        require 'json'        
+        @pfmdl = mdl.to_json
+    end </code></pre>
+        <p>View file app/views/novel/be_index.rhtml includes</p>
+        <pre class="line-numbers" style="margin:10px 50px;white-space:pre-wrap;word-wrap:break-word;max-width:1050px;"><code class="language-markup">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+
+    &lt;title&gt;View of Ruby framework&lt;/title&gt;
+
+    &lt;!-- Apply Page Processor Library --&gt;
+    &lt;script src="/app/lib/planner.min.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Output a template URL and model --&gt;
+    &lt;script type="text/javascript"&gt;
+        var pftml = "&lt;%= @pftml %&gt;";
+        var pfmdl = &lt;%= @pfmdl %&gt;;
+    &lt;/script&gt;
+    
+    &lt;!-- Apply Page processor --&gt;
+    &lt;script src="/app/lib/be-processor.min.js"&gt;&lt;/script&gt;
+    
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+    &lt;/html&gt; </code></pre>
+        <p>&nbsp;</p>
+	</div>
+	</div>
+	
+</div>
+</div>
+</body>
+</html>
