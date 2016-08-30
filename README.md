@@ -45,8 +45,11 @@ Documents and help
 -------------------
 
 PlannerFw documents: Siteroot/docs/user-guide.html or http://w3plan.net/customer/plannerfw
+
 General inquiries and feedback: contact@w3plan.net
+
 Purchase and licensing inquiries: sales@w3plan.net
+
 Send question tickets: http://w3plan.net/support/index
 
 
@@ -65,7 +68,7 @@ You can open NW.js DevTools for each examples with keyboard shortcut F12 on Wind
 PlannerFw open-source-projects on GitHub
 -----------------------------------------
 
-PlannerFw Exec   -   https://github.com/w3plan/PlannerFw-Exec
+PlannerFw Exec   -   https://github.com/w3plan/PlannerFw_Exec
 PlannerFw taking over views of CodeIgniter framework   -   https://github.com/w3plan/PlannerFw-CodeIgniter
 
 
@@ -74,7 +77,9 @@ Browser supports
 -----------------
 
 Browser versions and supports:
+
   Chrome  Firefox  IE    Opera  Safari  iOS Safari  Android Browser  Blackberry Browser
+  
   5+      3.5+     8.0+  10.5+  4.0+    4.1+        2.1+             7+
 
 
@@ -83,6 +88,7 @@ PlannerFw Licenses
 -------------------
 
 PlannerFw Exec released under GNU GPL v3.0   <http://www.gnu.org/copyleft/gpl.html>
+
 PlannerFw Dev released under W3plan Software License   <http://w3plan.net/customer/general/pflicense/>
 
 
