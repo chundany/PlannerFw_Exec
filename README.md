@@ -69,6 +69,7 @@ PlannerFw open-source-projects on GitHub
 -----------------------------------------
 
 PlannerFw Exec   -   https://github.com/w3plan/PlannerFw_Exec
+
 PlannerFw taking over views of CodeIgniter framework   -   https://github.com/w3plan/PlannerFw-CodeIgniter
 
 
@@ -78,9 +79,9 @@ Browser supports
 
 Browser versions and supports:
 
-  Chrome  Firefox  IE    Opera  Safari  iOS Safari  Android Browser  Blackberry Browser
-  
-  5+      3.5+     8.0+  10.5+  4.0+    4.1+        2.1+             7+
+Chrome  Firefox IE  Opera   Safari  iOS Safari  Android Browser Blackberry Browser
+
+5+  3.5+    8.0+    10.5+   4.0+    4.1+    2.1+    7+
 
 
 

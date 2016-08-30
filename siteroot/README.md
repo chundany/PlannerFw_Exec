@@ -29,5 +29,7 @@ Documentation and help
 -----------------------
 
 Documentation: site-root/docs/user-guide.html or http://w3plan.net/customer/plannerfw
+
 General inquiries and feedback: contact@w3plan.net
+
 Purchase and licensing inquiries: sales@w3plan.net
