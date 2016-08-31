@@ -37,7 +37,7 @@ setting for your copies according environment of production server, installed pa
 
 Do not install pfcomponent folder to website root director.
 
-If URL Rewrite are set to the server, update setting to allow PlannerFw's URLs getting through it.
+If URL Rewrite are set to the server, update setting to allow PlannerFw's URLs getting through it
 
 
 
